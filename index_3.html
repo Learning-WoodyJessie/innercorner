@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inner Corner</title>
+<meta name="description" content="Ancient verses, decoded word by word for everyday life, in English, Telugu and Hindi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Hanken+Grotesk:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Telugu:wght@400;500;600&family=Tiro+Devanagari+Sanskrit&family=Tiro+Telugu&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C2038; --ink-2:#262B48; --ink-soft:#3A3F5E;
+  --turmeric:#D8A031; --glow:#F3D58C;
+  --kumkum:#9E2B25;
+  --paper:#F1F0EC; --paper-2:#E8E6DF; --white:#FBFAF7;
+  --stone:#67656E; --rule:#D6D3CA;
+  --wa:#1E8E4E;
+  --serif:'Spectral','Tiro Telugu','Tiro Devanagari Sanskrit',Georgia,serif;
+  --sans:'Hanken Grotesk','Noto Sans Telugu','Noto Sans Devanagari',system-ui,sans-serif;
+  --skt:'Tiro Devanagari Sanskrit',serif; --skt-te:'Tiro Telugu',serif;
+  --w:1160px; --measure:64ch;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--turmeric);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 28px}
+@media (max-width:640px){.wrap{padding:0 20px}}
+.lang-te,.lang-hi{line-height:1.8}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:30;background:rgba(241,240,236,.92);backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--rule)}
+.site-header.dark{background:rgba(28,32,56,.92);border-bottom-color:rgba(255,255,255,.08);color:#EDEAF2}
+.bar{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:26px;height:26px;flex:none}
+.brand b{font:500 21px/1 var(--serif);letter-spacing:-.01em;white-space:nowrap}
+@media (max-width:420px){.brand b{font-size:19px}.bar{gap:14px}}
+.menu{display:flex;gap:22px;margin-left:auto}
+.menu a{text-decoration:none;font-size:15px;opacity:.78;padding:6px 0;border-bottom:1.5px solid transparent}
+.menu a:hover,.menu a.on{opacity:1;border-bottom-color:currentColor}
+.langs{display:flex;border:1px solid currentColor;border-radius:999px;padding:2px;opacity:.9}
+.langs button{border:0;background:none;color:inherit;font:500 13px var(--sans);padding:4px 10px;border-radius:999px;cursor:pointer}
+.langs button.on{background:var(--ink);color:var(--paper)}
+.dark .langs button.on{background:var(--glow);color:var(--ink)}
+.burger{display:none;margin-left:auto;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
+.burger span{display:block;width:20px;height:1.5px;background:currentColor;margin:5px 0}
+@media (max-width:900px){
+  .menu{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);color:var(--ink);border-bottom:1px solid var(--rule);padding:6px 20px 14px}
+  .menu.open{display:flex}.menu a{padding:12px 0;border-bottom:1px solid var(--rule);opacity:1}
+  .burger{display:block}.langs{margin-left:0}
+}
+
+/* hero: today's verse */
+.hero{background:radial-gradient(ellipse 60% 70% at 78% 30%,#2E3358 0%,var(--ink) 70%);color:#EDEAF2;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;padding-top:72px;padding-bottom:80px}
+@media (max-width:960px){.hero .wrap{grid-template-columns:1fr;gap:36px;padding-top:44px;padding-bottom:56px}}
+.dateline{font-size:14.5px;color:#B9B6C9;margin:0 0 28px}
+.dateline a{color:var(--glow);text-decoration:none;border-bottom:1px solid rgba(243,213,140,.4)}
+.verse-hero{font-family:var(--skt);font-size:clamp(28px,3.6vw,46px);line-height:1.55;color:var(--glow);margin:0;white-space:pre-line}
+.verse-hero.te{font-family:var(--skt-te)}
+.roman-hero{font:italic 300 clamp(17px,1.6vw,20px)/1.55 var(--serif);color:#A9A6BD;white-space:pre-line;margin:14px 0 0}
+.script-switch{margin-top:14px;font-size:13.5px;color:#9C99B2}
+.script-switch button{background:none;border:0;color:inherit;font:inherit;padding:0;cursor:pointer;border-bottom:1px dotted currentColor}
+.script-switch button.on{color:var(--glow);border-bottom-style:solid}
+.decoder{margin-top:40px;border-top:1px solid rgba(255,255,255,.1);padding-top:26px}
+.dec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+.decoder p.hint{margin:0;font-size:14.5px;color:#B9B6C9}
+.showall{background:none;border:1px solid rgba(243,213,140,.5);color:var(--glow);font:500 13.5px var(--sans);padding:5px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.showall[aria-expanded=true]{background:var(--glow);color:var(--ink)}
+.allwords{margin:20px 0 0;border-top:1px solid rgba(255,255,255,.1)}
+.allwords[hidden]{display:none}
+.allwords div{display:grid;grid-template-columns:minmax(110px,40%) 1fr;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.allwords dt{font:400 19px/1.3 var(--skt);color:var(--glow)}
+.allwords dt.te{font-family:var(--skt-te)}
+.allwords dd{margin:0;font:400 16.5px/1.45 var(--serif);color:#E4E1EC}
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.word{font-family:var(--skt);font-size:19px;line-height:1.2;color:#EDEAF2;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;cursor:pointer;transition:background .15s,border-color .15s}
+.word.te{font-family:var(--skt-te)}
+.word:hover{border-color:rgba(243,213,140,.5)}
+.word[aria-pressed=true]{background:var(--glow);border-color:var(--glow);color:var(--ink)}
+.decoded{min-height:56px;margin-top:18px;font:400 22px/1.4 var(--serif);color:#fff}
+.decoded small{display:block;font:400 14px var(--sans);color:#9C99B2;margin-bottom:2px}
+.hero-meaning{font:300 clamp(20px,2vw,24px)/1.5 var(--serif);color:#E4E1EC;margin:36px 0 0;max-width:var(--measure)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15.5px var(--sans);text-decoration:none;padding:13px 20px;border-radius:10px;border:1px solid transparent;cursor:pointer;background:var(--ink);color:var(--white)}
+.btn.glow{background:var(--glow);color:var(--ink)}
+.btn.ghost{background:transparent;border-color:currentColor;color:inherit}
+.btn.wa{background:var(--wa);color:#fff}
+.btn[aria-disabled=true],.btn:disabled{opacity:.5;pointer-events:none}
+.aside-hero{border-left:1px solid rgba(255,255,255,.1);padding-left:32px;align-self:start}
+@media (max-width:960px){.aside-hero{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.1);padding-top:28px}}
+.aside-hero h2{font:500 15px var(--sans);color:#B9B6C9;margin:0 0 6px}
+.aside-hero .title{font:400 28px/1.2 var(--serif);color:#fff;margin:0 0 22px}
+.aside-hero dl{margin:0}
+.aside-hero dt{font-size:13.5px;color:#9C99B2;margin-top:18px}
+.aside-hero dd{margin:4px 0 0;font:400 17px/1.5 var(--serif);color:#E4E1EC}
+.aside-hero dd.ctx{font-size:15.5px;color:#C9C6D6}
+.aside-hero dd.carry{font-size:22px;color:var(--glow)}
+
+/* generic sections */
+section.s{padding:96px 0;border-top:1px solid var(--rule)}
+section.s.tint{background:var(--paper-2)}
+@media (max-width:640px){section.s{padding:64px 0}}
+.s-head{max-width:var(--measure);margin-bottom:40px}
+.s-head h2{font:400 clamp(30px,3.4vw,44px)/1.12 var(--serif);letter-spacing:-.015em;margin:0 0 12px}
+.s-head p{color:var(--stone);margin:0;font-size:17px}
+
+/* story / letter */
+.letter{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:72px}
+@media (max-width:960px){.letter{grid-template-columns:1fr;gap:40px}}
+.letter h2{font:400 clamp(32px,3.8vw,50px)/1.1 var(--serif);letter-spacing:-.02em;margin:0 0 28px}
+.letter p{font:400 19px/1.75 var(--serif);margin:0 0 20px;max-width:var(--measure)}
+.letter .pull{font:italic 300 clamp(24px,2.6vw,30px)/1.4 var(--serif);color:var(--kumkum);margin:32px 0}
+.lang-te .letter p,.lang-hi .letter p{font-family:var(--sans);font-size:17.5px}
+.lang-te .letter .pull,.lang-hi .letter .pull{font-style:normal;font-family:var(--sans);font-weight:500;font-size:22px}
+.method h3{font:600 15px var(--sans);margin:4px 0 18px;color:var(--stone)}
+.method ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.method li{border-bottom:1px solid var(--rule)}
+.method a{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:16px 0;text-decoration:none}
+.method a b{font:500 17px/1.4 var(--sans)}
+.method a span{font-size:14px;color:var(--kumkum);white-space:nowrap}
+.method a:hover b{text-decoration:underline;text-underline-offset:3px}
+.method .end{font:italic 400 18px/1.6 var(--serif);color:var(--stone);margin-top:28px}
+
+/* feelings */
+.feel-sentence{font:300 clamp(28px,3.4vw,44px)/1.5 var(--serif);max-width:960px;margin:0}
+.feel-sentence .lead-in{color:var(--stone)}
+.feel-sentence a{text-decoration:none;color:var(--ink);border-bottom:2px solid var(--rule);margin-right:.35em;white-space:nowrap;transition:border-color .15s,color .15s}
+.feel-sentence a:hover{border-color:var(--kumkum);color:var(--kumkum)}
+.feel-sentence sup{font:500 13px var(--sans);color:var(--stone);margin-left:2px}
+.lang-te .feel-sentence,.lang-hi .feel-sentence{font-family:var(--sans);font-weight:400;font-size:clamp(22px,2.6vw,32px)}
+
+/* life areas */
+.areas{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--ink)}
+@media (max-width:820px){.areas{grid-template-columns:1fr}}
+.area{padding:28px 28px 30px 0;text-decoration:none;border-bottom:1px solid var(--rule)}
+.area+.area{padding-left:28px;border-left:1px solid var(--rule)}
+@media (max-width:820px){.area+.area{padding-left:0;border-left:0}}
+.area h3{font:400 30px/1.15 var(--serif);margin:0 0 10px}
+.area p{color:var(--stone);margin:0 0 16px;font-size:16px}
+.area .eg{font:italic 400 17px/1.5 var(--serif);color:var(--ink);margin:0 0 18px}
+.area .more{font-size:14.5px;color:var(--kumkum);font-weight:500}
+.area:hover h3{color:var(--kumkum)}
+
+/* chapters index */
+.toc{columns:2;column-gap:64px;margin:0;padding:0;list-style:none}
+@media (max-width:820px){.toc{columns:1}}
+.toc li{break-inside:avoid;border-bottom:1px solid var(--rule)}
+.toc a{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;text-decoration:none}
+.toc .n{font:400 22px/1 var(--serif);color:var(--stone);font-variant-numeric:oldstyle-nums}
+.toc .nm{font:500 17px/1.3 var(--sans)}
+.toc .sm{display:block;font-size:14.5px;color:var(--stone);font-weight:400}
+.toc .c{font-size:13.5px;color:var(--stone);white-space:nowrap}
+.toc a:hover .nm{color:var(--kumkum)}
+
+/* whatsapp */
+.subscribe{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,460px);gap:72px;align-items:start}
+@media (max-width:960px){.subscribe{grid-template-columns:1fr;gap:36px}}
+.subscribe ol{margin:24px 0 0;padding:0;list-style:none;counter-reset:st}
+.subscribe ol li{counter-increment:st;display:grid;grid-template-columns:36px 1fr;gap:8px;padding:12px 0;border-top:1px solid var(--rule)}
+.subscribe ol li:before{content:counter(st);font:400 22px/1.2 var(--serif);color:var(--stone)}
+.form{background:var(--white);border:1px solid var(--rule);border-radius:16px;padding:28px}
+.field{display:block;margin-bottom:20px}
+.field>span{display:block;font:600 14.5px var(--sans);margin-bottom:8px}
+input[type=text],input[type=tel],select{width:100%;font:400 16px var(--sans);color:var(--ink);padding:12px 14px;border:1px solid var(--rule);border-radius:10px;background:#fff}
+input:focus,select:focus{outline:2px solid var(--turmeric);outline-offset:0;border-color:transparent}
+.phone-row{display:grid;grid-template-columns:120px 1fr;gap:8px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 14.5px var(--sans);border:1px solid var(--rule);background:#fff;color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer}
+.chip.on,.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.radio{display:grid;gap:8px}
+.radio label{display:grid;grid-template-columns:20px 1fr;gap:10px;border:1px solid var(--rule);border-radius:12px;padding:14px;cursor:pointer;background:#fff}
+.radio label.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.radio input{margin-top:5px;accent-color:var(--ink)}
+.radio b{font:600 15.5px var(--sans);display:block}
+.radio small{color:var(--stone);font-size:14px}
+.moods{margin-top:12px}.moods[hidden]{display:none}
+.form .btn{width:100%;justify-content:center;padding:15px}
+.fine{font-size:13.5px;color:var(--stone);margin:12px 0 0}
+.err{color:var(--kumkum);font-size:14px;margin:10px 0 0;min-height:1em}
+.done h3{font:400 28px/1.2 var(--serif);margin:0 0 10px}
+
+/* library shelf */
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+@media (max-width:960px){.shelf{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.shelf{grid-template-columns:repeat(2,1fr)}}
+.book{padding:22px 18px 20px;border-right:1px solid var(--rule);min-height:150px;display:flex;flex-direction:column;justify-content:space-between}
+.book:last-child{border-right:0}
+.book b{font:400 21px/1.2 var(--serif)}
+.book span{font-size:13.5px;color:var(--stone)}
+.book.ready{background:var(--ink);color:#EDEAF2}
+.book.ready span{color:var(--glow)}
+.book.ready{text-decoration:none}
+
+/* pages: list + lesson */
+.crumb{font-size:14.5px;color:var(--stone);padding:28px 0 0}
+.crumb a{color:var(--kumkum);text-decoration:none}
+.page-head{padding:20px 0 36px;max-width:var(--measure)}
+.page-head h1{font:400 clamp(34px,4.4vw,54px)/1.08 var(--serif);letter-spacing:-.02em;margin:0 0 14px}
+.page-head p{color:var(--stone);margin:0;font-size:17.5px}
+.vlist{list-style:none;margin:0 0 96px;padding:0;border-top:1px solid var(--ink)}
+.vlist a{display:grid;grid-template-columns:72px minmax(0,1fr);gap:20px;padding:22px 0;border-bottom:1px solid var(--rule);text-decoration:none}
+.vlist .n{font:400 20px/1.3 var(--serif);color:var(--stone)}
+.vlist .t{font:400 24px/1.25 var(--serif);margin:0 0 6px;display:block}
+.vlist .m{color:var(--stone);font-size:16px;display:block;max-width:var(--measure)}
+.vlist a:hover .t{color:var(--kumkum)}
+.cta-strip{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:18px 22px;margin:0 0 28px}
+.cta-strip p{margin:0}
+
+.lesson{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:64px;padding-bottom:96px}
+@media (max-width:960px){.lesson{grid-template-columns:1fr;gap:28px}}
+.lesson-verse{position:sticky;top:96px;align-self:start;background:var(--ink);color:#EDEAF2;border-radius:18px;padding:36px 32px}
+@media (max-width:960px){.lesson-verse{position:static}}
+.lesson-verse .verse-hero{font-size:clamp(24px,2.6vw,32px)}
+.lesson-verse .decoder{margin-top:28px}
+.notes section{padding:0 0 28px;margin:0 0 28px;border-bottom:1px solid var(--rule)}
+.notes h2{font:600 15px var(--sans);color:var(--stone);margin:0 0 8px}
+.notes p{font:400 19px/1.7 var(--serif);margin:0;max-width:var(--measure)}
+.lang-te .notes .tr,.lang-hi .notes .tr{font-family:var(--sans);font-size:18px}
+.notes .meaning{font-size:23px;line-height:1.55}
+.notes .reflect{font-style:italic}
+.notes .carry{font-size:28px;color:var(--kumkum)}
+.life3{display:grid;gap:0;border-top:1px solid var(--rule)}
+.life3 div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+@media (max-width:560px){.life3 div{grid-template-columns:1fr;gap:2px}}
+.life3 b{font:600 15px var(--sans)}
+.life3 span{font:400 17.5px/1.6 var(--serif)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags a{font-size:14px;text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;background:var(--white)}
+.tags a:hover{border-color:var(--kumkum);color:var(--kumkum)}
+.voices figure{margin:0;padding:16px 0;border-bottom:1px solid var(--rule)}
+.voices figure:first-child{border-top:1px solid var(--rule)}
+.voices figcaption{font:600 15px var(--sans);margin-bottom:4px}
+.voices p{font-size:17.5px!important}
+.voices a{font-size:13.5px;color:var(--kumkum)}
+.reflections{margin:0;padding:0 0 0 1.3em;font:italic 400 19px/1.6 var(--serif)}
+.reflections li{margin:0 0 10px;padding-left:4px}
+.reflections li::marker{font-style:normal;color:var(--stone)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--rule);margin:4px 0 18px}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:8px 12px 10px;font:500 15px var(--sans);color:var(--stone);cursor:pointer}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--kumkum)}
+.panel p,.panel li{font:400 18px/1.65 var(--serif)}
+.panel ul{margin:10px 0;padding-left:1.2em}
+.panel p{margin:0}.panel p+p{margin-top:12px}
+.panel .sit{color:var(--stone);font-style:italic}
+.panel .sub-h{font:600 14.5px var(--sans)!important;color:var(--stone);margin:22px 0 4px}
+.panel .lesson-line{font-weight:500}
+.script{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin:14px 0}
+.script p{margin:0 0 8px!important;font-size:17px!important}.script p:last-child{margin:0!important}
+.script span{display:block;font:600 13px var(--sans);color:var(--stone)}
+.script p:first-child{color:var(--stone);text-decoration:line-through;text-decoration-color:rgba(158,43,37,.5)}
+.misread{background:var(--white);border:1px solid var(--rule)!important;border-radius:14px;padding:20px 22px!important}
+.misread p,.misread li{font-size:17.5px!important}
+.misread ul{margin:10px 0 0;padding-left:1.2em;font:400 17.5px/1.6 var(--serif)}
+.take .carry{margin-bottom:14px}
+.take p+p{margin-top:12px}
+.take b{font:600 15px var(--sans)}
+.more{border-bottom:1px solid var(--rule);padding:4px 0}
+.more summary{cursor:pointer;font:600 15.5px var(--sans);padding:14px 0;list-style:none;display:flex;justify-content:space-between}
+.more summary::after{content:"+";color:var(--stone);font-weight:400;font-size:20px;line-height:1}
+.more[open] summary::after{content:"–"}
+.more summary::-webkit-details-marker{display:none}
+.more>p{font:400 17.5px/1.65 var(--serif);margin:0 0 16px}
+.rel{list-style:none;padding:0;margin:0 0 16px}
+.rel li{padding:10px 0;border-top:1px solid var(--rule)}
+.rel a{font:500 16px var(--sans);color:var(--kumkum);text-decoration:none;display:block}
+.rel span{font-size:15px;color:var(--stone)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:8px}
+.pager a{text-decoration:none;color:var(--kumkum);font-weight:500}
+.note-sm{font-size:14px;color:var(--stone)}
+
+footer{background:var(--ink);color:#B9B6C9;padding:56px 0;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:end}
+footer b{font:400 24px var(--serif);color:#EDEAF2;display:block;margin-bottom:6px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14.5px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:60}
+.toast.show{opacity:1}
+
+/* ===== v4: clean, crisp, simple ===== */
+:root{--paper:#F5F4F0;--line:#E2DFD7;--sanskrit:#7A4A10}
+body{background:var(--paper)}
+section.s{padding:88px 0;border-top:1px solid var(--line);background:transparent}
+@media (max-width:640px){section.s{padding:56px 0}}
+.h2{font:400 clamp(28px,3vw,38px)/1.15 var(--serif);letter-spacing:-.015em;margin:0 0 28px}
+.muted{color:var(--stone);margin:-16px 0 0;max-width:var(--measure)}
+.narrow{max-width:720px}
+.body-serif{font:400 19px/1.75 var(--serif);margin:0 0 18px}
+.lang-te .body-serif,.lang-hi .body-serif{font-family:var(--sans);font-size:17.5px}
+.pull{font:italic 400 22px/1.5 var(--serif);color:var(--ink);border-left:2px solid var(--turmeric);padding-left:20px;margin:28px 0}
+.lang-te .pull,.lang-hi .pull{font-style:normal;font-family:var(--sans);font-size:19px}
+
+/* hero: one column, the verse is the picture */
+.hero{background:var(--ink)}
+.hero-inner{display:block!important;max-width:860px;padding-top:80px!important;padding-bottom:88px!important}
+@media (max-width:640px){.hero-inner{padding-top:44px!important;padding-bottom:56px!important}}
+.dateline{font-size:14px;color:#A9A7BA;margin:0 0 20px}
+.dateline a{color:#D9D6E6;border-bottom:1px solid rgba(255,255,255,.25);text-decoration:none}
+.hero-title{font:400 clamp(32px,4vw,48px)/1.1 var(--serif);color:#fff;letter-spacing:-.015em;margin:0 0 28px}
+.lang-te .hero-title{font-family:'Tiro Telugu',serif}.lang-hi .hero-title{font-family:'Tiro Devanagari Sanskrit',serif}
+.verse-hero{font-size:clamp(24px,2.8vw,34px);color:var(--glow)}
+.roman-hero{color:#9E9BB3;font-size:clamp(16px,1.4vw,18px)}
+.hero-meaning{font:400 clamp(18px,1.7vw,21px)/1.6 var(--serif);color:#E8E6F0;margin:28px 0 0;padding-top:28px;border-top:1px solid rgba(255,255,255,.1)}
+.hero-actions{margin-top:32px}
+
+/* find a verse */
+.find{border-top:1px solid var(--ink)}
+.find-row{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--line);align-items:baseline}
+@media (max-width:720px){.find-row{grid-template-columns:1fr;gap:12px}}
+.find-row h3{font:500 15px var(--sans);color:var(--stone);margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-link{font:500 15px var(--sans);text-decoration:none;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;transition:background .15s,color .15s,border-color .15s}
+.chip-link:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* subscribe */
+.subscribe ol li{border-top-color:var(--line)}
+.form{border-color:var(--line);box-shadow:none}
+
+/* shelf as a simple list */
+.shelf{display:block;list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);border-bottom:0}
+.shelf li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);font:400 20px var(--serif)}
+.shelf li span:last-child{font:400 14px var(--sans);color:var(--stone);white-space:nowrap}
+.shelf li a{text-decoration:none}.shelf li a:hover{text-decoration:underline}
+.shelf .ready{color:var(--ink)!important;font-weight:500!important}
+
+/* lesson: light verse card */
+.lesson-verse{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:32px 28px}
+.lesson-verse .verse-hero{color:var(--sanskrit);font-size:clamp(22px,2.2vw,28px)}
+.lesson-verse .roman-hero{color:var(--stone)}
+.lesson-verse .script-switch{color:var(--stone)}
+.lesson-verse .script-switch button.on{color:var(--ink)}
+.lesson-verse .decoder{border-top:1px solid var(--line)}
+.lesson-verse .decoder p.hint{color:var(--stone)}
+.lesson-verse .word{background:var(--paper);border-color:var(--line);color:var(--ink)}
+.lesson-verse .word:hover{border-color:var(--ink)}
+.lesson-verse .word[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.lesson-verse .decoded{color:var(--ink)}
+.lesson-verse .decoded small{color:var(--stone)}
+.lesson-verse .showall{border-color:var(--line);color:var(--ink)}
+.lesson-verse .showall[aria-expanded=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lesson-verse .allwords{border-top-color:var(--line)}
+.lesson-verse .allwords div{border-bottom-color:var(--line)}
+.lesson-verse .allwords dt{color:var(--sanskrit)}
+.lesson-verse .allwords dd{color:var(--ink)}
+.notes section{border-bottom-color:var(--line)}
+.tabs{border-bottom-color:var(--line)}
+.tabs button[aria-selected=true]{border-bottom-color:var(--ink)}
+.notes .carry{color:var(--sanskrit)}
+.misread{background:transparent;border:0!important;border-left:2px solid var(--turmeric)!important;border-radius:0;padding:4px 0 4px 20px!important}
+.script{background:var(--paper);border-color:var(--line)}
+
+/* links: ink, underlined, one accent family */
+.crumb a,.pager a,.rel a,.voices a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.crumb a:hover,.pager a:hover,.rel a:hover{text-decoration-color:var(--ink)}
+.vlist{border-top-color:var(--ink)}.vlist li a{border-bottom-color:var(--line)}
+.vlist a:hover .t,.toc a:hover .nm{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.toc li{border-bottom-color:var(--line)}
+.tags a{background:var(--tint,#fff);border-color:transparent}
+.tags a:hover{border-color:var(--ink);color:var(--ink)}
+.cta-strip{background:#fff;border-color:var(--line)}
+footer{padding:40px 0}
+
+/* ===== v5: personal touches ===== */
+.hero-inner{display:grid!important;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:center;max-width:var(--w)!important}
+.hero-art svg{width:100%;height:auto;display:block}
+@media (max-width:900px){.hero-inner{grid-template-columns:1fr;gap:0}.hero-art{order:-1;width:104px;margin:0 0 14px -8px}}
+.radio label{align-items:start}
+.hero-text{max-width:720px}
+.mini-diya{width:44px;margin:0 0 18px}
+.mini-diya svg{display:block;width:100%}
+.find-row h3{font:italic 400 18px var(--serif);color:var(--stone)}
+.lang-te .find-row h3,.lang-hi .find-row h3{font-style:normal;font-family:var(--sans);font-size:15.5px}
+
+/* ===== v6: texture, tints, cards ===== */
+:root{--t-marigold:#FBF1DC;--t-sky:#E7EEF7;--t-lav:#EEEAF6;--t-slate:#E6E9EF;--t-rose:#F7E6E3;--t-sand:#F3ECDD;--t-sage:#E7F0E6;--t-teal:#E2EFEE;--t-wa:#EAF3EC}
+.hero{background-color:var(--ink);background-image:radial-gradient(ellipse 50% 60% at 82% 55%,rgba(243,213,140,.10),transparent 70%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96' fill='none' stroke='%23F3D58C' stroke-opacity='.07' stroke-width='1.2'%3E%3Ccircle cx='24' cy='24' r='1.6' fill='%23F3D58C' fill-opacity='.12'/%3E%3Ccircle cx='72' cy='24' r='1.6' fill='%23F3D58C' fill-opacity='.12'/%3E%3Ccircle cx='24' cy='72' r='1.6' fill='%23F3D58C' fill-opacity='.12'/%3E%3Ccircle cx='72' cy='72' r='1.6' fill='%23F3D58C' fill-opacity='.12'/%3E%3Cpath d='M24 8 C40 8 40 40 24 40 C8 40 8 8 24 8Z M72 56 C88 56 88 88 72 88 C56 88 56 56 72 56Z M8 72 C8 56 40 56 40 72 C40 88 8 88 8 72Z M56 24 C56 8 88 8 88 24 C88 40 56 40 56 24Z'/%3E%3C/svg%3E");background-size:auto,96px 96px}
+.tint-anxious{--tint:var(--t-sky)} .tint-fear{--tint:var(--t-lav)} .tint-sad{--tint:var(--t-slate)} .tint-angry{--tint:var(--t-rose)}
+.tint-confused{--tint:var(--t-sand)} .tint-stuck{--tint:var(--t-sage)} .tint-restless{--tint:var(--t-teal)} .tint-grateful{--tint:var(--t-marigold)}
+.tint-self{--tint:var(--t-marigold)} .tint-work{--tint:var(--t-sky)}
+.chip-link[class*="tint-"]{background:var(--tint);border-color:transparent}
+.chip-link[class*="tint-"]:hover{background:var(--ink);color:#fff}
+.tint-band{height:10px;background:var(--tint)}
+.about-card{position:relative;max-width:820px;background:var(--t-marigold);border-radius:24px;padding:56px 64px;overflow:hidden}
+.about-card::after{content:"";position:absolute;right:-24px;top:-24px;width:220px;height:220px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96' fill='none' stroke='%23B98A2E' stroke-opacity='.18' stroke-width='1.2'%3E%3Ccircle cx='24' cy='24' r='1.6' fill='%23B98A2E' fill-opacity='.3'/%3E%3Ccircle cx='72' cy='24' r='1.6' fill='%23B98A2E' fill-opacity='.3'/%3E%3Ccircle cx='24' cy='72' r='1.6' fill='%23B98A2E' fill-opacity='.3'/%3E%3Ccircle cx='72' cy='72' r='1.6' fill='%23B98A2E' fill-opacity='.3'/%3E%3Cpath d='M24 8 C40 8 40 40 24 40 C8 40 8 8 24 8Z M72 56 C88 56 88 88 72 88 C56 88 56 56 72 56Z M8 72 C8 56 40 56 40 72 C40 88 8 88 8 72Z M56 24 C56 8 88 8 88 24 C88 40 56 40 56 24Z'/%3E%3C/svg%3E");background-size:96px 96px;opacity:.9;-webkit-mask-image:radial-gradient(circle at 100% 0,#000 30%,transparent 72%);mask-image:radial-gradient(circle at 100% 0,#000 30%,transparent 72%)}
+@media (max-width:640px){.about-card{padding:36px 24px;border-radius:18px}}
+.about-card .pull{border-left-color:var(--turmeric)}
+section.s.wa-band{background:var(--t-wa)}
+.wa-band .form{background:#fff}
+.wa-preview{margin-top:28px;max-width:360px;background:#E5DDD3;border-radius:16px;padding:0 0 16px;overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.wa-head{display:flex;align-items:center;gap:10px;background:#075E54;color:#fff;padding:10px 14px;font-size:14.5px}
+.wa-av{width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.wa-av svg{width:20px}
+.wa-bubble{position:relative;margin:14px 14px 0;background:#fff;border-radius:2px 12px 12px 12px;padding:10px 12px 18px;font:400 14.5px/1.5 var(--sans);color:#111}
+.wa-bubble i{color:#555}
+.wa-time{position:absolute;right:10px;bottom:4px;font-size:11px;color:#8a8a8a}
+.shelf li{padding-left:18px;position:relative}
+.shelf li::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:5px;border-radius:2px;background:var(--spine,#1C2038)}
+.spine-0{--spine:#1C2038}.spine-1{--spine:#C8742B}.spine-2{--spine:#7C3B3B}
+.ctx-card{background:#fff;border:1px solid var(--line)!important;border-radius:14px;padding:22px 24px!important}
+.take{background:var(--t-marigold);border:0!important;border-radius:16px;padding:26px 28px!important}
+.lesson-verse{background:#fff;border-top:4px solid var(--turmeric)!important}
+.find{border-top:0}
+.find-row{border-bottom:1px dashed var(--line)}
+.find-row:last-child{border-bottom:0}
+.toc .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--t-marigold);font-size:16px;color:var(--ink)}
+.use-steps{list-style:none;counter-reset:u;margin:8px 0 0;padding:0}
+.use-steps li{display:grid;grid-template-columns:120px 1fr;gap:8px;padding:14px 0;border-top:1px solid rgba(185,138,46,.25);font:400 19px/1.6 var(--serif)}
+.use-steps li b{font:500 21px/1.4 var(--serif);color:#9A6B12}
+.lang-te .use-steps li b,.lang-hi .use-steps li b{font-family:var(--sans);font-size:17px;font-weight:600}
+@media (max-width:560px){.use-steps li{grid-template-columns:1fr;gap:2px}}
+.lang-te .use-steps li,.lang-hi .use-steps li{font-family:var(--sans);font-size:17px}
+.use-close{margin:18px 0 0;font:italic 400 18px var(--serif);color:var(--stone)}
+.lang-te .use-close,.lang-hi .use-close{font-style:normal;font-family:var(--sans)}
+.wa-line{font:400 20px/1.55 var(--serif);margin:-12px 0 14px;max-width:520px}
+.lang-te .wa-line,.lang-hi .wa-line{font-family:var(--sans);font-size:18px}
+.subscribe{align-items:center}
+.form-lead{font:500 16px var(--sans);margin:0 0 18px}
+.err:empty{display:none}
+
+/* ===== v7: one palette — indigo + gold ===== */
+:root{--gold:#D8A031;--gold-dark:#7A4A10;--gold-tint:#FBF1DC;--wa:#1C2038}
+/* buttons: gold on dark hero, indigo on light */
+.btn.wa,.form .btn{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.wa:hover{background:#2A2F52}
+.btn[aria-disabled=true]{opacity:.35}
+/* sections: no green band */
+section.s.wa-band{background:transparent}
+/* all chips and tags share one tint */
+.chip-link[class*="tint-"],.tags a[class*="tint-"]{background:var(--gold-tint);border-color:transparent;color:var(--ink)}
+.chip-link[class*="tint-"]:hover,.tags a[class*="tint-"]:hover{background:var(--ink);color:#fff}
+.tint-band{background:var(--gold)!important;height:4px}
+/* warm cards use the same gold tint */
+.about-card,.take{background:var(--gold-tint)}
+.toc .n{background:var(--gold-tint)}
+/* shelf spines: indigo for what's open, gold for what's next */
+.spine-0{--spine:var(--ink)}.spine-1,.spine-2{--spine:var(--gold)}
+/* text accents */
+.notes .carry,.use-steps li b{color:var(--gold-dark)}
+.pull{border-left-color:var(--gold)}
+.misread{border-left-color:var(--gold)!important}
+.lesson-verse{border-top-color:var(--gold)!important}
+.radio label.on{border-color:var(--ink)}
+.chip.on,.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink)}
+
+.ways{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;align-items:stretch}
+@media (max-width:860px){.ways{grid-template-columns:1fr}}
+.way{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 30px;display:flex;flex-direction:column}
+.way h3{font:400 24px/1.25 var(--serif);margin:0 0 18px}
+.lang-te .way h3{font-family:'Tiro Telugu',serif}.lang-hi .way h3{font-family:'Tiro Devanagari Sanskrit',serif}
+.feel-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:10px;flex:1}
+.feel-list li{display:flex}.feel-list li a{flex:1}
+@media (max-width:520px){.feel-list{grid-template-columns:1fr 1fr}}
+.feel-list a{display:flex;justify-content:center;align-items:center;text-decoration:none;background:var(--gold-tint);border-radius:12px;padding:20px 10px;font:500 16px var(--sans);text-align:center;color:var(--ink);transition:background .15s,color .15s}
+.feel-list a small{font:500 12.5px var(--sans);color:var(--gold-dark);background:#fff;border-radius:999px;min-width:26px;text-align:center;padding:2px 8px}
+.feel-list a:hover{background:var(--ink);color:#fff}
+.feel-list a:hover small{background:rgba(255,255,255,.15);color:#fff}
+.way-sub{color:var(--stone);margin:-8px 0 16px;font-size:15.5px}
+.mini-toc{list-style:none;margin:0 0 20px;padding:0;border-top:1px solid var(--line)}
+.mini-toc a{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.mini-toc .n{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--gold-tint);font:400 15px var(--serif)}
+.mini-toc span{font:500 15.5px/1.35 var(--sans)}
+.mini-toc small{display:block;font-weight:400;font-size:14px;color:var(--stone)}
+.mini-toc a:hover span{text-decoration:underline;text-underline-offset:3px}
+.btn.ghost-ink{background:transparent;border:1px solid var(--ink);color:var(--ink)}
+.btn.ghost-ink:hover{background:var(--ink);color:#fff}
+
+/* v8: warm textured bands for the two interactive sections */
+section.s#feelings,section.s.wa-band{background-color:#EFE8DA;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96' fill='none' stroke='%23B98A2E' stroke-opacity='.05' stroke-width='1.2'%3E%3Ccircle cx='24' cy='24' r='1.6' fill='%23B98A2E' fill-opacity='.09'/%3E%3Ccircle cx='72' cy='24' r='1.6' fill='%23B98A2E' fill-opacity='.09'/%3E%3Ccircle cx='24' cy='72' r='1.6' fill='%23B98A2E' fill-opacity='.09'/%3E%3Ccircle cx='72' cy='72' r='1.6' fill='%23B98A2E' fill-opacity='.09'/%3E%3Cpath d='M24 8 C40 8 40 40 24 40 C8 40 8 8 24 8Z M72 56 C88 56 88 88 72 88 C56 88 56 56 72 56Z M8 72 C8 56 40 56 40 72 C40 88 8 88 8 72Z M56 24 C56 8 88 8 88 24 C88 40 56 40 56 24Z'/%3E%3C/svg%3E");background-size:120px 120px;border-top:0}
+section.s#about{background:var(--paper)}
+
+.feel-list a{flex-direction:column;gap:10px;background:#fff!important;border:1px solid var(--line);padding:18px 8px!important}
+.feel-list a svg{width:30px;height:30px;color:var(--gold-dark);background:var(--gold-tint);border-radius:50%;padding:7px;box-sizing:content-box;transition:background .15s,color .15s}
+.feel-list a:hover{background:var(--ink)!important;border-color:var(--ink);color:#fff}
+.feel-list a:hover svg{background:rgba(255,255,255,.12);color:var(--glow)}
+.way .btn.ghost-ink{align-self:flex-start;margin-top:auto}
+</style>
+</head>
+<body>
+<header class="site-header dark" id="hdr">
+  <div class="wrap bar">
+    <a class="brand" href="#home" aria-label="Inner Corner home">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3c-3.4 4.2-3.4 8.4 0 10.2 3.4-1.8 3.4-6 0-10.2z" fill="#D8A031"/><path d="M4 17.5c3.2 7.4 20.8 7.4 24 0H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M26.8 17.5c2.2-1 3.2-2.6 3.2-4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 28h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <b>Inner Corner</b>
+    </a>
+    <nav class="menu" id="menu" aria-label="Main"></nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button data-l="en">EN</button><button data-l="te">తె</button><button data-l="hi">हि</button>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<main id="view"></main>
+<footer><div class="wrap"><div><b>Inner Corner</b></div><div id="fnote"></div></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="verses.js"></script>
+<script>
+/* ================= CONFIG — edit these ================= */
+const CONFIG = {
+  SIGNUP_URL: "",                 // Google Apps Script web-app URL. When set, guests enter their phone number on the site.
+  WA_NUMBER: "14259850783",       // your WhatsApp number, digits only with country code
+  CONTACT_NAME: "Inner Corner",   // name guests save your number as
+  START_DATE: "2026-11-10"        // day 1 of the verse cycle
+};
+/* ======================================================= */
+
+const T = {
+  navToday:{en:"Today's verse",te:"నేటి శ్లోకం",hi:"आज का श्लोक"},
+  navFeel:{en:"By feeling",te:"మనోభావం",hi:"भावना"},
+  navLife:{en:"Life areas",te:"జీవిత రంగాలు",hi:"जीवन क्षेत्र"},
+  navCh:{en:"Chapters",te:"అధ్యాయాలు",hi:"अध्याय"},
+  navWa:{en:"WhatsApp",te:"వాట్సాప్",hi:"व्हाट्सऐप"},
+  occasion:{en:"A gift from our Sri Satyanarayana Puja",te:"శ్రీ సత్యనారాయణ వ్రత కానుక",hi:"श्री सत्यनारायण पूजा की भेंट"},
+  h1:{en:"Ancient verses, decoded for daily life.",te:"ప్రాచీన శ్లోకాలు, నేటి జీవితానికి సరళంగా.",hi:"प्राचीन श्लोक, आज के जीवन के लिए सरल अर्थ में।"},
+  lead:{en:"A quiet corner where I slowly decode the texts my parents always tried to share with me, word by word, and see how they fit into everyday life. You're welcome to read along.",
+        te:"అమ్మానాన్నలు ఎప్పుడూ నాతో పంచుకోవాలని ప్రయత్నించిన గ్రంథాలను నెమ్మదిగా, పదం పదంగా విడమరచి, మన రోజువారీ జీవితానికి ఎలా వర్తిస్తాయో చూసే ఒక ప్రశాంతమైన మూల ఇది. మీరు కూడా నాతో కలిసి చదవండి.",
+        hi:"एक शांत कोना, जहाँ मैं धीरे-धीरे, शब्द-दर-शब्द उन ग्रंथों को समझती हूँ जिन्हें मेरे माता-पिता हमेशा मुझसे साझा करना चाहते थे, और देखती हूँ कि वे रोज़मर्रा के जीवन में कैसे काम आते हैं। आप भी साथ पढ़ें।"},
+  whyEy:{en:"Why this corner exists",te:"ఈ మూల ఎందుకు",hi:"यह कोना क्यों"},
+  whyH:{en:"It has to click on its own",te:"అది సమయం వచ్చినప్పుడే మనసుకు తడుతుంది",hi:"यह अपने समय पर ही मन को छूता है"},
+  why1:{en:"I was never religious, or even very spiritual. My parents spent years trying to share these texts with me, and I tried too. But the words felt locked away, and I couldn't see what they had to do with my life.",
+        te:"నేను ఎప్పుడూ మతపరమైన వ్యక్తిని కాదు, అంత ఆధ్యాత్మికురాలిని కూడా కాదు. అమ్మానాన్నలు ఏళ్ల తరబడి ఈ గ్రంథాలను నాతో పంచుకోవాలని ప్రయత్నించారు, నేనూ ప్రయత్నించాను. కానీ ఆ మాటలు అర్థం కానివిగా అనిపించేవి, నా జీవితానికి వాటితో సంబంధం ఏమిటో తెలిసేది కాదు.",
+        hi:"मैं कभी धार्मिक नहीं रही, और न ही बहुत आध्यात्मिक। मेरे माता-पिता बरसों तक ये ग्रंथ मुझसे साझा करने की कोशिश करते रहे, और मैंने भी कोशिश की। पर शब्द बंद दरवाज़ों जैसे लगते थे, और समझ नहीं आता था कि इनका मेरे जीवन से क्या संबंध है।"},
+  why2:{en:"I've come to believe this can't be taught or forced. Each of us has our own journey, and it clicks when the time is right.",
+        te:"ఇది ఎవరూ నేర్పించలేనిది, బలవంతంగా రుద్దలేనిది అని ఇప్పుడు నమ్ముతాను. ప్రతి ఒక్కరికీ వారి సొంత ప్రయాణం ఉంటుంది, సమయం వచ్చినప్పుడే అది మనసుకు తడుతుంది.",
+        hi:"अब मैं मानती हूँ कि यह न सिखाया जा सकता है, न थोपा जा सकता है। हर किसी की अपनी यात्रा होती है, और सही समय पर ही यह मन को छूता है।"},
+  why3:{en:"For me, that time is now. So I made this quiet corner to read the Bhagavad Gita and Sri Ramakrishna slowly, one verse at a time, until they make sense.",
+        te:"నాకు ఆ సమయం ఇప్పుడు వచ్చింది. అందుకే భగవద్గీతను, శ్రీ రామకృష్ణుల బోధనలను నెమ్మదిగా, ఒక్కో శ్లోకం అర్థమయ్యే వరకు చదువుకోవడానికి ఈ ప్రశాంతమైన మూలను ఏర్పాటు చేసుకున్నాను.",
+        hi:"मेरे लिए वह समय अब आया है। इसलिए मैंने भगवद्गीता और श्री रामकृष्ण को धीरे-धीरे, एक-एक श्लोक समझते हुए पढ़ने के लिए यह शांत कोना बनाया।"},
+  howH:{en:"That's why every verse here is:",te:"అందుకే ఇక్కడ ప్రతి శ్లోకం:",hi:"इसीलिए यहाँ हर श्लोक:"},
+  how:[
+    {e:"🔍",h:"today",en:"Decoded word by word, so nothing feels cryptic",te:"పదం పదంగా విడమరచి ఉంటుంది, ఏదీ కష్టంగా అనిపించకుండా",hi:"शब्द-दर-शब्द खोला गया है, ताकि कुछ भी कठिन न लगे"},
+    {e:"📜",h:"chapters",en:"Given its context: who is speaking, and why",te:"సందర్భంతో ఉంటుంది: ఎవరు, ఎందుకు చెప్తున్నారో",hi:"अपने प्रसंग के साथ है: कौन कह रहा है, और क्यों"},
+    {e:"🗣️",h:"today",en:"Explained in plain words, in English, Telugu or Hindi",te:"సరళమైన మాటల్లో, తెలుగు, హిందీ లేదా ఆంగ్లంలో",hi:"सरल शब्दों में है, हिंदी, तेलुगु या अंग्रेज़ी में"},
+    {e:"🌱",h:"life",en:"Connected to everyday life: yourself, your family, your work",te:"రోజువారీ జీవితానికి ముడిపడి ఉంటుంది: మీరు, మీ కుటుంబం, మీ పని",hi:"रोज़मर्रा के जीवन से जुड़ा है: आप, आपका परिवार, आपका काम"},
+    {e:"💛",h:"feelings",en:"Easy to find by how you feel today, not only by chapter",te:"ఈ రోజు మీ మనోభావం ద్వారా కూడా సులభంగా దొరుకుతుంది",hi:"आपकी आज की भावना से भी आसानी से मिल जाता है"}
+  ],
+  whyEnd:{en:"There's no right order and no pressure. Start wherever you are. If something clicks, stay a while.",
+          te:"సరైన క్రమం అంటూ ఏదీ లేదు, ఒత్తిడీ లేదు. మీరు ఎక్కడ ఉన్నారో అక్కడి నుండే మొదలుపెట్టండి. ఏదైనా మనసుకు తాకితే, కాసేపు ఆగండి.",
+          hi:"कोई सही क्रम नहीं, कोई दबाव नहीं। जहाँ हैं, वहीं से शुरू करें। अगर कुछ मन को छू जाए, तो थोड़ा ठहरें।"},
+  ctaRead:{en:"Read today's verse",te:"నేటి శ్లోకం చదవండి",hi:"आज का श्लोक पढ़ें"},
+  ctaWa:{en:"Get it on WhatsApp",te:"వాట్సాప్‌లో పొందండి",hi:"व्हाट्सऐप पर पाएँ"},
+  stCh:{en:"chapters",te:"అధ్యాయాలు",hi:"अध्याय"},
+  stV:{en:"key verses",te:"ముఖ్య శ్లోకాలు",hi:"मुख्य श्लोक"},
+  stL:{en:"languages",te:"భాషలు",hi:"भाषाएँ"},
+  todayEy:{en:"Verse of the day",te:"నేటి శ్లోకం",hi:"आज का श्लोक"},
+  todayH:{en:"Today's verse",te:"నేటి శ్లోకం",hi:"आज का श्लोक"},
+  verse:{en:"The verse",te:"శ్లోకం",hi:"श्लोक"},
+  meaning:{en:"Meaning",te:"భావం",hi:"भावार्थ"},
+  spokenBy:{en:"Spoken by",te:"పలికినవారు",hi:"वक्ता"},
+  carry:{en:"Carry this today",te:"ఈ రోజు గుర్తుంచుకోండి",hi:"आज याद रखें"},
+  tryToday:{en:"Try this today",te:"ఈ రోజు ప్రయత్నించండి",hi:"आज यह करें"},
+  reflect:{en:"Reflect",te:"ఆలోచించండి",hi:"विचार करें"},
+  fullLesson:{en:"Open the full lesson →",te:"పూర్తి పాఠం చూడండి →",hi:"पूरा पाठ खोलें →"},
+  share:{en:"Share on WhatsApp",te:"వాట్సాప్‌లో పంచుకోండి",hi:"व्हाट्सऐप पर साझा करें"},
+  copy:{en:"Copy verse",te:"కాపీ చేయండి",hi:"कॉपी करें"},
+  copied:{en:"Verse copied",te:"కాపీ అయింది",hi:"कॉपी हो गया"},
+  feelEy:{en:"Find a verse",te:"శ్లోకం వెతకండి",hi:"श्लोक खोजें"},
+  feelH:{en:"How are you feeling today?",te:"ఈ రోజు మీకు ఎలా అనిపిస్తోంది?",hi:"आज आप कैसा महसूस कर रहे हैं?"},
+  feelP:{en:"Pick a feeling and read the verses that speak to it.",te:"మీ భావాన్ని ఎంచుకోండి, దానికి తగిన శ్లోకాలు చదవండి.",hi:"अपनी भावना चुनें और उससे जुड़े श्लोक पढ़ें।"},
+  lifeEy:{en:"Apply it",te:"ఆచరణలో",hi:"जीवन में उतारें"},
+  lifeH:{en:"Guidance for every part of life",te:"జీవితంలోని ప్రతి రంగానికి మార్గదర్శనం",hi:"जीवन के हर क्षेत्र के लिए मार्गदर्शन"},
+  lifeP:{en:"Every verse comes with practical ideas for your personal and professional life, and a way to share it with children.",te:"ప్రతి శ్లోకంతో పాటు మీకోసం, మీ కుటుంబం కోసం, మీ వృత్తి కోసం ఆచరణాత్మక సూచనలు ఉన్నాయి.",hi:"हर श्लोक के साथ आपके, आपके परिवार और आपके काम के लिए व्यावहारिक सुझाव हैं।"},
+  areaDesc:{self:{en:"Inner steadiness, relationships and family, and how you treat yourself.",te:"అంతర్గత స్థిరత్వం, అనుబంధాలు, కుటుంబం, మిమ్మల్ని మీరు చూసుకునే విధానం.",hi:"आंतरिक स्थिरता, रिश्ते और परिवार, और स्वयं के साथ आपका व्यवहार।"},
+            family:{en:"Patience, forgiveness, kind words and leading by example.",te:"ఓర్పు, క్షమ, మంచి మాటలు, ఆదర్శంగా నిలవడం.",hi:"धैर्य, क्षमा, मधुर वाणी और उदाहरण बनना।"},
+            work:{en:"Doing your best, handling results, and leading with integrity.",te:"ఉత్తమ కృషి, ఫలితాలను స్వీకరించడం, నిజాయితీతో నాయకత్వం.",hi:"श्रेष्ठ प्रयास, परिणामों को संभालना और ईमानदार नेतृत्व।"}},
+  seeVerses:{en:"See verses →",te:"శ్లోకాలు చూడండి →",hi:"श्लोक देखें →"},
+  chEy:{en:"The journey",te:"ప్రయాణం",hi:"यात्रा"},
+  chH:{en:"18 chapters, one conversation",te:"18 అధ్యాయాలు, ఒకే సంవాదం",hi:"18 अध्याय, एक संवाद"},
+  chP:{en:"The Gita is a 700-verse dialogue between Krishna and the warrior Arjuna on the battlefield of Kurukshetra. We've chosen 30 key verses, at least one from every chapter.",
+       te:"భగవద్గీత కురుక్షేత్ర యుద్ధభూమిలో శ్రీకృష్ణుడు, అర్జునుల మధ్య జరిగిన 700 శ్లోకాల సంవాదం. ప్రతి అధ్యాయం నుండి కనీసం ఒకటి చొప్పున 30 ముఖ్య శ్లోకాలు ఎంచుకున్నాం.",
+       hi:"भगवद्गीता कुरुक्षेत्र के रणक्षेत्र में श्रीकृष्ण और अर्जुन के बीच 700 श्लोकों का संवाद है। हमने हर अध्याय से कम से कम एक, कुल 30 मुख्य श्लोक चुने हैं।"},
+  verses:{en:"verses",te:"శ్లోకాలు",hi:"श्लोक"},
+  verse1:{en:"verse",te:"శ్లోకం",hi:"श्लोक"},
+  waEy:{en:"Daily on WhatsApp",te:"రోజూ వాట్సాప్‌లో",hi:"रोज़ व्हाट्सऐप पर"},
+  waH:{en:"A verse in your WhatsApp every morning",te:"ప్రతి ఉదయం మీ వాట్సాప్‌లో ఒక శ్లోకం",hi:"हर सुबह आपके व्हाट्सऐप पर एक श्लोक"},
+  waP:{en:"It arrives as a private message to you, not in a group, so nobody else sees your number.",te:"ఇది గ్రూప్ కాదు; మీకు వ్యక్తిగతంగా వస్తుంది. మీ నంబర్ ఇతరులకు కనిపించదు.",hi:"यह ग्रुप नहीं है; संदेश आपको निजी रूप से आएगा, आपका नंबर किसी और को नहीं दिखेगा।"},
+  yourName:{en:"Your name",te:"మీ పేరు",hi:"आपका नाम"},
+  subBtn:{en:"Subscribe on WhatsApp",te:"వాట్సాప్‌లో సబ్‌స్క్రైబ్ చేయండి",hi:"व्हाट्सऐप पर जुड़ें"},
+  soonBtn:{en:"Subscribe (link coming soon)",te:"త్వరలో అందుబాటులోకి",hi:"जल्द उपलब्ध"},
+  step1:{en:"Tap Subscribe. WhatsApp opens with a message ready to send.",te:"సబ్‌స్క్రైబ్ నొక్కండి. సందేశం సిద్ధంగా వాట్సాప్ తెరుచుకుంటుంది.",hi:"‘जुड़ें’ दबाएँ। संदेश तैयार होकर व्हाट्सऐप खुलेगा।"},
+  step2:{en:"Press Send.",te:"పంపండి నొక్కండి.",hi:"भेजें दबाएँ।"},
+  step3:{en:"Save our number in your contacts. WhatsApp only delivers the daily verse if our number is saved.",te:"మా నంబర్‌ను మీ కాంటాక్ట్స్‌లో సేవ్ చేయండి. సేవ్ చేస్తేనే రోజువారీ శ్లోకం మీకు అందుతుంది.",hi:"हमारा नंबर अपने कॉन्टैक्ट्स में सेव करें। नंबर सेव होने पर ही दैनिक श्लोक मिलेगा।"},
+  stop:{en:"Reply STOP at any time to unsubscribe.",te:"ఆపాలంటే ఎప్పుడైనా STOP అని పంపండి.",hi:"बंद करने के लिए कभी भी STOP भेजें।"},
+  preview:{en:"What you'll receive",te:"మీకు వచ్చే సందేశం",hi:"आपको ऐसा संदेश मिलेगा"},
+  libEy:{en:"The library",te:"గ్రంథాలయం",hi:"ग्रंथालय"},
+  libH:{en:"More sacred texts are coming",te:"మరిన్ని గ్రంథాలు త్వరలో",hi:"और ग्रंथ जल्द आ रहे हैं"},
+  available:{en:"Available now",te:"ఇప్పుడు అందుబాటులో",hi:"अभी उपलब्ध"},
+  comingSoon:{en:"Coming soon",te:"త్వరలో",hi:"जल्द ही"},
+  home:{en:"Home",te:"హోమ్",hi:"होम"},
+  setting:{en:"The setting",te:"సందర్భం",hi:"प्रसंग"},
+  words:{en:"Word by word",te:"పదార్థం",hi:"शब्दार्थ"},
+  explain:{en:"In simple words",te:"సరళంగా",hi:"सरल शब्दों में"},
+  inLife:{en:"In your life",te:"మీ జీవితంలో",hi:"आपके जीवन में"},
+  englishNote:{en:"",te:"వివరణలు ప్రస్తుతం ఆంగ్లంలో ఉన్నాయి.",hi:"विस्तृत व्याख्या अभी अंग्रेज़ी में है।"},
+  prev:{en:"← Previous verse",te:"← మునుపటి శ్లోకం",hi:"← पिछला श्लोक"},
+  next:{en:"Next verse →",te:"తరువాతి శ్లోకం →",hi:"अगला श्लोक →"},
+  ctxL:{en:"What's happening here",te:"ఈ శ్లోకం సందర్భం",hi:"यहाँ क्या हो रहा है"},
+  phoneL:{en:"WhatsApp number",te:"వాట్సాప్ నంబర్",hi:"व्हाट्सऐप नंबर"},
+  langL:{en:"Language",te:"భాష",hi:"भाषा"},
+  subSend:{en:"Subscribe",te:"సబ్‌స్క్రైబ్ చేయండి",hi:"सब्सक्राइब करें"},
+  sending:{en:"Sending…",te:"పంపుతోంది…",hi:"भेजा जा रहा है…"},
+  badPhone:{en:"Please enter a valid WhatsApp number.",te:"సరైన వాట్సాప్ నంబర్ ఇవ్వండి.",hi:"कृपया सही व्हाट्सऐप नंबर डालें।"},
+  okH:{en:"Thank you, you're subscribed! 🙏",te:"ధన్యవాదాలు, మీరు సబ్‌స్క్రైబ్ అయ్యారు! 🙏",hi:"धन्यवाद, आप जुड़ गए हैं! 🙏"},
+  okP:{en:"Your first verse will arrive on WhatsApp shortly. Please save our number so the daily verse reaches you:",te:"మీ మొదటి శ్లోకం త్వరలో వాట్సాప్‌లో వస్తుంది. రోజువారీ శ్లోకం అందాలంటే మా నంబర్‌ను సేవ్ చేయండి:",hi:"आपका पहला श्लोक जल्द ही व्हाट्सऐप पर आएगा। दैनिक श्लोक पाने के लिए हमारा नंबर सेव करें:"},
+  failP:{en:"Something went wrong. Please try again, or message us directly on WhatsApp.",te:"ఏదో పొరపాటు జరిగింది. మళ్ళీ ప్రయత్నించండి, లేదా నేరుగా వాట్సాప్‌లో సందేశం పంపండి.",hi:"कुछ गड़बड़ हुई। फिर से कोशिश करें, या सीधे व्हाट्सऐप पर संदेश भेजें।"},
+  pstep1:{en:"Enter your WhatsApp number and choose what you'd like.",te:"మీ వాట్సాప్ నంబర్ ఇచ్చి, మీకు కావలసినది ఎంచుకోండి.",hi:"अपना व्हाट्सऐप नंबर डालें और अपनी पसंद चुनें।"},
+  pstep2:{en:"We send your first verse to you personally on WhatsApp.",te:"మీ మొదటి శ్లోకాన్ని మేమే స్వయంగా వాట్సాప్‌లో పంపుతాం.",hi:"हम आपका पहला श्लोक स्वयं व्हाट्सऐप पर भेजेंगे।"},
+  privacy:{en:"Your number is only used to send you these verses. Reply STOP at any time.",te:"మీ నంబర్ ఈ శ్లోకాలు పంపడానికి మాత్రమే. ఎప్పుడైనా STOP అని పంపి ఆపవచ్చు.",hi:"आपका नंबर केवल ये श्लोक भेजने के लिए है। कभी भी STOP भेजकर बंद करें।"},
+  want:{en:"What would you like to receive?",te:"మీకు ఏమి కావాలి?",hi:"आप क्या पाना चाहेंगे?"},
+  optDaily:{en:"Verse of the day",te:"నేటి శ్లోకం",hi:"आज का श्लोक"},
+  optDailyS:{en:"One verse each morning, the same for everyone, through all 18 chapters.",te:"ప్రతి ఉదయం ఒక శ్లోకం, అందరికీ ఒకటే, 18 అధ్యాయాల గుండా.",hi:"हर सुबह एक श्लोक, सबके लिए एक ही, सभी 18 अध्यायों से।"},
+  optMood:{en:"Verses for how I feel",te:"నా మనోభావానికి తగిన శ్లోకాలు",hi:"मेरी भावना के अनुसार श्लोक"},
+  optMoodS:{en:"Pick one or more feelings. Each day's verse will speak to them.",te:"ఒకటి లేదా ఎక్కువ భావాలు ఎంచుకోండి. ప్రతి రోజు శ్లోకం వాటికి తగినదిగా ఉంటుంది.",hi:"एक या अधिक भावनाएँ चुनें। हर दिन का श्लोक उनसे जुड़ा होगा।"},
+  pickMood:{en:"Choose at least one feeling above",te:"పైన కనీసం ఒక భావాన్ని ఎంచుకోండి",hi:"ऊपर कम से कम एक भावना चुनें"},
+  moodBanner:{en:"Want verses like these on WhatsApp?",te:"ఇలాంటి శ్లోకాలు వాట్సాప్‌లో కావాలా?",hi:"ऐसे श्लोक व्हाट्सऐप पर चाहिए?"},
+  moodBtn:{en:"Get these on WhatsApp",te:"వాట్సాప్‌లో పొందండి",hi:"व्हाट्सऐप पर पाएँ"},
+  foot:{en:"Translations and notes are simplified for beginners.",te:"అనువాదాలు, వివరణలు ప్రారంభకుల కోసం సరళీకరించబడ్డాయి.",hi:"अनुवाद और व्याख्या शुरुआती पाठकों के लिए सरल रखे गए हैं।"}
+};
+
+const T2 = {
+  navToday:{en:"Today",te:"నేడు",hi:"आज"},
+  navWhy:{en:"About",te:"పరిచయం",hi:"परिचय"},
+  navFeel:{en:"Feelings",te:"మనోభావాలు",hi:"भावनाएँ"},
+  navLife:{en:"Life",te:"జీవితం",hi:"जीवन"},
+  navCh:{en:"Chapters",te:"అధ్యాయాలు",hi:"अध्याय"},
+  navWa:{en:"WhatsApp",te:"వాట్సాప్",hi:"व्हाट्सऐप"},
+  todayIs:{en:"Today's verse",te:"నేటి శ్లోకం",hi:"आज का श्लोक"},
+  from:{en:"from",te:"",hi:""},
+  chv:{en:(c,v)=>`chapter ${c}, verse ${v}`,te:(c,v)=>`అధ్యాయం ${c}, శ్లోకం ${v}`,hi:(c,v)=>`अध्याय ${c}, श्लोक ${v}`},
+  hint:{en:"Tap a word to decode it.",te:"అర్థం కోసం ఏ పదాన్నైనా నొక్కండి.",hi:"अर्थ जानने के लिए किसी भी शब्द को छुएँ।"},
+  readLesson:{en:"Read the full lesson",te:"పూర్తి పాఠం చదవండి",hi:"पूरा पाठ पढ़ें"},
+  getWa:{en:"Get a verse every morning",te:"ప్రతి ఉదయం ఒక శ్లోకం పొందండి",hi:"हर सुबह एक श्लोक पाएँ"},
+  inBrief:{en:"In brief",te:"సంక్షిప్తంగా",hi:"संक्षेप में"},
+  showDev:{en:"Devanagari",te:"దేవనాగరి",hi:"देवनागरी"},
+  showTe:{en:"Telugu script",te:"తెలుగు లిపి",hi:"तेलुगु लिपि"},
+  readIn:{en:"Read the Sanskrit in",te:"సంస్కృతాన్ని చదవండి",hi:"संस्कृत पढ़ें"},
+  method:{en:"So every verse here comes with",te:"అందుకే ఇక్కడ ప్రతి శ్లోకంతో",hi:"इसलिए यहाँ हर श्लोक के साथ"},
+  see:{en:"See it",te:"చూడండి",hi:"देखें"},
+  feelH:{en:"Find a verse for how you feel",te:"మీ మనోభావానికి తగిన శ్లోకం",hi:"अपनी भावना के लिए श्लोक"},
+  todayIFeel:{en:"Today I feel",te:"ఈ రోజు నేను",hi:"आज मैं"},
+  lifeH:{en:"Where it meets everyday life",te:"రోజువారీ జీవితంతో ఎక్కడ కలుస్తుంది",hi:"रोज़मर्रा के जीवन से जुड़ाव"},
+  forExample:{en:"For example",te:"ఉదాహరణకు",hi:"उदाहरण के लिए"},
+  nVerses:{en:n=>`${n} verses`,te:n=>`${n} శ్లోకాలు`,hi:n=>`${n} श्लोक`},
+  nVerse1:{en:"1 verse",te:"1 శ్లోకం",hi:"1 श्लोक"},
+  chH:{en:"The Bhagavad Gita, chapter by chapter",te:"భగవద్గీత, అధ్యాయాల వారీగా",hi:"भगवद्गीता, अध्याय दर अध्याय"},
+  shelfH:{en:"On the shelf",te:"గ్రంథాలయంలో",hi:"शेल्फ़ पर"},
+  shelfP:{en:"The Gita is ready to read. The others are being decoded the same way.",te:"భగవద్గీత చదవడానికి సిద్ధంగా ఉంది. మిగతావి కూడా ఇదే విధంగా సిద్ధమవుతున్నాయి.",hi:"गीता पढ़ने के लिए तैयार है। बाकी ग्रंथ भी इसी तरह तैयार हो रहे हैं।"},
+  readNow:{en:"Read now",te:"ఇప్పుడు చదవండి",hi:"अभी पढ़ें"},
+  inProgress:{en:"Being decoded",te:"సిద్ధమవుతోంది",hi:"तैयार हो रहा है"},
+  meaningH:{en:"Meaning",te:"భావం",hi:"भावार्थ"},
+  spoken:{en:s=>`Spoken by ${s}`,te:s=>`${s} పలికినది`,hi:s=>`${s} द्वारा कहा गया`},
+  copied:{en:"Verse copied",te:"కాపీ అయింది",hi:"कॉपी हो गया"},
+  copy:{en:"Copy",te:"కాపీ",hi:"कॉपी"},
+  shareWa:{en:"Share on WhatsApp",te:"వాట్సాప్‌లో పంచుకోండి",hi:"व्हाट्सऐप पर साझा करें"},
+  prevV:{en:"Previous verse",te:"మునుపటి శ్లోకం",hi:"पिछला श्लोक"},
+  nextV:{en:"Next verse",te:"తరువాతి శ్లోకం",hi:"अगला श्लोक"},
+  related:{en:"Also helps when you feel",te:"ఈ భావాలకు కూడా",hi:"इन भावनाओं में भी"},
+  getFeel:{en:"Get verses like these on WhatsApp",te:"ఇలాంటి శ్లోకాలు వాట్సాప్‌లో పొందండి",hi:"ऐसे श्लोक व्हाट्सऐप पर पाएँ"},
+  getFeelBtn:{en:"Subscribe",te:"సబ్‌స్క్రైబ్",hi:"सब्सक्राइब"},
+  waIntro:{en:"One verse, decoded, in a private chat with me. Not a group, so your number stays private.",te:"విడమరచిన ఒక శ్లోకం, నాతో వ్యక్తిగత చాట్‌లో. ఇది గ్రూప్ కాదు, మీ నంబర్ ఎవరికీ కనిపించదు.",hi:"एक श्लोक, सरल अर्थ के साथ, मेरे साथ निजी चैट में। यह ग्रुप नहीं है, आपका नंबर निजी रहेगा।"},
+  whenH:{en:"When to use this",te:"ఎప్పుడు ఆచరించాలి",hi:"इसे कब अपनाएँ"},
+  voicesH:{en:"What other teachers said",te:"ఇతర గురువులు ఏమన్నారు",hi:"अन्य गुरुओं ने क्या कहा"},
+  source:{en:"Source",te:"మూలం",hi:"स्रोत"},
+  showAll:{en:"Show all",te:"అన్నీ చూపించు",hi:"सब दिखाएँ"},
+  hideAll:{en:"Hide all",te:"దాచు",hi:"छिपाएँ"},
+  ages:{en:"Sharing it across ages",te:"అన్ని వయసుల వారికి",hi:"हर उम्र के लिए"},
+  forKids:{en:"For young children",te:"చిన్న పిల్లలకు",hi:"छोटे बच्चों के लिए"},
+  forAdults:{en:"For adults",te:"పెద్దలకు",hi:"बड़ों के लिए"},
+  ctxShort:{en:"Context",te:"సందర్భం",hi:"प्रसंग"},
+  whyH:{en:"Why it matters",te:"ఇది ఎందుకు ముఖ్యం",hi:"यह क्यों मायने रखता है"},
+  applyH:{en:"Apply it",te:"ఆచరణలో",hi:"जीवन में उतारें"},
+  misreadH:{en:"What it doesn't mean",te:"దీని అర్థం ఇది కాదు",hi:"इसका अर्थ यह नहीं है"},
+  takeH:{en:"Take this with you",te:"ఇది మీతో తీసుకెళ్ళండి",hi:"इसे साथ ले जाएँ"},
+  chBg:{en:"About this chapter",te:"ఈ అధ్యాయం గురించి",hi:"इस अध्याय के बारे में"},
+  relatedH:{en:"Go deeper",te:"ఇంకా లోతుగా",hi:"और गहराई से"},
+  insteadOf:{en:"Instead of",te:"ఇలా కాకుండా",hi:"इसके बजाय"},
+  tryAsking:{en:"Try",te:"ఇలా ప్రయత్నించండి",hi:"ऐसे कहें"},
+  tabPersonal:{en:"Personal",te:"వ్యక్తిగతం",hi:"व्यक्तिगत"},
+  tabWork:{en:"Professional",te:"వృత్తిపరం",hi:"पेशेवर"},
+  navFind:{en:"Find a verse",te:"శ్లోకం వెతకండి",hi:"श्लोक खोजें"},
+  findH:{en:"Find a verse",te:"శ్లోకం వెతకండి",hi:"श्लोक खोजें"},
+  byFeeling:{en:"By how you feel",te:"మనోభావం ద్వారా",hi:"भावना से"},
+  byLife:{en:"By part of life",te:"జీవిత రంగం ద్వారా",hi:"जीवन क्षेत्र से"},
+  byChapter:{en:"By chapter",te:"అధ్యాయం ద్వారా",hi:"अध्याय से"},
+  allChapters:{en:"All 18 chapters",te:"మొత్తం 18 అధ్యాయాలు",hi:"सभी 18 अध्याय"},
+  joinLead:{en:"Add your name and number to join this journey.",te:"ఈ ప్రయాణంలో చేరడానికి మీ పేరు, నంబర్ ఇవ్వండి.",hi:"इस यात्रा से जुड़ने के लिए अपना नाम और नंबर दें।"},
+  joinBtn:{en:"Join this journey",te:"ఈ ప్రయాణంలో చేరండి",hi:"इस यात्रा से जुड़ें"},
+  phoneL:{en:"WhatsApp number",te:"వాట్సాప్ నంబర్",hi:"व्हाट्सऐप नंबर"},
+  getFeel:{en:"Would you like a verse every morning?",te:"ప్రతి ఉదయం ఒక శ్లోకం కావాలా?",hi:"क्या हर सुबह एक श्लोक चाहिए?"},
+  getFeelBtn:{en:"Join this journey",te:"ఈ ప్రయాణంలో చేరండి",hi:"इस यात्रा से जुड़ें"},
+  waSave:{en:"Save my number as",te:"నా నంబర్‌ను సేవ్ చేయండి:",hi:"मेरा नंबर सेव करें:"},
+  stopShort:{en:"Reply STOP anytime.",te:"ఎప్పుడైనా STOP అని పంపవచ్చు.",hi:"कभी भी STOP लिखें।"},
+  wayFeel:{en:"Start with a feeling",te:"ఒక భావంతో మొదలుపెట్టండి",hi:"किसी भावना से शुरू करें"},
+  wayOrder:{en:"Start with a chapter",te:"ఒక అధ్యాయంతో మొదలుపెట్టండి",hi:"किसी अध्याय से शुरू करें"},
+  wayOrderSub:{en:"18 chapters, 30 key verses, from Arjuna's doubt to his clarity.",te:"18 అధ్యాయాలు, 30 ముఖ్య శ్లోకాలు, అర్జునుని సందేహం నుండి స్పష్టత వరకు.",hi:"18 अध्याय, 30 मुख्य श्लोक, अर्जुन के संदेह से स्पष्टता तक।"},
+  heroKicker:{en:"Today's verse",te:"నేటి శ్లోకం",hi:"आज का श्लोक"},
+  footNote:{en:"Translations are simplified for first-time readers.",te:"అనువాదాలు మొదటిసారి చదివేవారి కోసం సరళీకరించబడ్డాయి.",hi:"अनुवाद पहली बार पढ़ने वालों के लिए सरल रखे गए हैं।"}
+};
+Object.assign(T, T2, {
+  readLesson:{en:"Read it slowly",te:"నెమ్మదిగా చదవండి",hi:"धीरे-धीरे पढ़ें"},
+  getWa:{en:"Send me one each morning",te:"ప్రతి ఉదయం నాకు పంపండి",hi:"हर सुबह मुझे भेजें"},
+  findH:{en:"Start wherever you are",te:"మీరు ఎక్కడ ఉన్నారో అక్కడి నుండే మొదలుపెట్టండి",hi:"जहाँ हैं, वहीं से शुरू करें"},
+  byFeeling:{en:"Today I'm feeling",te:"ఈ రోజు నా మనసు",hi:"आज मेरा मन"},
+  byLife:{en:"I'd like guidance in my",te:"నాకు మార్గదర్శనం కావాలి",hi:"मुझे मार्गदर्शन चाहिए"},
+  byChapter:{en:"Or read in order",te:"లేదా క్రమంగా చదవండి",hi:"या क्रम से पढ़ें"},
+  whyEy:{en:"How I use this corner",te:"ఈ మూలను నేను ఎలా ఉపయోగిస్తాను",hi:"मैं इस कोने का उपयोग कैसे करती हूँ"},
+  useH:{en:"How I use this corner",te:"ఈ మూలను నేను ఎలా ఉపయోగిస్తాను",hi:"मैं इस कोने का उपयोग कैसे करती हूँ"},
+  usePurpose:{en:"A place to decode, learn, reflect and apply.",te:"విడమరచి, నేర్చుకుని, ఆలోచించి, ఆచరించే ఒక చోటు.",hi:"खोलने, सीखने, सोचने और अपनाने की एक जगह।"},
+  useSteps:[
+    {v:{en:"Read",te:"చదవడం",hi:"पढ़ना"},en:"One passage each morning, a verse, a saying or a story, read slowly until it makes sense.",te:"ప్రతి ఉదయం ఒక భాగం, ఒక శ్లోకం, ఒక సూక్తి లేదా ఒక కథ, అర్థమయ్యే వరకు నెమ్మదిగా.",hi:"हर सुबह एक अंश, कोई श्लोक, वचन या कथा, समझ आने तक धीरे-धीरे।"},
+    {v:{en:"Reflect",te:"ఆలోచించడం",hi:"सोचना"},en:"Where does it show up in my life: at home, at work, in my own head?",te:"అది నా జీవితంలో ఎక్కడ కనిపిస్తుంది: ఇంట్లో, పనిలో, నా మనసులో?",hi:"यह मेरे जीवन में कहाँ दिखता है: घर पर, काम पर, मेरे अपने मन में?"},
+    {v:{en:"Apply",te:"ఆచరించడం",hi:"अपनाना"},en:"One small thing to try through the day, and one question to carry into the evening.",te:"రోజంతా ప్రయత్నించడానికి ఒక చిన్న పని, సాయంత్రానికి ఒక ప్రశ్న.",hi:"दिन भर आज़माने के लिए एक छोटी बात, और शाम के लिए एक सवाल।"}],
+  useClose:{en:"I'm sharing this corner with family and friends who might find it helpful too. Come read along.",te:"ఉపయోగపడుతుందనిపించే కుటుంబ సభ్యులు, స్నేహితులతో ఈ మూలను పంచుకుంటున్నాను. మీరూ నాతో కలిసి చదవండి.",hi:"यह कोना मैं परिवार और दोस्तों के साथ बाँट रही हूँ, जिन्हें यह उपयोगी लगे। आइए, साथ पढ़ें।"},
+  waH:{en:"A little wisdom every morning",te:"ప్రతి ఉదయం కొంచెం జ్ఞానం",hi:"हर सुबह थोड़ा ज्ञान"},
+  waIntro:{en:"I'll send you one verse each morning, decoded, in a private chat. No groups, no forwards.",te:"ప్రతి ఉదయం ఒక శ్లోకాన్ని, అర్థంతో సహా, వ్యక్తిగత చాట్‌లో పంపుతాను. గ్రూపులు లేవు, ఫార్వర్డ్‌లు లేవు.",hi:"हर सुबह एक श्लोक, अर्थ सहित, निजी चैट में भेजूँगी। कोई ग्रुप नहीं, कोई फ़ॉरवर्ड नहीं।"},
+  shelfH:{en:"What I'm reading",te:"నేను చదువుతున్నవి",hi:"मैं क्या पढ़ रही हूँ"},
+  readNow:{en:"Reading now",te:"ఇప్పుడు చదువుతున్నాను",hi:"अभी पढ़ रही हूँ"},
+  inProgress:{en:"Up next",te:"తరువాత",hi:"आगे"},
+  allChapters:{en:"All 18 chapters",te:"మొత్తం 18 అధ్యాయాలు",hi:"सभी 18 अध्याय"},
+  waIntro:{en:"One verse or teaching and what it means, sent to your WhatsApp each morning.",te:"ప్రతి ఉదయం ఒక శ్లోకం లేదా బోధ, దాని అర్థంతో సహా, మీ వాట్సాప్‌కు.",hi:"हर सुबह एक श्लोक या उपदेश और उसका अर्थ, आपके व्हाट्सऐप पर।"},
+  step1:{en:"Tap the button. WhatsApp opens with a short note to me, ready to send.",te:"బటన్ నొక్కండి. నాకు ఒక చిన్న సందేశంతో వాట్సాప్ తెరుచుకుంటుంది.",hi:"बटन दबाएँ। मेरे लिए एक छोटे संदेश के साथ व्हाट्सऐप खुलेगा।"},
+  step2:{en:"Send it.",te:"దాన్ని పంపండి.",hi:"उसे भेज दें।"},
+  step3:{en:"Save my number as",te:"నా నంబర్‌ను ఈ పేరుతో సేవ్ చేయండి:",hi:"मेरा नंबर इस नाम से सेव करें:"},
+  step3b:{en:", so the messages reach you.",te:" (అప్పుడే సందేశాలు అందుతాయి).",hi:" (तभी संदेश मिलेंगे)।"},
+  pstep1:{en:"Enter your number and choose what you'd like.",te:"మీ నంబర్ ఇచ్చి, మీకు ఏమి కావాలో ఎంచుకోండి.",hi:"अपना नंबर डालें और चुनें कि आपको क्या चाहिए।"},
+  pstep2:{en:"I'll send your first verse myself.",te:"మీ మొదటి శ్లోకాన్ని నేనే పంపుతాను.",hi:"आपका पहला श्लोक मैं ख़ुद भेजूँगी।"},
+  want:{en:"What would you like?",te:"మీకు ఏమి కావాలి?",hi:"आपको क्या चाहिए?"},
+  optDaily:{en:"Today's verse",te:"నేటి శ్లోకం",hi:"आज का श्लोक"},
+  optDailyS:{en:"The verse everyone reads that day, moving through the Gita in order.",te:"ఆ రోజు అందరూ చదివే శ్లోకం, గీతను క్రమంగా.",hi:"उस दिन सब जो श्लोक पढ़ते हैं, गीता क्रम से।"},
+  optMood:{en:"Verses for how I feel",te:"నా మనోభావానికి తగిన శ్లోకాలు",hi:"मेरी भावना के अनुसार श्लोक"},
+  optMoodS:{en:"Choose one or more feelings, and I'll pick verses for them.",te:"ఒకటి లేదా ఎక్కువ భావాలు ఎంచుకోండి, వాటికి తగిన శ్లోకాలు నేను ఎంచుకుంటాను.",hi:"एक या अधिक भावनाएँ चुनें, मैं उनके लिए श्लोक चुनूँगी।"},
+  subBtn:{en:"Subscribe on WhatsApp",te:"వాట్సాప్‌లో సబ్‌స్క్రైబ్ చేయండి",hi:"व्हाट्सऐप पर सब्सक्राइब करें"},
+  subSend:{en:"Send me verses",te:"నాకు శ్లోకాలు పంపండి",hi:"मुझे श्लोक भेजें"},
+  pickMood:{en:"Choose at least one feeling",te:"కనీసం ఒక భావాన్ని ఎంచుకోండి",hi:"कम से कम एक भावना चुनें"},
+  stop:{en:"Reply STOP whenever you like, and I'll stop.",te:"ఎప్పుడైనా STOP అని పంపితే ఆపేస్తాను.",hi:"जब चाहें STOP लिखें, मैं भेजना बंद कर दूँगी।"},
+  privacy:{en:"I'll only use your number to send these verses. Reply STOP whenever you like.",te:"మీ నంబర్‌ను ఈ శ్లోకాలు పంపడానికి మాత్రమే ఉపయోగిస్తాను. ఎప్పుడైనా STOP అని పంపవచ్చు.",hi:"आपका नंबर सिर्फ़ ये श्लोक भेजने के लिए इस्तेमाल होगा। जब चाहें STOP लिखें।"},
+  getFeel:{en:"Would you like verses like these each morning?",te:"ఇలాంటి శ్లోకాలు ప్రతి ఉదయం కావాలా?",hi:"क्या ऐसे श्लोक हर सुबह चाहिए?"},
+  getFeelBtn:{en:"Yes, send them",te:"అవును, పంపండి",hi:"हाँ, भेजें"},
+  okH:{en:"Thank you. You're in.",te:"ధన్యవాదాలు. మీరు చేరారు.",hi:"धन्यवाद। आप जुड़ गए हैं।"},
+  okP:{en:"Your first verse will reach you soon. Please save my number so the daily messages arrive:",te:"మీ మొదటి శ్లోకం త్వరలో వస్తుంది. రోజువారీ సందేశాలు అందాలంటే నా నంబర్‌ను సేవ్ చేయండి:",hi:"आपका पहला श्लोक जल्द आएगा। रोज़ के संदेश पाने के लिए मेरा नंबर सेव करें:"},
+  footNote:{en:"A quiet place to read slowly. Translations are kept simple for first-time readers.",te:"నెమ్మదిగా చదువుకునే ఒక ప్రశాంతమైన చోటు. అనువాదాలు మొదటిసారి చదివేవారి కోసం సరళంగా ఉంచాను.",hi:"धीरे-धीरे पढ़ने की एक शांत जगह। अनुवाद पहली बार पढ़ने वालों के लिए सरल रखे गए हैं।"}
+});
+
+const G = LIBRARY.gita, V = G.verses, CH = G.sections;
+let lang = "en", script = "dev";
+try { lang = localStorage.getItem("lang") || lang; script = localStorage.getItem("script") || (lang==="te"?"te":"dev"); } catch(e){}
+
+const $ = id => document.getElementById(id);
+const tr = o => (o && (o[lang] ?? o.en)) || "";
+const trf = (o,...a) => (o[lang] || o.en)(...a);
+const toTelugu = s => s.replace(/[ऀ-ॿ]/g, ch => { const c = ch.charCodeAt(0); return (c===0x0964||c===0x0965) ? ch : String.fromCharCode(c + 0x300); });
+const skt = s => script==="te" ? toTelugu(s) : s;
+const vid = x => `${x.c}.${x.v}`;
+const hashOf = x => `v-${x.c}-${x.v}`;
+const byId = s => V.find(x => vid(x) === s);
+const cnt = n => n===1 ? tr(T.nVerse1) : trf(T.nVerses, n);
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
+
+const start = new Date(CONFIG.START_DATE+"T00:00:00"), now = new Date(); now.setHours(0,0,0,0);
+const dayNum = Math.max(0, Math.round((now-start)/86400000));
+const todayVerse = V[(dayNum + V.indexOf(byId(G.dayOneVerse))) % V.length];
+
+function verseText(x){ return `🪔 ${tr(G.name)} ${vid(x)} · ${tr(x.t)}\n\n${skt(x.s)}\n\n${x.i}\n\n${tr(x.m)}\n\n✨ ${x.carry}`; }
+const shareHref = x => "https://wa.me/?text=" + encodeURIComponent(verseText(x)+"\n\n"+location.href.split("#")[0]+"#"+hashOf(x));
+
+const WELCOME = {
+  en:(n,v,u)=>`🙏 Namaste${n?" "+n:""}! Thank you for subscribing to Inner Corner. Here is your first verse:\n\n${v}\n\nPlease save this number as “${CONFIG.CONTACT_NAME}” so the daily verse reaches you.\n📖 ${u}`,
+  te:(n,v,u)=>`🙏 నమస్కారం${n?" "+n:""}! ఇన్నర్ కార్నర్‌కు సబ్‌స్క్రైబ్ చేసినందుకు ధన్యవాదాలు. మీ మొదటి శ్లోకం:\n\n${v}\n\nరోజువారీ శ్లోకం అందాలంటే ఈ నంబర్‌ను “${CONFIG.CONTACT_NAME}” పేరుతో సేవ్ చేయండి.\n📖 ${u}`,
+  hi:(n,v,u)=>`🙏 नमस्ते${n?" "+n:""}! इनर कॉर्नर से जुड़ने के लिए धन्यवाद। यह रहा आपका पहला श्लोक:\n\n${v}\n\nदैनिक श्लोक पाने के लिए यह नंबर “${CONFIG.CONTACT_NAME}” नाम से सेव करें।\n📖 ${u}`
+};
+function verseTextIn(x, L){
+  const sc = L==="te" ? toTelugu(x.s) : x.s, t = o => o[L] || o.en;
+  return `🪔 ${t(G.name)} ${vid(x)} · ${t(x.t)}\n\n${sc}\n\n${x.i}\n\n${t(x.m)}\n\n✨ ${x.carry}`;
+}
+async function submitPhone(){
+  const err = $("perr"); err.textContent = "";
+  if ($("hp").value) return;                                   // bot trap
+  const L = formLang || lang;
+  const cc = $("cc").value.replace("x",""), num = $("ph").value.replace(/\D/g,"").replace(/^0+/,"");
+  const phone = cc + num;
+  if (num.length < 6 || phone.length > 15) { err.textContent = tr(T.badPhone); return; }
+  if (subMode==="mood" && !subMoods.size) { err.textContent = tr(T.pickMood); return; }
+  const first = subMode==="mood" ? V.find(x=>x.f.includes([...subMoods][0])) : todayVerse;
+  const name = $("nm").value.trim().slice(0,60);
+  const url = location.href.split("#")[0] + "#" + hashOf(first);
+  const payload = { name, phone, lang: L, mode: subMode, moods: [...subMoods].map(k=>FEELINGS[k].en),
+                    first: vid(first), welcome: WELCOME[L](name, verseTextIn(first, L), url), hp: "" };
+  const b = $("psub"); b.disabled = true; b.textContent = tr(T.sending);
+  try {
+    await fetch(CONFIG.SIGNUP_URL, { method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(payload) });
+    $("formBody").innerHTML = `<div class="done"><h3>${tr(T.okH)}</h3><p style="margin:0 0 10px">${tr(T.okP)}</p><p style="font-size:20px;font-weight:600;margin:0">+${CONFIG.WA_NUMBER.replace(/^1(\d{3})(\d{3})(\d{4})$/,"1 $1-$2-$3")} · “${CONFIG.CONTACT_NAME}”</p></div>`;
+  } catch(e) { b.disabled = false; b.textContent = tr(T.subSend); err.textContent = tr(T.failP); }
+}
+
+let subMode = "daily"; const subMoods = new Set();
+
+/* ---------- shared pieces ---------- */
+function decoder(x){
+  return `<div class="decoder">
+    <div class="dec-head"><p class="hint">${tr(T.hint)}</p><button class="showall" data-all aria-expanded="false">${tr(T.showAll)}</button></div>
+    <div class="words">${x.w.map(([w,m],k)=>`<button class="word ${script==="te"?"te":""}" data-w="${k}" aria-pressed="false">${skt(w)}</button>`).join("")}</div>
+    <div class="decoded" aria-live="polite" data-vid="${vid(x)}"></div>
+    <dl class="allwords" hidden>${x.w.map(([w,m])=>`<div><dt class="${script==="te"?"te":""}">${skt(w)}</dt><dd>${m}</dd></div>`).join("")}</dl>
+  </div>`;
+}
+function scriptSwitch(){
+  return `<div class="script-switch">${tr(T.readIn)}: <button data-s="dev" class="${script==="dev"?"on":""}">${tr(T.showDev)}</button> / <button data-s="te" class="${script==="te"?"on":""}">${tr(T.showTe)}</button></div>`;
+}
+function verseBlock(x){
+  return `<p class="verse-hero ${script==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
+    <p class="roman-hero">${x.i}</p>${scriptSwitch()}${decoder(x)}`;
+}
+const fmtDate = () => now.toLocaleDateString({en:"en-US",te:"te-IN",hi:"hi-IN"}[lang], {weekday:"long", day:"numeric", month:"long"});
+
+/* ---------- home ---------- */
+const FEEL_ICONS = {"anxious": "<path d=\"M3 10c2-3 4-3 6 0s4 3 6 0 4-3 6 0\"/><path d=\"M3 15c2-3 4-3 6 0s4 3 6 0 4-3 6 0\" opacity=\".5\"/>", "fear": "<path d=\"M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z\"/>", "sad": "<path d=\"M12 3c3 5 6 8 6 11a6 6 0 0 1-12 0c0-3 3-6 6-11z\"/>", "angry": "<path d=\"M12 3c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 3 1-3 0-5 0-7z\"/>", "confused": "<path d=\"M9 9a3 3 0 1 1 4.5 2.6c-1 .6-1.5 1.2-1.5 2.4\"/><circle cx=\"12\" cy=\"18\" r=\".9\" fill=\"currentColor\"/>", "stuck": "<path d=\"M4 18c0-4.5 3.5-8 8-8s8 3.5 8 8z\"/><path d=\"M2 18h20\"/>", "restless": "<path d=\"M3 9h11a3 3 0 1 0-3-3\"/><path d=\"M3 15h15a3 3 0 1 1-3 3\"/>", "grateful": "<path d=\"M12 20c-4 0-8-3-8-7 3 0 6 2 8 7 2-5 5-7 8-7 0 4-4 7-8 7z\"/><path d=\"M12 20c-2-3-2-8 0-13 2 5 2 10 0 13z\"/>"};
+function homePage(){
+  const x = todayVerse;
+  return `
+  <section class="hero" id="today"><div class="wrap hero-inner">
+    <div class="hero-text">
+    <p class="dateline">${tr(T.heroKicker)}, ${fmtDate()}. <a href="#${hashOf(x)}">${tr(G.name)} ${vid(x)}</a></p>
+    <h1 class="hero-title">${tr(x.t)}</h1>
+    <p class="verse-hero ${script==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
+    <p class="roman-hero">${x.i}</p>
+    <p class="hero-meaning tr">${tr(x.m)}</p>
+    <div class="hero-actions">
+      <a class="btn glow" href="#${hashOf(x)}">${tr(T.readLesson)}</a>
+      <a class="btn ghost" href="#whatsapp">${tr(T.getWa)}</a>
+    </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">${nicheArt()}</div>
+  </div></section>
+
+  <section class="s" id="feelings"><div class="wrap">
+    <h2 class="h2">${tr(T.findH)}</h2>
+    <div class="ways">
+      <div class="way">
+        <h3>${tr(T.wayFeel)}</h3>
+        <ul class="feel-list">${Object.entries(FEELINGS).map(([k,f])=>`<li><a href="#feel-${k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${FEEL_ICONS[k]}</svg><span>${tr(f)}</span></a></li>`).join("")}</ul>
+      </div>
+      <div class="way">
+        <h3>${tr(T.wayOrder)}</h3>
+        <ol class="mini-toc">${CH.slice(0,4).map((c,k)=>`<li><a href="#ch-${k+1}"><span class="n">${k+1}</span><span>${tr(c)}</span></a></li>`).join("")}</ol>
+        <a class="btn ghost-ink" href="#chapters">${tr(T.allChapters)}</a>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="s" id="about"><div class="wrap"><div class="about-card">
+    <div class="mini-diya" aria-hidden="true">${miniDiya()}</div>
+    <h2 class="h2">${tr(T.useH)}</h2>
+    <p class="pull">${tr(T.usePurpose)}</p>
+    <ol class="use-steps">${T.useSteps.map(u=>`<li><b>${tr(u.v)}</b><span>${tr(u)}</span></li>`).join("")}</ol>
+  </div></div></section>
+
+  <section class="s wa-band" id="whatsapp"><div class="wrap subscribe">
+    <div>
+      <h2 class="h2">${tr(T.waH)}</h2>
+      <p class="wa-line">${tr(T.waIntro)}</p>
+    </div>
+    ${formHTML()}
+  </div></section>
+
+  <section class="s" id="library"><div class="wrap">
+    <h2 class="h2">${tr(T.shelfH)}</h2>
+    <ul class="shelf">${Object.values(LIBRARY).map((b,k)=> b.ready
+      ? `<li class="spine-${k}"><a href="#chapters">${tr(b.name)}</a><span class="ready">${tr(T.readNow)}</span></li>`
+      : `<li class="spine-${k}"><span>${tr(b.name)}</span><span>${tr(T.inProgress)}</span></li>`).join("")}</ul>
+  </div></section>`;
+}
+
+function nicheArt(){
+  const marigolds = Array.from({length:11},(_,k)=>{const t=k/10, x=104+152*t, y=128+38*Math.sin(Math.PI*t); return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${k%2?4.2:5.2}" fill="${k%2?'#E9B44C':'#D8A031'}"/>`}).join("");
+  return `<svg viewBox="0 0 360 420" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <defs><radialGradient id="g1" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#F3D58C" stop-opacity=".55"/><stop offset="1" stop-color="#F3D58C" stop-opacity="0"/></radialGradient></defs>
+    <path d="M70 392 V190 C70 118 118 76 180 52 C242 76 290 118 290 190 V392" stroke="#D8A031" stroke-opacity=".75" stroke-width="1.6"/>
+    <path d="M86 392 V194 C86 132 128 96 180 76 C232 96 274 132 274 194 V392" stroke="#D8A031" stroke-opacity=".3" stroke-width="1.2"/>
+    <path d="M104 128 Q180 172 256 128" stroke="#D8A031" stroke-opacity=".5" stroke-width="1"/>
+    ${marigolds}
+    <circle cx="214" cy="290" r="78" fill="url(#g1)"/>
+    <path d="M86 330 H274" stroke="#D8A031" stroke-opacity=".6" stroke-width="1.4"/>
+    <rect x="102" y="312" width="74" height="18" rx="2" stroke="#D8A031" stroke-opacity=".7" stroke-width="1.3"/>
+    <rect x="110" y="294" width="62" height="18" rx="2" stroke="#D8A031" stroke-opacity=".55" stroke-width="1.3"/>
+    <path d="M160 294 v-10" stroke="#E9B44C" stroke-width="1.6"/>
+    <path d="M188 330 Q214 352 246 330 Z" stroke="#D8A031" stroke-width="1.5" fill="#262B48"/>
+    <path d="M244 330 q10 -2 14 -10" stroke="#D8A031" stroke-width="1.4"/>
+    <path d="M217 272 C205 288 205 304 217 312 C229 304 229 288 217 272 Z" fill="#D8A031"/>
+    <path d="M217 290 C212 297 212 304 217 309 C222 304 222 297 217 290 Z" fill="#F7E2A6"/>
+    <path d="M40 392 H320" stroke="#D8A031" stroke-opacity=".35" stroke-width="1"/>
+  </svg>`;
+}
+function miniDiya(){
+  return `<svg viewBox="0 0 48 40" fill="none"><path d="M24 4 C19 11 19 17 24 20 C29 17 29 11 24 4 Z" fill="#D8A031"/><path d="M8 24 Q24 38 40 24 Z" stroke="#1C2038" stroke-width="1.5" stroke-linejoin="round"/><path d="M39 24 q4 -1 5 -5" stroke="#1C2038" stroke-width="1.4" stroke-linecap="round"/></svg>`;
+}
+function chaptersPage(){
+  return `<div class="wrap"><div class="crumb"><a href="#home">Inner Corner</a> / ${tr(T.navCh)}</div>
+    <div class="page-head"><h1>${tr(T.chH)}</h1><p>${tr(T.chP)}</p></div>
+    <ol class="toc">${CH.map((c,k)=>{const n=V.filter(v=>v.c===k+1).length;return `<li><a href="#ch-${k+1}"><span class="n">${k+1}</span><span class="nm">${c.n}<span class="sm">${tr(c)}</span></span><span class="c">${cnt(n)}</span></a></li>`}).join("")}</ol>
+  </div>`;
+}
+
+function formHTML(){
+  return `<div class="form"><div id="formBody">
+    <label class="field"><span>${tr(T.yourName)}</span><input type="text" id="nm" autocomplete="name"></label>
+    <label class="field"><span>${tr(T.phoneL)}</span><div class="phone-row">
+      <select id="cc" aria-label="Country code">${[["1","US/CA +1"],["91","IN +91"],["44","UK +44"],["61","AU +61"],["65","SG +65"],["971","AE +971"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select>
+      <input type="tel" id="ph" inputmode="tel" autocomplete="tel-national" placeholder="425 555 0123"></div></label>
+    <input type="text" id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    ${CONFIG.SIGNUP_URL
+      ? `<button class="btn wa" id="psub" type="button">${tr(T.joinBtn)}</button><p class="err" id="perr"></p>`
+      : `<a class="btn wa" id="sub" target="_blank" rel="noopener" href="#"></a><p class="err" id="perr"></p>`}
+    <p class="fine">${tr(T.waSave)} <b>${CONFIG.CONTACT_NAME}</b>. ${tr(T.stopShort)}</p>
+  </div></div>`;
+}
+
+/* ---------- lesson ---------- */
+function lessonPage(x){
+  const i = V.indexOf(x), p = V[(i-1+V.length)%V.length], n = V[(i+1)%V.length], ch = CH[x.c-1];
+  return `<div class="wrap">
+    <div class="crumb"><a href="#home">Inner Corner</a> / <a href="#ch-${x.c}">${tr(G.name)} ${x.c}</a> / ${vid(x)}</div>
+    <div class="page-head"><h1>${tr(x.t)}</h1><p>${tr(G.name)}, ${trf(T.chv,x.c,x.v)}. ${trf(T.spoken, tr(SPEAKERS[x.sp]))}.</p></div>
+    <div class="lesson">
+      <div class="lesson-verse">${verseBlock(x)}</div>
+      <div class="notes">
+        <section class="ctx-card"><h2>${tr(T.ctxShort)}</h2><p>${x.ctx}</p></section>
+        <section><h2>${tr(T.meaningH)}</h2><p class="meaning tr">${tr(x.m)}</p></section>
+        <section><h2>${tr(T.whyH)}</h2><p>${x.shift ? x.shift+" " : ""}${x.x}</p></section>
+        <section class="apply"><h2>${tr(T.applyH)}</h2>
+          <div class="tabs" role="tablist">${applyTabs(x).map((t,k)=>`<button role="tab" data-tab="${k}" aria-selected="${k===0}">${t.label}</button>`).join("")}</div>
+          ${applyTabs(x).map((t,k)=>`<div class="panel" role="tabpanel" ${k?"hidden":""}>${t.html}</div>`).join("")}
+        </section>
+        ${x.notMean ? `<section class="misread"><h2>${tr(T.misreadH)}</h2><p>${x.notMean[0]}</p><ul>${x.notMean[1].map(b=>`<li>${b}</li>`).join("")}</ul></section>` : ""}
+        <section class="take"><h2>${tr(T.takeH)}</h2><p class="carry">${x.carry}</p><p><b>${tr(T.tryToday)}.</b> ${x.try}</p><p class="reflect"><b>${tr(T.reflect)}.</b> ${x.r}</p></section>
+        <details class="more"><summary>${tr(T.chBg)}</summary><p>${tr(G.sectionWord)} ${x.c}, ${ch.n}. ${ch.set}</p>${lang!=="en" ? `<p class="note-sm">${tr(T.englishNote)}</p>` : ""}</details>
+        ${x.voices ? `<details class="more"><summary>${tr(T.voicesH)}</summary><div class="voices">${x.voices.map(([w,t,u])=>`<figure><figcaption>${w}</figcaption><p>${t}</p>${u?`<a href="${u}" target="_blank" rel="noopener">${tr(T.source)}</a>`:""}</figure>`).join("")}</div></details>` : ""}
+        ${x.related ? `<details class="more"><summary>${tr(T.relatedH)}</summary>${x.deeperQ?`<p>${x.deeperQ}</p>`:""}<ul class="rel">${x.related.map(([id,why])=>`<li><a href="#${hashOf(byId(id))}">${id} ${tr(byId(id).t)}</a><span>${why}</span></li>`).join("")}</ul></details>` : ""}
+        ${x.f.length ? `<section style="margin-top:28px"><h2>${tr(T.related)}</h2><div class="tags">${x.f.map(k=>`<a class="tint-${k}" href="#feel-${k}">${tr(FEELINGS[k])}</a>`).join("")}</div></section>` : ""}
+        ${x.note ? `<p class="note-sm">${x.note}</p>` : ""}
+        <div class="hero-actions" style="margin:0 0 28px"><a class="btn wa" target="_blank" rel="noopener" href="${shareHref(x)}">${tr(T.shareWa)}</a><button class="btn ghost" data-copy="${vid(x)}">${tr(T.copy)}</button></div>
+        <div class="pager"><a href="#${hashOf(p)}">${tr(T.prevV)}: ${vid(p)}</a><a href="#${hashOf(n)}">${tr(T.nextV)}: ${vid(n)}</a></div>
+      </div>
+    </div></div>`;
+}
+
+function applyTabs(x){
+  const S = x.situations || [];
+  const rich = sit => `<p class="sit">${sit.situation}</p><ul>${sit.apply.slice(0,2).map(a=>`<li>${a}</li>`).join("")}</ul>${sit.script?`<div class="script"><p><span>${tr(T.insteadOf)}</span>“${sit.script[0]}”</p><p><span>${tr(T.tryAsking)}</span>“${sit.script[1]}”</p></div>`:""}<p class="lesson-line">${sit.lesson}</p>`;
+  return [
+    {label:tr(T.tabPersonal), html: S[0] ? rich(S[0]) : `<p>${x.self}</p><p>${x.family}</p>`},
+    {label:tr(T.tabWork),     html: S[1] ? rich(S[1]) : `<p>${x.work}</p>`},
+    {label:tr(T.forKids),     html: `<p>${x.kids}</p>`}
+  ];
+}
+function listPage(title, intro, list, extra=""){
+  return `<div class="wrap"><div class="crumb"><a href="#home">Inner Corner</a> / ${title}</div>
+    <div class="page-head"><h1>${title}</h1>${intro?`<p>${intro}</p>`:""}</div>${extra}
+    <ol class="vlist">${list.map(x=>`<li><a href="#${hashOf(x)}"><span class="n">${vid(x)}</span><span><span class="t">${tr(x.t)}</span><span class="m">${tr(x.m)}</span></span></a></li>`).join("")}</ol></div>`;
+}
+
+/* ---------- router ---------- */
+function updateSub(){
+  const a = $("sub"); if(!a) return;
+  const n = $("nm").value.trim(), num = $("ph").value.replace(/\D/g,""), cc = $("cc").value;
+  const msg = `🙏 Namaste! I'd like to join Inner Corner.${n?"\nName: "+n:""}${num?"\nNumber: +"+cc+" "+num:""}\nLanguage: ${{en:"English",te:"Telugu",hi:"Hindi"}[lang]}`;
+  a.textContent = tr(T.joinBtn);
+  if (num.length < 6){ a.href="#whatsapp"; a.setAttribute("aria-disabled","true"); return; }
+  a.href=`https://wa.me/${CONFIG.WA_NUMBER}?text=${encodeURIComponent(msg)}`; a.removeAttribute("aria-disabled");
+}
+const SECTIONS = ["home","today","about","feelings","life","whatsapp","library"];
+let onHome = false;
+function render(keepScroll){
+  document.body.className = "lang-"+lang; document.documentElement.lang = lang;
+  document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on", b.dataset.l===lang));
+  $("fnote").textContent = tr(T.footNote);
+  let h = location.hash.slice(1) || "home";
+  if (h.startsWith("sub-") && FEELINGS[h.slice(4)]) { subMode="mood"; subMoods.add(h.slice(4)); onHome=false; h="whatsapp"; }
+  let active = "", y = scrollY;
+  if (SECTIONS.includes(h)) {
+    if (!onHome || keepScroll) $("view").innerHTML = homePage();
+    onHome = true; active = h==="home" ? "today" : h;
+    if (keepScroll) scrollTo(0,y); else if (h==="home"||h==="today") scrollTo(0,0); else $(h)?.scrollIntoView();
+  } else {
+    onHome = false; let html;
+    if (h.startsWith("v-")) { const x = byId(h.slice(2).replace("-",".")); html = x ? lessonPage(x) : homePage(); active="chapters"; }
+    else if (h==="chapters") { active="chapters"; html = chaptersPage(); }
+    else if (h.startsWith("feel-") && FEELINGS[h.slice(5)]) { const k=h.slice(5); active="feelings";
+      html = `<div class="tint-band tint-${k}"></div>` + listPage(tr(FEELINGS[k]), "", V.filter(x=>x.f.includes(k)), `<div class="cta-strip"><p>${tr(T.getFeel)}</p><a class="btn wa" href="#whatsapp">${tr(T.getFeelBtn)}</a></div>`); }
+    else if (h.startsWith("area-") && AREAS[h.slice(5)]) { const k=h.slice(5); active="life"; html = listPage(tr(AREAS[k]), tr(T.areaDesc[k]), V.filter(x=>x.a.includes(k))); }
+    else if (h.startsWith("ch-") && CH[+h.slice(3)-1]) { const c=+h.slice(3), ch=CH[c-1]; active="chapters"; html = listPage(`${c}. ${ch.n}`, `${tr(ch)}. ${ch.set}`, V.filter(x=>x.c===c)); }
+    else html = homePage();
+    $("view").innerHTML = html; if (keepScroll) scrollTo(0,y); else scrollTo(0,0);
+  }
+  $("hdr").classList.toggle("dark", onHome && scrollY < 200);
+  $("menu").innerHTML = [["today",T.navToday],["feelings",T.navFind],["chapters",T.navCh],["about",T.navWhy],["whatsapp",T.navWa]]
+    .map(([k,l])=>`<a href="#${k}" class="${k===active?"on":""}">${tr(l)}</a>`).join("");
+  $("menu").classList.remove("open"); $("burger").setAttribute("aria-expanded","false");
+  if ($("nm")) { $("nm").oninput = updateSub; $("ph").oninput = updateSub; $("cc").onchange = updateSub; updateSub(); }
+}
+
+document.addEventListener("click", async e=>{
+  const t = e.target;
+  const L = t.closest("[data-l]"); if (L){ lang=L.dataset.l; script = lang==="te"?"te":"dev"; try{localStorage.setItem("lang",lang);localStorage.setItem("script",script)}catch(_){} render(true); return; }
+  const S = t.closest("[data-s]"); if (S){ script=S.dataset.s; try{localStorage.setItem("script",script)}catch(_){} render(true); return; }
+  const W = t.closest("[data-w]");
+  if (W){ const box = W.closest(".decoder"), out = box.querySelector(".decoded"), x = byId(out.dataset.vid), [w,m] = x.w[+W.dataset.w];
+    box.querySelectorAll(".word").forEach(b=>b.setAttribute("aria-pressed", b===W));
+    const all=box.querySelector(".allwords"), ab=box.querySelector("[data-all]"); if(!all.hidden){ all.hidden=true; ab.setAttribute("aria-expanded","false"); ab.textContent=tr(T.showAll); } out.hidden=false;
+    out.innerHTML = `<small>${skt(w)}</small>${m}`; return; }
+  const TB = t.closest("[data-tab]");
+  if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
+  const A = t.closest("[data-all]");
+  if (A){ const box=A.closest(".decoder"), list=box.querySelector(".allwords"), open=list.hidden;
+    list.hidden=!open; A.setAttribute("aria-expanded",open); A.textContent = open ? tr(T.hideAll) : tr(T.showAll);
+    box.querySelector(".decoded").hidden = open; box.querySelectorAll(".word").forEach(b=>b.setAttribute("aria-pressed","false")); return; }
+  const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
+  if (t.closest("#psub")){ submitPhone(); return; }
+  const M = t.closest("[data-mood]"); if (M){ const k=M.dataset.mood; subMoods.has(k)?subMoods.delete(k):subMoods.add(k); M.setAttribute("aria-pressed", subMoods.has(k)); updateSub(); return; }
+  const R = t.closest('input[name=mode]'); if (R){ subMode=R.value; document.querySelectorAll(".radio label").forEach(o=>o.classList.toggle("on", o.contains(R))); $("moods").hidden = subMode!=="mood"; updateSub(); return; }
+  const C = t.closest("[data-copy]"); if (C){ try{ await navigator.clipboard.writeText(verseText(byId(C.dataset.copy))); toast(tr(T.copied)); }catch(_){ toast("Press and hold the text to copy"); } return; }
+  if (t.closest("#burger")){ const o=$("menu").classList.toggle("open"); $("burger").setAttribute("aria-expanded", o); }
+});
+addEventListener("scroll", ()=>$("hdr").classList.toggle("dark", onHome && scrollY < (document.querySelector(".hero")?.offsetHeight||0)-64), {passive:true});
+addEventListener("hashchange", ()=>render(false));
+render(false);
+</script>
+</body>
+</html>
