@@ -1,5 +1,3 @@
 # Inner Corner
 
-Svādhyāya · study of sacred texts, and of the self.
-
-A quiet place to decode, learn, reflect and apply: the Bhagavad Gita (and soon Sri Ramakrishna's teachings and Sai Satcharitra), one verse at a time, in English, Telugu and Hindi.
+A space to decode, learn, reflect and apply for inner growth: the Bhagavad Gita (and soon Sri Ramakrishna's teachings and Sai Satcharitra), one verse at a time, in English, Telugu and Hindi.
