@@ -553,6 +553,65 @@ body{background:var(--paper)}
  .ic-gita-panel{border-radius:14px}
 }
 
+
+/* Visual refinement: full-width composition and intentionally tight section rhythm */
+:root{--w:1480px}
+.wrap{max-width:1480px;padding-left:clamp(20px,2.6vw,42px);padding-right:clamp(20px,2.6vw,42px)}
+.site-header .bar{max-width:1480px;height:70px}
+.ic-intro{background:linear-gradient(100deg,#faf7f1 8%,#f4ebdf 68%,#eadcca)}
+.ic-intro-inner{min-height:265px;padding-top:15px!important;padding-bottom:12px!important;grid-template-columns:1.02fr .98fr}
+.ic-intro-copy{padding-left:clamp(6px,7vw,95px)}
+.ic-intro h1{font-size:clamp(45px,4.6vw,64px);margin:8px 0 14px}
+.ic-intro p{font-size:clamp(18px,1.65vw,23px);max-width:510px;line-height:1.46}
+.ic-intro-art{height:250px;margin-right:-20px}
+.ic-gita-shell{padding-bottom:20px}
+.ic-gita-panel{padding:29px clamp(26px,3.6vw,55px) 19px;border-radius:20px}
+.ic-gita-grid{gap:clamp(26px,4vw,66px);grid-template-columns:.75fr 1.25fr}
+.ic-gita-copy{padding-left:clamp(0px,3.2vw,45px)}
+.ic-gita-copy h2{margin-bottom:18px}
+.ic-gita-copy>p:not(.ic-eyebrow){margin-bottom:26px}
+.ic-verse-card{padding:22px 32px 24px}
+.ic-verse-top{margin-bottom:10px}
+.ic-verse-card h3{margin-bottom:8px}
+.ic-sanskrit{line-height:1.45;margin-bottom:5px}
+.ic-roman{margin-bottom:12px}
+.ic-meaning{padding-top:12px;margin-bottom:12px}
+.ic-gita-links{margin-top:22px;padding-top:13px}
+.ic-gita-links strong{font-size:20px}
+.ic-gita-links a{padding-top:8px;padding-bottom:8px}
+.ic-readings{padding:29px 0 37px}
+.ic-section-heading{margin-bottom:20px}
+.ic-section-heading h2{font-size:clamp(32px,3.4vw,44px)}
+.ic-reading-grid article{min-height:144px;padding:24px 28px}
+.ic-reading-grid h3{font-size:24px}
+.ic-reading-grid p{margin-bottom:10px}
+.ic-feelings{padding:38px 0 42px}
+.ic-about-section{padding-top:44px!important;padding-bottom:42px!important}
+.ic-whatsapp-section{padding-top:42px!important;padding-bottom:42px!important}
+@media (min-width:1200px){
+ .ic-gita-panel{margin-left:0;margin-right:0}
+ .ic-intro-inner{max-width:1480px}
+}
+@media (max-width:900px){
+ .ic-intro-copy{padding-left:0}
+ .ic-gita-grid{grid-template-columns:1fr 1.1fr;gap:20px}
+ .ic-gita-copy{padding-left:0}
+ .ic-verse-card{padding:20px}
+}
+@media (max-width:640px){
+ .wrap{padding-left:18px;padding-right:18px}
+ .ic-intro-inner{grid-template-columns:1fr;min-height:0;padding-top:28px!important;padding-bottom:0!important}
+ .ic-intro h1{font-size:44px}
+ .ic-intro-art{height:130px;margin:8px -18px 0}
+ .ic-gita-panel{padding:24px 18px 14px;border-radius:13px}
+ .ic-gita-grid{grid-template-columns:1fr;gap:22px}
+ .ic-gita-copy h2{font-size:40px}
+ .ic-gita-links{margin-top:18px}
+ .ic-readings{padding:30px 0 36px}
+ .ic-reading-grid article{padding:18px;min-height:0}
+ .ic-feelings{padding:35px 0}
+}
+
 </style>
 </head>
 <body>
