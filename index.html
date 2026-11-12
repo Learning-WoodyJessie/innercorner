@@ -612,6 +612,9 @@ body{background:var(--paper)}
  .ic-feelings{padding:35px 0}
 }
 
+/* Ensure photo blends into the hero, without excess margins */
+.ic-intro-art{border-radius:0;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 21%);mask-image:linear-gradient(90deg,transparent 0%,#000 21%)}
+@media(max-width:640px){.ic-intro-art{border-radius:0}}
 </style>
 </head>
 <body>
@@ -986,7 +989,7 @@ function homePage(){
       <div class="ic-intro-copy"><span class="ic-rule" aria-hidden="true"></span>
         <h1>Inner Corner</h1><p>${h("intro")}</p>
       </div>
-      <div class="ic-intro-art" aria-hidden="true"><img src="assets/reading-still-life.svg" alt="" width="780" height="390" loading="eager"></div>
+      <div class="ic-intro-art" aria-hidden="true"><img src="assets/hero-photo.svg" alt="" width="780" height="390" loading="eager"></div>
     </div>
   </section>
   <section class="ic-gita-shell" id="gita"><div class="wrap">
