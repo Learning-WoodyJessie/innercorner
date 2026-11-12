@@ -534,6 +534,25 @@ body{background:var(--paper)}
 @media(max-width:900px){.ic-gita-panel{padding:32px 28px 20px}.ic-gita-grid{gap:22px}.ic-gita-links{grid-template-columns:1fr}.ic-gita-links a{padding:15px 0!important}.ic-gita-links a:not(:last-child){border-right:0;border-bottom:1px solid #555b70}.ic-feeling-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ic-reading-grid{grid-template-columns:1fr}}
 @media(max-width:640px){.ic-intro-inner{grid-template-columns:1fr;min-height:215px;padding-top:38px!important;padding-bottom:38px!important}.ic-intro-art{display:none}.ic-intro h1{font-size:45px}.ic-intro p{font-size:18px}.ic-gita-shell{padding-bottom:38px}.ic-gita-panel{padding:28px 20px 16px;border-radius:12px}.ic-gita-grid{grid-template-columns:1fr;gap:24px}.ic-gita-copy h2{font-size:40px}.ic-gita-copy>p:not(.ic-eyebrow){margin-bottom:20px}.ic-verse-card{padding:22px 20px}.ic-feelings,.ic-readings{padding:52px 0}.ic-feeling-grid{gap:9px}.ic-feeling-grid a{padding:14px}.ic-reading-grid article{padding:22px}.ic-reading-icon{min-width:45px;padding-right:13px;font-size:30px}}
 
+
+/* Visual alignment with approved homepage mockup */
+.ic-intro{background:linear-gradient(95deg,#faf7f1 15%,#f1e6d8 100%)}
+.ic-intro-inner{grid-template-columns:1fr 1fr;min-height:315px;padding-top:24px!important;padding-bottom:24px!important}
+.ic-intro-copy{padding:12px 0}
+.ic-intro-art{height:265px;opacity:1;overflow:hidden;display:block;border-radius:10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%);mask-image:linear-gradient(90deg,transparent,#000 20%)}
+.ic-intro-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.ic-gita-shell{background:#faf7f1;padding-bottom:42px}
+.ic-gita-panel{box-shadow:none;border:1px solid #3a405b}
+.ic-gita-links a:hover{background:rgba(255,255,255,.055)}
+.ic-readings{background:#faf7f1}
+.ic-reading-grid article{background:radial-gradient(ellipse at 95% 100%,#f4e9d7 0%,#fffdf9 50%);min-height:176px}
+.ic-feelings{border-top:1px solid #e6dfd5}
+@media(max-width:640px){
+ .ic-intro-inner{grid-template-columns:1fr;min-height:auto;padding-top:40px!important;padding-bottom:0!important}
+ .ic-intro-art{display:block;height:156px;margin:16px -20px 0;opacity:.88;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 75%,transparent 100%)}
+ .ic-gita-panel{border-radius:14px}
+}
+
 </style>
 </head>
 <body>
@@ -908,7 +927,7 @@ function homePage(){
       <div class="ic-intro-copy"><span class="ic-rule" aria-hidden="true"></span>
         <h1>Inner Corner</h1><p>${h("intro")}</p>
       </div>
-      <div class="ic-intro-art" aria-hidden="true">${nicheArt()}</div>
+      <div class="ic-intro-art" aria-hidden="true"><img src="assets/reading-still-life.svg" alt="" width="780" height="390" loading="eager"></div>
     </div>
   </section>
   <section class="ic-gita-shell" id="gita"><div class="wrap">
@@ -936,17 +955,17 @@ function homePage(){
       </nav>
     </div>
   </div></section>
-  <section class="ic-feelings" id="feelings"><div class="wrap">
-    <div class="ic-section-heading"><div><p class="ic-section-label">${tr(G.name)} · ${h("feeling")}</p>
-      <h2>${h("feelHead")}</h2><p>${h("feelSub")}</p></div></div>
-    <div class="ic-feeling-grid">${Object.entries(FEELINGS).map(([k,f])=>`<a href="#feel-${k}"><span>${tr(f)}</span><span aria-hidden="true">↗</span></a>`).join("")}</div>
-  </div></section>
   <section class="ic-readings" id="library"><div class="wrap">
     <div class="ic-section-heading"><div><p class="ic-section-label">INNER CORNER</p><h2>${h("other")}</h2><p>${h("otherSub")}</p></div></div>
     <div class="ic-reading-grid">
       <article><span class="ic-reading-icon" aria-hidden="true">✦</span><div><h3>${h("ram")}</h3><p>${h("ramDesc")}</p><span class="ic-coming">${h("soon")}</span></div></article>
       <article><span class="ic-reading-icon" aria-hidden="true">✧</span><div><h3>${h("sai")}</h3><p>${h("saiDesc")}</p><span class="ic-coming">${h("soon")}</span></div></article>
     </div>
+  </div></section>
+  <section class="ic-feelings" id="feelings"><div class="wrap">
+    <div class="ic-section-heading"><div><p class="ic-section-label">${tr(G.name)} · ${h("feeling")}</p>
+      <h2>${h("feelHead")}</h2><p>${h("feelSub")}</p></div></div>
+    <div class="ic-feeling-grid">${Object.entries(FEELINGS).map(([k,f])=>`<a href="#feel-${k}"><span>${tr(f)}</span><span aria-hidden="true">↗</span></a>`).join("")}</div>
   </div></section>
   <section class="s ic-about-section" id="about"><div class="wrap"><div class="about-card">
     <div class="mini-diya" aria-hidden="true">${miniDiya()}</div>
