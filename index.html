@@ -765,6 +765,21 @@ body{background:var(--paper)}
  .ic-feeling-visual{background:#ffffffa8;border-color:#ffffff60}
 }
 
+
+/* Verse detail: word meanings always visible, no decode/tap UI */
+.lesson-verse .decoder{margin-top:24px;padding-top:20px;border-top:1px solid #e4ded2}
+.lesson-verse .word-meanings-title{font:600 13px/1.4 var(--sans);letter-spacing:.035em;color:#666875;margin:0 0 10px}
+.lesson-verse .allwords{display:block;margin:0;border-top:0}
+.lesson-verse .allwords div{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);gap:14px;padding:11px 0;border-bottom:1px solid #e7e3da}
+.lesson-verse .allwords dt{font:400 19px/1.55 var(--skt);color:#9b662c;overflow-wrap:anywhere}
+.lesson-verse .allwords dt.te{font-family:var(--skt-te)}
+.lesson-verse .allwords dd{font:400 15px/1.5 var(--sans);color:#4e5364;margin:0}
+.lesson-verse .allwords div:last-child{border-bottom:0}
+.lesson .notes>section h2{letter-spacing:.005em}
+.lesson .notes .ctx-card{background:#fcfbf7}
+.lesson .notes .take{border-radius:13px}
+@media(max-width:560px){.lesson-verse .allwords div{grid-template-columns:minmax(0,40%) minmax(0,60%);gap:9px}.lesson-verse .allwords dt{font-size:17px}.lesson-verse .allwords dd{font-size:14px}}
+
 </style>
 </head>
 <body>
@@ -1034,6 +1049,16 @@ Object.assign(T, T2, {
   footNote:{en:"A quiet place to read slowly. Translations are kept simple for first-time readers.",te:"నెమ్మదిగా చదువుకునే ఒక ప్రశాంతమైన చోటు. అనువాదాలు మొదటిసారి చదివేవారి కోసం సరళంగా ఉంచాను.",hi:"धीरे-धीरे पढ़ने की एक शांत जगह। अनुवाद पहली बार पढ़ने वालों के लिए सरल रखे गए हैं।"}
 });
 
+Object.assign(T, {
+  wordsMeaning:{en:"Words and meanings",te:"పదాలు, అర్థాలు",hi:"शब्द और अर्थ"},
+  ctxShort:{en:"The context",te:"సందర్భం",hi:"प्रसंग"},
+  whyH:{en:"What stands out",te:"గమనించదగ్గ విషయం",hi:"ध्यान देने की बात"},
+  applyH:{en:"In everyday life",te:"రోజువారీ జీవితంలో",hi:"रोज़मर्रा की ज़िंदगी में"},
+  takeH:{en:"A thought to carry",te:"గుర్తుంచుకోవాల్సిన ఆలోచన",hi:"साथ रखने योग्य विचार"},
+  tryToday:{en:"Something to try",te:"ప్రయత్నించవచ్చు",hi:"आज़माने के लिए"},
+  reflect:{en:"A question to reflect on",te:"ఆలోచించాల్సిన ప్రశ్న",hi:"विचार के लिए प्रश्न"},
+  readIn:{en:"Sanskrit script",te:"సంస్కృత లిపి",hi:"संस्कृत लिपि"}
+});
 const G = LIBRARY.gita, V = G.verses, CH = G.sections;
 let lang = "en", script = "dev";
 try { lang = localStorage.getItem("lang") || lang; script = localStorage.getItem("script") || (lang==="te"?"te":"dev"); } catch(e){}
@@ -1090,10 +1115,8 @@ let subMode = "daily"; const subMoods = new Set();
 /* ---------- shared pieces ---------- */
 function decoder(x){
   return `<div class="decoder">
-    <div class="dec-head"><p class="hint">${tr(T.hint)}</p><button class="showall" data-all aria-expanded="false">${tr(T.showAll)}</button></div>
-    <div class="words">${x.w.map(([w,m],k)=>`<button class="word ${script==="te"?"te":""}" data-w="${k}" aria-pressed="false">${skt(w)}</button>`).join("")}</div>
-    <div class="decoded" aria-live="polite" data-vid="${vid(x)}"></div>
-    <dl class="allwords" hidden>${x.w.map(([w,m])=>`<div><dt class="${script==="te"?"te":""}">${skt(w)}</dt><dd>${m}</dd></div>`).join("")}</dl>
+    <h2 class="word-meanings-title">${tr(T.wordsMeaning)}</h2>
+    <dl class="allwords">${x.w.map(([w,m])=>`<div><dt class="${script==="te"?"te":""}">${skt(w)}</dt><dd>${m}</dd></div>`).join("")}</dl>
   </div>`;
 }
 function scriptSwitch(){
@@ -1336,17 +1359,8 @@ document.addEventListener("click", async e=>{
   const t = e.target;
   const L = t.closest("[data-l]"); if (L){ lang=L.dataset.l; script = lang==="te"?"te":"dev"; try{localStorage.setItem("lang",lang);localStorage.setItem("script",script)}catch(_){} render(true); return; }
   const S = t.closest("[data-s]"); if (S){ script=S.dataset.s; try{localStorage.setItem("script",script)}catch(_){} render(true); return; }
-  const W = t.closest("[data-w]");
-  if (W){ const box = W.closest(".decoder"), out = box.querySelector(".decoded"), x = byId(out.dataset.vid), [w,m] = x.w[+W.dataset.w];
-    box.querySelectorAll(".word").forEach(b=>b.setAttribute("aria-pressed", b===W));
-    const all=box.querySelector(".allwords"), ab=box.querySelector("[data-all]"); if(!all.hidden){ all.hidden=true; ab.setAttribute("aria-expanded","false"); ab.textContent=tr(T.showAll); } out.hidden=false;
-    out.innerHTML = `<small>${skt(w)}</small>${m}`; return; }
   const TB = t.closest("[data-tab]");
   if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
-  const A = t.closest("[data-all]");
-  if (A){ const box=A.closest(".decoder"), list=box.querySelector(".allwords"), open=list.hidden;
-    list.hidden=!open; A.setAttribute("aria-expanded",open); A.textContent = open ? tr(T.hideAll) : tr(T.showAll);
-    box.querySelector(".decoded").hidden = open; box.querySelectorAll(".word").forEach(b=>b.setAttribute("aria-pressed","false")); return; }
   const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
   if (t.closest("#psub")){ submitPhone(); return; }
   const M = t.closest("[data-mood]"); if (M){ const k=M.dataset.mood; subMoods.has(k)?subMoods.delete(k):subMoods.add(k); M.setAttribute("aria-pressed", subMoods.has(k)); updateSub(); return; }
