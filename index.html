@@ -780,6 +780,14 @@ body{background:var(--paper)}
 .lesson .notes .take{border-radius:13px}
 @media(max-width:560px){.lesson-verse .allwords div{grid-template-columns:minmax(0,40%) minmax(0,60%);gap:9px}.lesson-verse .allwords dt{font-size:17px}.lesson-verse .allwords dd{font-size:14px}}
 
+
+/* Keep the full verse translation with the Sanskrit and word meanings */
+.lesson-verse{position:static}
+.lesson-verse .ic-full-translation{margin-top:18px;padding:17px 18px 18px;border-radius:10px;background:#f7f0e4;border:1px solid #e9ddc9}
+.lesson-verse .ic-full-translation h2{font:600 12px/1.4 var(--sans);letter-spacing:.025em;color:#8f6c3c;margin:0 0 7px}
+.lesson-verse .ic-full-translation p{font:400 18px/1.57 var(--serif);color:#22283d;margin:0}
+.lang-te .lesson-verse .ic-full-translation p,.lang-hi .lesson-verse .ic-full-translation p{font-family:var(--sans);font-size:16.5px;line-height:1.8}
+
 </style>
 </head>
 <body>
@@ -1051,6 +1059,7 @@ Object.assign(T, T2, {
 
 Object.assign(T, {
   wordsMeaning:{en:"Words and meanings",te:"పదాలు, అర్థాలు",hi:"शब्द और अर्थ"},
+  fullVerseMeaning:{en:"Full verse meaning",te:"శ్లోకం పూర్తి అర్థం",hi:"पूरे श्लोक का अर्थ"},
   ctxShort:{en:"The context",te:"సందర్భం",hi:"प्रसंग"},
   whyH:{en:"What stands out",te:"గమనించదగ్గ విషయం",hi:"ध्यान देने की बात"},
   applyH:{en:"In everyday life",te:"రోజువారీ జీవితంలో",hi:"रोज़मर्रा की ज़िंदगी में"},
@@ -1278,10 +1287,11 @@ function lessonPage(x){
     <div class="crumb"><a href="#home">Inner Corner</a> / <a href="#ch-${x.c}">${tr(G.name)} ${x.c}</a> / ${vid(x)}</div>
     <div class="page-head"><h1>${tr(x.t)}</h1><p>${tr(G.name)}, ${trf(T.chv,x.c,x.v)}. ${trf(T.spoken, tr(SPEAKERS[x.sp]))}.</p></div>
     <div class="lesson">
-      <div class="lesson-verse">${verseBlock(x)}</div>
+      <div class="lesson-verse">${verseBlock(x)}
+        <div class="ic-full-translation"><h2>${tr(T.fullVerseMeaning)}</h2><p class="tr">${tr(x.m)}</p></div>
+      </div>
       <div class="notes">
         <section class="ctx-card"><h2>${tr(T.ctxShort)}</h2><p>${x.ctx}</p></section>
-        <section><h2>${tr(T.meaningH)}</h2><p class="meaning tr">${tr(x.m)}</p></section>
         <section><h2>${tr(T.whyH)}</h2><p>${x.shift ? x.shift+" " : ""}${x.x}</p></section>
         <section class="apply"><h2>${tr(T.applyH)}</h2>
           <div class="tabs" role="tablist">${applyTabs(x).map((t,k)=>`<button role="tab" data-tab="${k}" aria-selected="${k===0}">${t.label}</button>`).join("")}</div>
