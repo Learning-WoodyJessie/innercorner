@@ -788,6 +788,13 @@ body{background:var(--paper)}
 .lesson-verse .ic-full-translation p{font:400 18px/1.57 var(--serif);color:#22283d;margin:0}
 .lang-te .lesson-verse .ic-full-translation p,.lang-hi .lesson-verse .ic-full-translation p{font-family:var(--sans);font-size:16.5px;line-height:1.8}
 
+
+/* Full verse meaning stays alongside the Sanskrit, under context in the right column. */
+.lesson .notes .ic-full-translation{margin:0 0 28px;padding:22px 24px;border-radius:13px;background:#fcfaf5;border:1px solid #e9ddc9}
+.lesson .notes .ic-full-translation h2{font:600 14px/1.4 var(--sans);letter-spacing:.015em;color:#997443;margin:0 0 10px}
+.lesson .notes .ic-full-translation p{font:400 20px/1.65 var(--serif);color:#232840;margin:0}
+.lang-hi .lesson .notes .ic-full-translation p,.lang-te .lesson .notes .ic-full-translation p{font:400 18px/1.7 var(--sans)}
+@media(max-width:960px){.lesson .notes .ic-full-translation{margin-bottom:24px}}
 </style>
 </head>
 <body>
@@ -1287,11 +1294,10 @@ function lessonPage(x){
     <div class="crumb"><a href="#home">Inner Corner</a> / <a href="#ch-${x.c}">${tr(G.name)} ${x.c}</a> / ${vid(x)}</div>
     <div class="page-head"><h1>${tr(x.t)}</h1><p>${tr(G.name)}, ${trf(T.chv,x.c,x.v)}. ${trf(T.spoken, tr(SPEAKERS[x.sp]))}.</p></div>
     <div class="lesson">
-      <div class="lesson-verse">${verseBlock(x)}
-        <div class="ic-full-translation"><h2>${tr(T.fullVerseMeaning)}</h2><p class="tr">${tr(x.m)}</p></div>
-      </div>
+      <div class="lesson-verse">${verseBlock(x)}</div>
       <div class="notes">
         <section class="ctx-card"><h2>${tr(T.ctxShort)}</h2><p>${x.ctx}</p></section>
+        <section class="ic-full-translation"><h2>${tr(T.fullVerseMeaning)}</h2><p class="tr">${tr(x.m)}</p></section>
         <section><h2>${tr(T.whyH)}</h2><p>${x.shift ? x.shift+" " : ""}${x.x}</p></section>
         <section class="apply"><h2>${tr(T.applyH)}</h2>
           <div class="tabs" role="tablist">${applyTabs(x).map((t,k)=>`<button role="tab" data-tab="${k}" aria-selected="${k===0}">${t.label}</button>`).join("")}</div>
