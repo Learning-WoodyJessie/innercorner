@@ -795,6 +795,14 @@ body{background:var(--paper)}
 .lesson .notes .ic-full-translation p{font:400 20px/1.65 var(--serif);color:#232840;margin:0}
 .lang-hi .lesson .notes .ic-full-translation p,.lang-te .lesson .notes .ic-full-translation p{font:400 18px/1.7 var(--sans)}
 @media(max-width:960px){.lesson .notes .ic-full-translation{margin-bottom:24px}}
+
+/* Separate the site translation language from the Sanskrit writing system */
+.langs button[aria-pressed="true"]{font-weight:600}
+.script-switch button{padding:2px 3px;min-height:28px}
+.script-switch button[aria-pressed="true"]{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.lesson-verse .word-meanings-title .gloss-language{font:400 12px/1.45 var(--sans);color:#777987;letter-spacing:0;margin-left:5px}
+.translation-availability{background:#f6f0e6;border-left:3px solid #b59b6e;padding:11px 15px;font:400 14px/1.6 var(--sans);color:#5e5c62;margin:0 0 22px}
+
 </style>
 </head>
 <body>
@@ -806,7 +814,7 @@ body{background:var(--paper)}
     </a>
     <nav class="menu" id="menu" aria-label="Main"></nav>
     <div class="langs" role="group" aria-label="Language">
-      <button data-l="en">EN</button><button data-l="te">తె</button><button data-l="hi">हि</button>
+      <button type="button" data-l="en" aria-label="English" lang="en">EN</button><button type="button" data-l="te" aria-label="Telugu" lang="te">తె</button><button type="button" data-l="hi" aria-label="Hindi" lang="hi">हि</button>
     </div>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
@@ -1067,6 +1075,8 @@ Object.assign(T, T2, {
 Object.assign(T, {
   wordsMeaning:{en:"Words and meanings",te:"పదాలు, అర్థాలు",hi:"शब्द और अर्थ"},
   fullVerseMeaning:{en:"Full verse meaning",te:"శ్లోకం పూర్తి అర్థం",hi:"पूरे श्लोक का अर्थ"},
+  glossEnglish:{en:"",te:"(అర్థాలు ఆంగ్లంలో)",hi:"(अर्थ अंग्रेज़ी में)"},
+  commentaryEnglish:{en:"",te:"పూర్తి శ్లోక అనువాదం తెలుగులో ఉంది. సందర్భం, వివరణలు, పదాల అర్థాలు ప్రస్తుతం ఆంగ్లంలో ఉన్నాయి.",hi:"पूरे श्लोक का अनुवाद हिंदी में उपलब्ध है। संदर्भ, व्याख्याएँ और शब्दार्थ अभी अंग्रेज़ी में हैं।"},
   ctxShort:{en:"The context",te:"సందర్భం",hi:"प्रसंग"},
   whyH:{en:"What stands out",te:"గమనించదగ్గ విషయం",hi:"ध्यान देने की बात"},
   applyH:{en:"In everyday life",te:"రోజువారీ జీవితంలో",hi:"रोज़मर्रा की ज़िंदगी में"},
@@ -1077,7 +1087,7 @@ Object.assign(T, {
 });
 const G = LIBRARY.gita, V = G.verses, CH = G.sections;
 let lang = "en", script = "dev";
-try { lang = localStorage.getItem("lang") || lang; script = localStorage.getItem("script") || (lang==="te"?"te":"dev"); } catch(e){}
+try { const storedLang=localStorage.getItem("lang"), storedScript=localStorage.getItem("script"); if (["en","te","hi"].includes(storedLang)) lang=storedLang; if (["dev","te"].includes(storedScript)) script=storedScript; } catch(e){}
 
 const $ = id => document.getElementById(id);
 const tr = o => (o && (o[lang] ?? o.en)) || "";
@@ -1131,12 +1141,12 @@ let subMode = "daily"; const subMoods = new Set();
 /* ---------- shared pieces ---------- */
 function decoder(x){
   return `<div class="decoder">
-    <h2 class="word-meanings-title">${tr(T.wordsMeaning)}</h2>
-    <dl class="allwords">${x.w.map(([w,m])=>`<div><dt class="${script==="te"?"te":""}">${skt(w)}</dt><dd>${m}</dd></div>`).join("")}</dl>
+    <h2 class="word-meanings-title">${tr(T.wordsMeaning)} <small class="gloss-language">${lang==="en"?"":tr(T.glossEnglish)}</small></h2>
+    <dl class="allwords">${x.w.map(([w,m])=>`<div><dt class="${script==="te"?"te":""}" lang="sa">${skt(w)}</dt><dd lang="en">${m}</dd></div>`).join("")}</dl>
   </div>`;
 }
 function scriptSwitch(){
-  return `<div class="script-switch">${tr(T.readIn)}: <button data-s="dev" class="${script==="dev"?"on":""}">${tr(T.showDev)}</button> / <button data-s="te" class="${script==="te"?"on":""}">${tr(T.showTe)}</button></div>`;
+  return `<div class="script-switch">${tr(T.readIn)}: <button type="button" data-s="dev" aria-pressed="${script==="dev"}" class="${script==="dev"?"on":""}">${tr(T.showDev)}</button> / <button type="button" data-s="te" aria-pressed="${script==="te"}" class="${script==="te"?"on":""}">${tr(T.showTe)}</button></div>`;
 }
 function verseBlock(x){
   return `<p class="verse-hero ${script==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
@@ -1296,6 +1306,7 @@ function lessonPage(x){
     <div class="lesson">
       <div class="lesson-verse">${verseBlock(x)}</div>
       <div class="notes">
+        ${lang!=="en" ? `<p class="translation-availability" role="note">${tr(T.commentaryEnglish)}</p>` : ""}
         <section class="ctx-card"><h2>${tr(T.ctxShort)}</h2><p>${x.ctx}</p></section>
         <section class="ic-full-translation"><h2>${tr(T.fullVerseMeaning)}</h2><p class="tr">${tr(x.m)}</p></section>
         <section><h2>${tr(T.whyH)}</h2><p>${x.shift ? x.shift+" " : ""}${x.x}</p></section>
@@ -1344,7 +1355,7 @@ const SECTIONS = ["home","today","gita","about","feelings","life","whatsapp","li
 let onHome = false;
 function render(keepScroll){
   document.body.className = "lang-"+lang; document.documentElement.lang = lang;
-  document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on", b.dataset.l===lang));
+  document.querySelectorAll(".langs button").forEach(b=>{ const selected=b.dataset.l===lang; b.classList.toggle("on",selected); b.setAttribute("aria-pressed",String(selected)); });
   $("ftag").textContent = tr(T.tagline); $("fnote").textContent = tr(T.footNote);
   let h = location.hash.slice(1) || "home";
   if (h.startsWith("sub-") && FEELINGS[h.slice(4)]) { subMode="mood"; subMoods.add(h.slice(4)); onHome=false; h="whatsapp"; }
@@ -1365,7 +1376,7 @@ function render(keepScroll){
     $("view").innerHTML = html; if (keepScroll) scrollTo(0,y); else scrollTo(0,0);
   }
   $("hdr").classList.remove("dark");
-  $("menu").innerHTML = [["gita",G.name],["library",{en:"Other readings",te:"ఇతర అధ్యయనాలు",hi:"अन्य अध्ययनాలు"}],["about",T.navWhy]]
+  $("menu").innerHTML = [["gita",G.name],["library",{en:"Other readings",te:"ఇతర అధ్యయనాలు",hi:"अन्य अध्ययन"}],["about",T.navWhy]]
     .map(([k,l])=>`<a href="#${k}" class="${k===active?"on":""}">${tr(l)}</a>`).join("");
   $("menu").classList.remove("open"); $("burger").setAttribute("aria-expanded","false");
   if ($("nm")) { $("nm").oninput = updateSub; $("ph").oninput = updateSub; $("cc").onchange = updateSub; updateSub(); }
@@ -1373,8 +1384,8 @@ function render(keepScroll){
 
 document.addEventListener("click", async e=>{
   const t = e.target;
-  const L = t.closest("[data-l]"); if (L){ lang=L.dataset.l; script = lang==="te"?"te":"dev"; try{localStorage.setItem("lang",lang);localStorage.setItem("script",script)}catch(_){} render(true); return; }
-  const S = t.closest("[data-s]"); if (S){ script=S.dataset.s; try{localStorage.setItem("script",script)}catch(_){} render(true); return; }
+  const L = t.closest("[data-l]"); if (L){ if (!["en","te","hi"].includes(L.dataset.l)) return; lang=L.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(true); return; }
+  const S = t.closest("[data-s]"); if (S){ if (!["dev","te"].includes(S.dataset.s)) return; script=S.dataset.s; try{localStorage.setItem("script",script)}catch(_){} render(true); return; }
   const TB = t.closest("[data-tab]");
   if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
   const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
