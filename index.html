@@ -615,6 +615,43 @@ body{background:var(--paper)}
 /* Ensure photo blends into the hero, without excess margins */
 .ic-intro-art{border-radius:0;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 21%);mask-image:linear-gradient(90deg,transparent 0%,#000 21%)}
 @media(max-width:640px){.ic-intro-art{border-radius:0}}
+
+/* Final approved-mock refinements — deliberate proportions, crisp icons and soft photo edges */
+.ic-intro{background:linear-gradient(90deg,#faf8f3 0%,#f8f3eb 50%,#eadcca 100%)}
+.ic-intro-inner{min-height:259px;grid-template-columns:.99fr 1.01fr;gap:0}
+.ic-intro-art{height:252px;margin-right:-18px;overflow:hidden;opacity:1;
+ -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 20%,#000 91%,transparent 100%);
+ mask-image:linear-gradient(to right,transparent 0%,#000 20%,#000 91%,transparent 100%)}
+.ic-intro-art img{object-position:54% center;object-fit:cover;width:100%;height:100%}
+.ic-gita-panel{position:relative;overflow:hidden;isolation:isolate}
+.ic-gita-ornament{position:absolute;top:15px;left:-30px;width:160px;height:300px;z-index:-1;pointer-events:none;opacity:.60}
+.ic-gita-grid,.ic-gita-links{position:relative;z-index:1}
+.ic-gita-grid{grid-template-columns:.85fr 1.15fr;gap:clamp(28px,3.5vw,58px)}
+.ic-gita-copy{padding:6px 0 2px clamp(9px,3vw,42px)}
+.ic-gita-copy h2{font-size:clamp(38px,3.7vw,54px);line-height:1.14}
+.ic-gita-copy>p:not(.ic-eyebrow){max-width:385px;line-height:1.62}
+.ic-verse-card{padding:26px 32px 28px}
+.ic-gita-links{padding-top:16px;margin-top:24px}
+.ic-gita-links a{gap:14px;transition:background .15s}
+.ic-link-symbol{display:flex;align-items:center;justify-content:center;flex:0 0 42px;color:#ead08f}
+.ic-nav-icon{display:block;width:36px;height:36px}
+.ic-gita-links strong{font-size:20px}
+.ic-readings{padding-top:25px}
+.ic-reading-grid article{border-color:#e5d9c7}
+@media(max-width:900px){
+ .ic-gita-grid{grid-template-columns:1fr 1.05fr;gap:20px}
+ .ic-gita-copy{padding:0}
+ .ic-gita-ornament{width:130px;opacity:.3;left:-50px}
+}
+@media(max-width:640px){
+ .ic-intro-art{height:142px;margin:8px -18px 0;mask-image:linear-gradient(to bottom,#000 0%,#000 74%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 74%,transparent 100%)}
+ .ic-gita-grid{grid-template-columns:1fr;gap:22px}
+ .ic-gita-copy{padding:0}
+ .ic-gita-ornament{width:110px;top:18px;left:-50px;opacity:.28}
+ .ic-gita-links{margin-top:20px}
+ .ic-gita-links .ic-nav-icon{width:31px;height:31px}
+}
+
 </style>
 </head>
 <body>
@@ -994,6 +1031,14 @@ function homePage(){
   </section>
   <section class="ic-gita-shell" id="gita"><div class="wrap">
     <div class="ic-gita-panel">
+      <svg class="ic-gita-ornament" viewBox="0 0 180 300" fill="none" aria-hidden="true">
+        <g stroke="#c5a069" stroke-width="1.15" opacity=".62">
+          <circle cx="9" cy="150" r="105"/><circle cx="9" cy="150" r="79"/><circle cx="9" cy="150" r="47"/>
+          <path d="M9 45C-3 83-3 115 9 150c12-35 12-67 0-105Zm0 210c-12-38-12-70 0-105 12 35 12 67 0 105ZM-96 150C-58 138-26 138 9 150c-35 12-67 12-105 0Zm210 0C76 138 44 138 9 150c35 12 67 12 105 0Z"/>
+          <path d="M-65 76Q-8 89 9 150Q26 89 83 76M-65 224Q-8 211 9 150Q26 211 83 224"/>
+          <path d="M-21 55Q42 95 9 150Q-24 205-21 245M39 55Q-24 95 9 150Q42 205 39 245"/>
+        </g>
+      </svg>
       <div class="ic-gita-grid">
         <div class="ic-gita-copy">
           <p class="ic-eyebrow">${h("current")}</p>
@@ -1011,9 +1056,9 @@ function homePage(){
         </article>
       </div>
       <nav class="ic-gita-links" aria-label="Explore Bhagavad Gita">
-        <a href="#chapters"><span class="ic-link-symbol" aria-hidden="true">◫</span><span><strong>${h("chapters")}</strong><small>${h("chapterDesc")}</small></span><span aria-hidden="true">→</span></a>
-        <a href="#feelings"><span class="ic-link-symbol" aria-hidden="true">◇</span><span><strong>${h("feeling")}</strong><small>${h("feelingDesc")}</small></span><span aria-hidden="true">→</span></a>
-        <a href="#chapters"><span class="ic-link-symbol" aria-hidden="true">▤</span><span><strong>${h("selected")}</strong><small>${h("selectedDesc")}</small></span><span aria-hidden="true">→</span></a>
+        <a href="#chapters"><span class="ic-link-symbol"><svg class="ic-nav-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10v24M20 10C14 5 7 6 3 8v24c6-2 12-1 17 2m0-24c6-5 13-4 17-2v24c-6-2-12-1-17 2"/></svg></span><span><strong>${h("chapters")}</strong><small>${h("chapterDesc")}</small></span><span aria-hidden="true">→</span></a>
+        <a href="#feelings"><span class="ic-link-symbol"><svg class="ic-nav-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 33C10 27 7 19 10 13c6 0 9 5 10 9 1-4 4-9 10-9 3 6 0 14-10 20Z"/><path d="M20 22C16 15 17 10 20 5c3 5 4 10 0 17Z"/><path d="M6 27c5 0 10 2 14 6 4-4 9-6 14-6"/></svg></span><span><strong>${h("feeling")}</strong><small>${h("feelingDesc")}</small></span><span aria-hidden="true">→</span></a>
+        <a href="#chapters"><span class="ic-link-symbol"><svg class="ic-nav-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m20 5 17 8-17 8L3 13 20 5Z"/><path d="m5 20 15 7 15-7M5 27l15 7 15-7"/></svg></span><span><strong>${h("selected")}</strong><small>${h("selectedDesc")}</small></span><span aria-hidden="true">→</span></a>
       </nav>
     </div>
   </div></section>
