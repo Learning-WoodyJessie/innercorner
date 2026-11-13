@@ -92,26 +92,58 @@ const GITA_VERSES = [
    "hi": "रणभूमि में ऐसा कहकर, शोक से व्याकुल मन वाले अर्जुन धनुष-बाण त्यागकर रथ के पिछले भाग में बैठ गए।"
   },
   "w": [
-   [
-    "एवम् उक्त्वा",
-    "having said this"
-   ],
-   [
-    "सङ्ख्ये",
-    "on the battlefield"
-   ],
-   [
-    "विसृज्य",
-    "letting go of"
-   ],
-   [
-    "सशरं चापम्",
-    "bow and arrows"
-   ],
-   [
-    "शोकसंविग्नमानसः",
-    "mind shaken by grief"
-   ]
+    [
+      "एवम्",
+      "thus; in this way"
+    ],
+    [
+      "उक्त्वा",
+      "having spoken"
+    ],
+    [
+      "अर्जुनः",
+      "Arjuna"
+    ],
+    [
+      "सङ्ख्ये",
+      "on the battlefield"
+    ],
+    [
+      "रथ",
+      "chariot"
+    ],
+    [
+      "उपस्थे",
+      "on the seat"
+    ],
+    [
+      "उपाविशत्",
+      "sat down"
+    ],
+    [
+      "विसृज्य",
+      "having cast aside"
+    ],
+    [
+      "सशरम्",
+      "together with arrows"
+    ],
+    [
+      "चापम्",
+      "bow"
+    ],
+    [
+      "शोक",
+      "grief; sorrow"
+    ],
+    [
+      "संविग्न",
+      "distressed; overwhelmed"
+    ],
+    [
+      "मानसः",
+      "mind"
+    ]
   ],
   "x": "The Gita does not open with an answer. It opens with a capable man who can no longer function, which is why it speaks to so many people. Everything Krishna teaches in the next seventeen chapters is addressed to this moment: what to do when competence runs out and grief takes over.",
   "self": "Breakdowns are rarely sudden. Learn the signs that you are carrying more than you can hold, before you reach the point of putting everything down.",
