@@ -1351,19 +1351,20 @@ function updateSub(){
   if (num.length < 6){ a.href="#whatsapp"; a.setAttribute("aria-disabled","true"); return; }
   a.href=`https://wa.me/${CONFIG.WA_NUMBER}?text=${encodeURIComponent(msg)}`; a.removeAttribute("aria-disabled");
 }
-const SECTIONS = ["home","today","gita","about","feelings","life","whatsapp","library"];
+const SECTIONS = ["home","gita","about","feelings","life","whatsapp","library"];
 let onHome = false;
 function render(keepScroll){
   document.body.className = "lang-"+lang; document.documentElement.lang = lang;
   document.querySelectorAll(".langs button").forEach(b=>{ const selected=b.dataset.l===lang; b.classList.toggle("on",selected); b.setAttribute("aria-pressed",String(selected)); });
   $("ftag").textContent = tr(T.tagline); $("fnote").textContent = tr(T.footNote);
   let h = location.hash.slice(1) || "home";
+  if (h==="today") h=hashOf(todayVerse); // Today route shows the current verse, not the homepage
   if (h.startsWith("sub-") && FEELINGS[h.slice(4)]) { subMode="mood"; subMoods.add(h.slice(4)); onHome=false; h="whatsapp"; }
   let active = "", y = scrollY;
   if (SECTIONS.includes(h)) {
     if (!onHome || keepScroll) $("view").innerHTML = homePage();
     onHome = true; active = h==="home" ? "" : h;
-    if (keepScroll) scrollTo(0,y); else if (h==="home"||h==="today") scrollTo(0,0); else $(h)?.scrollIntoView();
+    if (keepScroll) scrollTo(0,y); else if (h==="home") scrollTo(0,0); else $(h)?.scrollIntoView();
   } else {
     onHome = false; let html;
     if (h.startsWith("v-")) { const x = byId(h.slice(2).replace("-",".")); html = x ? lessonPage(x) : homePage(); active="chapters"; }
