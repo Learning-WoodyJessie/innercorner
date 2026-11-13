@@ -624,11 +624,11 @@ const GITA_VERSES = [
       ],
       [
         "एव",
-        "only"
+        "alone or only"
       ],
       [
         "अधिकारः",
-        "right, claim"
+        "right or entitlement"
       ],
       [
         "ते",
@@ -644,19 +644,35 @@ const GITA_VERSES = [
       ],
       [
         "कदाचन",
-        "ever"
+        "at any time"
       ],
       [
-        "कर्मफल",
-        "the result of action"
+        "मा",
+        "do not"
+      ],
+      [
+        "कर्म",
+        "action"
+      ],
+      [
+        "फल",
+        "result"
       ],
       [
         "हेतुः",
-        "motive, reason"
+        "motive or cause"
       ],
       [
         "भूः",
-        "be"
+        "become"
+      ],
+      [
+        "मा",
+        "do not"
+      ],
+      [
+        "ते",
+        "your"
       ],
       [
         "सङ्गः",
@@ -664,7 +680,7 @@ const GITA_VERSES = [
       ],
       [
         "अस्तु",
-        "let there be"
+        "let it be"
       ],
       [
         "अकर्मणि",
@@ -2050,7 +2066,7 @@ const GITA_VERSES = [
         "Desire, anger and greed: the roots of jealousy and conflict"
       ],
       [
-        "13.7",
+        "13.8",
         "Humility: the first mark of real knowledge, and the cure for ego"
       ]
     ],
@@ -2080,11 +2096,11 @@ const GITA_VERSES = [
       ],
       [
         "आत्मा",
-        "the Self, the soul"
+        "the Self"
       ],
       [
         "गुडाकेश",
-        "O Arjuna ('conqueror of sleep')"
+        "Arjuna (conqueror of sleep)"
       ],
       [
         "सर्व",
@@ -2096,11 +2112,15 @@ const GITA_VERSES = [
       ],
       [
         "आशय",
-        "heart (literally, 'resting place')"
+        "dwelling place or heart"
       ],
       [
         "स्थितः",
-        "seated, dwelling"
+        "dwelling"
+      ],
+      [
+        "अहम्",
+        "I"
       ],
       [
         "आदिः",
@@ -2115,6 +2135,10 @@ const GITA_VERSES = [
         "the middle"
       ],
       [
+        "च",
+        "and"
+      ],
+      [
         "भूतानाम्",
         "of beings"
       ],
@@ -2123,8 +2147,12 @@ const GITA_VERSES = [
         "the end"
       ],
       [
-        "एव च",
-        "and also"
+        "एव",
+        "indeed"
+      ],
+      [
+        "च",
+        "and"
       ]
     ],
     "voices": [
@@ -2867,15 +2895,15 @@ const GITA_VERSES = [
       ],
       [
         "धर्मान्",
-        "duties, paths"
+        "duties or forms of dharma"
       ],
       [
         "परित्यज्य",
-        "setting aside"
+        "having relinquished"
       ],
       [
         "माम्",
-        "in Me"
+        "Me"
       ],
       [
         "एकम्",
@@ -2887,7 +2915,7 @@ const GITA_VERSES = [
       ],
       [
         "व्रज",
-        "go to, take"
+        "take or go to"
       ],
       [
         "अहम्",
@@ -2898,12 +2926,16 @@ const GITA_VERSES = [
         "you"
       ],
       [
+        "सर्व",
+        "all"
+      ],
+      [
         "पापेभ्यः",
         "from sins"
       ],
       [
         "मोक्षयिष्यामि",
-        "will set free"
+        "I will liberate"
       ],
       [
         "मा",
@@ -2911,7 +2943,7 @@ const GITA_VERSES = [
       ],
       [
         "शुचः",
-        "grieve, worry"
+        "grieve"
       ]
     ],
     "x": "Ramanuja's tradition calls this the charama shloka, the final and supreme verse. Commentators read \"setting aside all dharmas\" differently: Shankara as giving up the sense of being the doer; Ramanuja as complete surrender, relying on grace rather than on one's own efforts. All agree on the comfort of the last words, mā śucaḥ: do not grieve.",
@@ -3026,7 +3058,7 @@ const GITA_VERSES = [
       "work"
     ]
   }
-]
+];
 
 const LIBRARY = {
   gita: {
