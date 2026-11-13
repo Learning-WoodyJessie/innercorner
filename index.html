@@ -721,6 +721,50 @@ body{background:var(--paper)}
 }
 @media(prefers-reduced-motion:reduce){.ic-reading-card,.ic-feeling-card,.ic-feeling-arrow{transition:none!important}}
 
+
+/* Feeling cards: perceptible visual identity before hover, without loud color */
+.ic-feelings{background:linear-gradient(180deg,#f0eee8 0%,#eae9e4 100%)}
+.ic-feeling-grid{gap:13px}
+.ic-feeling-grid a.ic-feeling-card{
+ --mood-bg:#f5f1ec;--mood-border:#ddd3c4;--mood-ink:#877358;
+ display:grid;grid-template-columns:53px minmax(0,1fr) 22px;align-items:center;gap:13px;
+ min-height:112px;padding:18px 16px;border:1px solid var(--mood-border);border-radius:13px;
+ background:linear-gradient(120deg,var(--mood-bg),#fffdf9 95%);
+ box-shadow:0 5px 16px rgba(31,36,57,.04);border-top:1px solid var(--mood-border);
+}
+.ic-feeling-visual{height:52px;width:52px;display:grid;place-items:center;border-radius:13px;
+ background:color-mix(in srgb,var(--mood-ink) 11%,white);color:var(--mood-ink);
+ border:1px solid color-mix(in srgb,var(--mood-ink) 18%,transparent)}
+.ic-feeling-visual svg{width:26px;height:26px}
+.ic-feeling-content{display:flex;flex-direction:column;gap:9px;min-width:0}
+.ic-feeling-num{font:600 9px/1.2 var(--sans);letter-spacing:.09em;color:var(--mood-ink);opacity:.87}
+.ic-feeling-title{font:500 17px/1.25 var(--sans);color:#252a40}
+.ic-feeling-grid .ic-feeling-arrow{position:static;justify-self:end;align-self:start;color:var(--mood-ink);font-size:20px;line-height:1}
+.ic-feeling-grid a.ic-feeling-card:hover{background:linear-gradient(120deg,var(--mood-bg),#fff 95%);border-color:var(--mood-ink);box-shadow:0 12px 26px rgba(31,36,57,.09)}
+.ic-feeling-grid a.ic-feeling-card:active{transform:translateY(0);box-shadow:0 3px 9px rgba(31,36,57,.06)}
+.ic-mood-anxious{--mood-bg:#e8eef2!important;--mood-border:#ccd8df!important;--mood-ink:#668399!important}
+.ic-mood-fear{--mood-bg:#eeeaf2!important;--mood-border:#d9d0e2!important;--mood-ink:#877798!important}
+.ic-mood-sad{--mood-bg:#e8edf2!important;--mood-border:#cfd9e2!important;--mood-ink:#71869b!important}
+.ic-mood-angry{--mood-bg:#f3e9e4!important;--mood-border:#e5d1c6!important;--mood-ink:#a67b68!important}
+.ic-mood-confused{--mood-bg:#f2ebdf!important;--mood-border:#e5d7bd!important;--mood-ink:#9d8159!important}
+.ic-mood-stuck{--mood-bg:#ebeee4!important;--mood-border:#d4dcc7!important;--mood-ink:#7d9070!important}
+.ic-mood-restless{--mood-bg:#e5efed!important;--mood-border:#cbdeda!important;--mood-ink:#628c86!important}
+.ic-mood-grateful{--mood-bg:#f5eddc!important;--mood-border:#e7d9b7!important;--mood-ink:#a58a4d!important}
+@media(max-width:1100px){.ic-feeling-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){
+ .ic-feeling-grid{gap:10px}
+ .ic-feeling-grid a.ic-feeling-card{grid-template-columns:43px minmax(0,1fr) 16px;gap:10px;min-height:92px;padding:12px 10px}
+ .ic-feeling-visual{height:42px;width:42px;border-radius:11px}
+ .ic-feeling-visual svg{width:23px;height:23px}
+ .ic-feeling-num{font-size:8px;letter-spacing:.025em}
+ .ic-feeling-title{font-size:15px}
+ .ic-feeling-content{gap:8px}
+ .ic-feeling-grid .ic-feeling-arrow{font-size:16px}
+}
+@supports not (background:color-mix(in srgb,red,white)){
+ .ic-feeling-visual{background:#ffffffa8;border-color:#ffffff60}
+}
+
 </style>
 </head>
 <body>
@@ -1145,7 +1189,7 @@ function homePage(){
   <section class="ic-feelings" id="feelings"><div class="wrap">
     <div class="ic-section-heading"><div><p class="ic-section-label">${tr(G.name)} · ${h("feeling")}</p>
       <h2>${h("feelHead")}</h2><p>${h("feelSub")}</p></div></div>
-    <div class="ic-feeling-grid">${Object.entries(FEELINGS).map(([k,f],i)=>`<a class="ic-feeling-card ic-mood-${k}" href="#feel-${k}"><span class="ic-feeling-num">${String(i+1).padStart(2,"0")}</span><span class="ic-feeling-title">${tr(f)}</span><span class="ic-feeling-arrow" aria-hidden="true">↗</span></a>`).join("")}</div>
+    <div class="ic-feeling-grid">${Object.entries(FEELINGS).map(([k,f],i)=>`<a class="ic-feeling-card ic-mood-${k}" href="#feel-${k}"><span class="ic-feeling-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">${FEEL_ICONS[k]}</svg></span><span class="ic-feeling-content"><span class="ic-feeling-num">${String(i+1).padStart(2,"0")} · ${tr(G.name)}</span><span class="ic-feeling-title">${tr(f)}</span></span><span class="ic-feeling-arrow" aria-hidden="true">↗</span></a>`).join("")}</div>
   </div></section>
   <section class="s ic-about-section" id="about"><div class="wrap"><div class="about-card ic-about-panel">
     <div class="ic-about-intro"><div class="mini-diya" aria-hidden="true">${miniDiya()}</div>
