@@ -803,6 +803,20 @@ body{background:var(--paper)}
 .lesson-verse .word-meanings-title .gloss-language{font:400 12px/1.45 var(--sans);color:#777987;letter-spacing:0;margin-left:5px}
 .translation-availability{background:#f6f0e6;border-left:3px solid #b59b6e;padding:11px 15px;font:400 14px/1.6 var(--sans);color:#5e5c62;margin:0 0 22px}
 
+
+/* A first-visit choice, not a barrier to exploring */
+.entry-dialog{width:min(460px,calc(100% - 32px));max-height:min(90vh,700px);overflow:auto;border:1px solid var(--rule);border-radius:22px;background:var(--white);color:var(--ink);padding:36px 30px 28px;box-shadow:0 20px 80px rgba(28,32,56,.22)}
+.entry-dialog::backdrop{background:rgba(28,32,56,.46);backdrop-filter:blur(3px)}
+.entry-dialog .entry-eyebrow{font:600 12px var(--sans);text-transform:uppercase;letter-spacing:.13em;color:var(--stone);margin:0 0 12px}
+.entry-dialog h2{font:400 clamp(25px,5vw,33px)/1.2 var(--serif);margin:0 0 12px}
+.entry-dialog .entry-intro{font-size:15px;color:var(--stone);margin:0 0 22px;line-height:1.6}
+.entry-choices{display:grid;gap:12px}
+.entry-choice{display:block;width:100%;text-align:left;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;font:inherit;cursor:pointer}
+.entry-choice:hover,.entry-choice:focus-visible{border-color:var(--turmeric);background:#f8f4e9}
+.entry-choice strong{display:block;font-size:17px;font-weight:600;line-height:1.35}
+.entry-choice small{display:block;margin-top:5px;font-size:13px;color:var(--stone);line-height:1.5}
+.entry-skip{display:block;margin:20px auto 0;padding:7px 14px;border:0;background:transparent;text-decoration:underline;text-underline-offset:4px;color:var(--stone);font:500 14px var(--sans);cursor:pointer}
+@media(max-width:480px){.entry-dialog{padding:27px 20px 22px}}
 </style>
 </head>
 <body>
@@ -820,6 +834,17 @@ body{background:var(--paper)}
   </div>
 </header>
 <main id="view"></main>
+<dialog class="entry-dialog" id="entryDialog" aria-labelledby="entryTitle" aria-describedby="entryIntro">
+  <p class="entry-eyebrow" id="entryEyebrow">Inner Corner</p>
+  <h2 id="entryTitle">How would you like to begin?</h2>
+  <p class="entry-intro" id="entryIntro">A little reading, at your own pace. Choose what feels useful today.</p>
+  <div class="entry-choices">
+    <button type="button" class="entry-choice" data-entry="today"><strong id="entryToday">Read today's verse</strong><small id="entryTodayHint">A small reading with its meaning and context</small></button>
+    <button type="button" class="entry-choice" data-entry="feelings"><strong id="entryFeelings">How am I feeling?</strong><small id="entryFeelingHint">Find a reading for what's on your mind</small></button>
+  </div>
+  <button type="button" class="entry-skip" data-entry="skip" id="entrySkip">Explore the site instead</button>
+</dialog>
+
 <footer><div class="wrap"><div><b>Inner Corner</b><span id="ftag"></span></div><div id="fnote"></div></div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -1376,6 +1401,33 @@ function updateSub(){
   a.removeAttribute("aria-disabled");
 }
 
+
+const ENTRY_TEXT = {
+  title:{en:"How would you like to begin?",te:"ఎలా మొదలుపెట్టాలనుకుంటున్నారు?",hi:"आप कैसे शुरुआत करना चाहेंगे?"},
+  intro:{en:"A little reading, at your own pace. Choose what feels useful today.",te:"మీకు అనుకూలమైన వేగంతో ఒక చిన్న పఠనం. ఈ రోజు మీకు ఉపయోగపడేదాన్ని ఎంచుకోండి.",hi:"अपनी गति से थोड़ा पढ़ें। आज जो उपयोगी लगे, उससे शुरुआत करें।"},
+  today:{en:"Read today's verse",te:"నేటి శ్లోకం చదవండి",hi:"आज का श्लोक पढ़ें"},
+  todayHint:{en:"A small reading with its meaning and context",te:"ఒక చిన్న శ్లోకం, దాని అర్థం, సందర్భం",hi:"एक छोटा श्लोक, उसका अर्थ और संदर्भ"},
+  feelings:{en:"How am I feeling?",te:"ఈ రోజు నా మనసు ఎలా ఉంది?",hi:"आज मैं कैसा महसूस कर रहा/रही हूँ?"},
+  feelingsHint:{en:"Find a reading for what's on your mind",te:"మీ మనసులో ఉన్న భావానికి తగిన పఠనం",hi:"मन की भावना से जुड़ा पाठ खोजें"},
+  skip:{en:"Explore the site instead",te:"సైట్‌ను అన్వేషించండి",hi:"पहले वेबसाइट देखें"}
+};
+function updateEntryLanguage(){
+  const items=[["entryTitle","title"],["entryIntro","intro"],["entryToday","today"],["entryTodayHint","todayHint"],["entryFeelings","feelings"],["entryFeelingHint","feelingsHint"],["entrySkip","skip"]];
+  items.forEach(([id,k])=>{const e=$(id);if(e)e.textContent=tr(ENTRY_TEXT[k]);});
+}
+function showWelcomeOnce(){
+  const dialog=$("entryDialog");
+  if(!dialog || typeof dialog.showModal!=="function")return;
+  // Deep links should always open their target directly.
+  if(location.hash && location.hash!=="#home")return;
+  try{
+    if(sessionStorage.getItem("innercorner-entry-shown"))return;
+    sessionStorage.setItem("innercorner-entry-shown","1");
+  }catch(_){ /* Storage disabled: offer the choice on this page load only. */ }
+  updateEntryLanguage();
+  dialog.showModal();
+}
+
 const SECTIONS = ["home","gita","about","feelings","life","whatsapp","library"];
 let onHome = false;
 function render(keepScroll){
@@ -1410,7 +1462,15 @@ function render(keepScroll){
 
 document.addEventListener("click", async e=>{
   const t = e.target;
-  const L = t.closest("[data-l]"); if (L){ if (!["en","te","hi"].includes(L.dataset.l)) return; lang=L.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(true); return; }
+  const entry=t.closest("[data-entry]");
+  if(entry){
+    const dest=entry.dataset.entry;
+    $("entryDialog").close();
+    if(dest==="today")location.hash="#today";
+    else if(dest==="feelings")location.hash="#feelings";
+    return;
+  }
+  const L = t.closest("[data-l]"); if (L){ if (!["en","te","hi"].includes(L.dataset.l)) return; lang=L.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(true); updateEntryLanguage(); return; }
   const TB = t.closest("[data-tab]");
   if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
   const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
@@ -1423,6 +1483,7 @@ document.addEventListener("click", async e=>{
 
 addEventListener("hashchange", ()=>render(false));
 render(false);
+showWelcomeOnce();
 </script>
 </body>
 </html>
