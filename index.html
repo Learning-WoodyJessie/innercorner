@@ -181,7 +181,7 @@ input:focus,select:focus{outline:2px solid var(--turmeric);outline-offset:0;bord
 .form .btn{width:100%;justify-content:center;padding:15px}
 .fine{font-size:13.5px;color:var(--stone);margin:12px 0 0}
 .err{color:var(--kumkum);font-size:14px;margin:10px 0 0;min-height:1em}
-.done h3{font:400 28px/1.2 var(--serif);margin:0 0 10px}
+.signup-status{border-left:3px solid var(--turmeric);padding:12px 14px;background:#f9f6ed;font-size:14px;line-height:1.55;margin:12px 0 22px}\n.signup-choice{font-size:14px;margin:0 0 8px}\n.signup-consent{display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.5;margin:12px 0 20px;cursor:pointer}\n.signup-consent input{margin-top:4px;flex:none;accent-color:var(--ink)}\n.signup-stop{padding-top:17px;margin-top:20px;border-top:1px solid var(--rule);font-size:14px}\n.signup-stop a{text-decoration:underline;text-underline-offset:3px}\n#sub[aria-disabled="true"]{opacity:.5;cursor:not-allowed}\n.done h3{font:400 28px/1.2 var(--serif);margin:0 0 10px}
 
 /* library shelf */
 .shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
@@ -1246,7 +1246,7 @@ function homePage(){
     <ol class="use-steps">${T.useSteps.map((u,i)=>`<li><b><span class="ic-step-number">${String(i+1).padStart(2,"0")}</span>${tr(u.v)}</b><span>${tr(u)}</span></li>`).join("")}</ol>
   </div></div></section>
   <section class="s wa-band ic-whatsapp-section" id="whatsapp"><div class="wrap subscribe">
-    <div><h2 class="h2">${tr(T.waH)}</h2><p class="wa-line">${tr(T.waIntro)}</p></div>
+    <div><h2 class="h2">${tr({en:"Request a daily reading on WhatsApp",te:"వాట్సాప్‌లో రోజువారీ పఠనానికి అభ్యర్థన",hi:"व्हाट्सऐप पर दैनिक पाठ का अनुरोध"})}</h2><p class="wa-line">${tr({en:"Interested in a short verse, its meaning, and a reflection each day? Send me your request directly on WhatsApp. For now, I will handle requests and any messages personally; automated delivery is not available.",te:"ప్రతి రోజూ ఒక చిన్న శ్లోకం, అర్థం, ఆలోచన కావాలా? నా వాట్సాప్‌కు అభ్యర్థన పంపండి. ప్రస్తుతం ఆటోమేటిక్ సేవ లేదు.",hi:"रोज़ एक छोटा श्लोक, उसका अर्थ और मनन चाहते हैं? मुझे व्हाट्सऐप पर अनुरोध भेजें। फिलहाल स्वचालित सेवा उपलब्ध नहीं है।"})}</p></div>
     ${formHTML()}
   </div></section>`;
 }
@@ -1282,17 +1282,29 @@ function chaptersPage(){
 }
 
 function formHTML(){
-  return `<div class="form"><div id="formBody">
-    <label class="field"><span>${tr(T.yourName)}</span><input type="text" id="nm" autocomplete="name"></label>
+  const copy = {
+    heading:{en:"WhatsApp · English · Daily",te:"వాట్సాప్ · ఇంగ్లీష్ · రోజూ",hi:"व्हाट्सऐप · अंग्रेज़ी · रोज़"},
+    notLive:{en:"Daily delivery is not active yet. Send me a request on WhatsApp and I'll review it personally. This does not start automatic messages.",te:"రోజువారీ సందేశ సేవ ఇంకా ప్రారంభం కాలేదు. వాట్సాప్‌లో అభ్యర్థన పంపండి; నేను స్వయంగా పరిశీలిస్తాను. దీని ద్వారా ఆటోమేటిక్ సందేశాలు ప్రారంభం కావు.",hi:"रोज़ाना संदेश सेवा अभी शुरू नहीं हुई है। व्हाट्सऐप पर अनुरोध भेजें; मैं खुद देखूँगी। इससे अपने-आप संदेश शुरू नहीं होंगे।"},
+    consent:{en:"Yes, I would like to receive daily Inner Corner readings and explanations in English through WhatsApp, if manually offered. I understand this is a request, not a confirmed subscription, and I can send STOP anytime.",te:"రోజూ ఇంగ్లీష్ పఠనాలు, వివరణలు వాట్సాప్‌లో పొందడానికి అభ్యర్థిస్తున్నాను. ఇది నిర్ధారిత సభ్యత్వం కాదని, ఎప్పుడైనా STOP పంపవచ్చని నాకు తెలుసు.",hi:"मैं व्हाट्सऐप पर अंग्रेज़ी में रोज़ के पाठ और व्याख्या का अनुरोध करता/करती हूँ। यह पक्का सदस्यता नहीं है और मैं कभी भी STOP भेज सकता/सकती हूँ।"},
+    request:{en:"Send request to my WhatsApp",te:"నా వాట్సాప్‌కు అభ్యర్థన పంపండి",hi:"मेरे व्हाट्सऐप पर अनुरोध भेजें"},
+    how:{en:"WhatsApp will open with your name, number and consent message ready. You must press Send there; the site does not send anything by itself.",te:"మీ పేరు, నంబర్, అంగీకారంతో సందేశం వాట్సాప్‌లో సిద్ధమవుతుంది. అక్కడ Send నొక్కాలి; వెబ్‌సైట్ స్వయంగా పంపదు.",hi:"नाम, नंबर और सहमति वाला संदेश व्हाट्सऐप में तैयार होगा। आपको वहाँ Send दबाना होगा; वेबसाइट खुद कुछ नहीं भेजती।"},
+    stop:{en:"Withdraw request / Send STOP",te:"అభ్యర్థన ఉపసంహరించండి / STOP పంపండి",hi:"अनुरोध वापस लें / STOP भेजें"},
+    stopDetail:{en:"STOP opens a message to me on WhatsApp. Send it and I'll handle the removal manually; there is no automated unsubscribe system yet.",te:"STOP సందేశం నా వాట్సాప్‌లో తెరుచుకుంటుంది. మీరు పంపితే నేను మాన్యువల్‌గా తొలగిస్తాను. ఆటోమేటిక్ వ్యవస్థ ఇంకా లేదు.",hi:"STOP संदेश मेरे व्हाट्सऐप पर खुलेगा। भेजने पर मैं इसे खुद हटाऊँगी; स्वचालित व्यवस्था अभी नहीं है।"}
+  };
+  const stopMessage = "STOP — Please withdraw my Inner Corner request and do not send further daily readings on WhatsApp. Please confirm.";
+  return `<div class="form" id="formBody">
+    <p class="signup-choice"><strong>${tr(copy.heading)}</strong></p>
+    <p class="signup-status" role="status">${tr(copy.notLive)}</p>
+    <label class="field"><span>${tr(T.yourName)}</span><input type="text" id="nm" autocomplete="name" maxlength="60" required></label>
     <label class="field"><span>${tr(T.phoneL)}</span><div class="phone-row">
       <select id="cc" aria-label="Country code">${[["1","US/CA +1"],["91","IN +91"],["44","UK +44"],["61","AU +61"],["65","SG +65"],["971","AE +971"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select>
-      <input type="tel" id="ph" inputmode="tel" autocomplete="tel-national" placeholder="425 555 0123"></div></label>
-    <input type="text" id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-    ${CONFIG.SIGNUP_URL
-      ? `<button class="btn wa" id="psub" type="button">${tr(T.joinBtn)}</button><p class="err" id="perr"></p>`
-      : `<a class="btn wa" id="sub" target="_blank" rel="noopener" href="#whatsapp"></a><p class="err" id="perr"></p>`}
-    <p class="fine">${tr(T.waSave)} <b>${CONFIG.CONTACT_NAME}</b>. ${tr(T.stopShort)}</p>
-  </div></div>`;
+      <input type="tel" id="ph" inputmode="tel" autocomplete="tel-national" placeholder="425 555 0123" required></div></label>
+    <label class="signup-consent"><input type="checkbox" id="optin"><span>${tr(copy.consent)}</span></label>
+    <a class="btn wa" id="sub" href="#whatsapp" target="_blank" rel="noopener" aria-disabled="true">${tr(copy.request)}</a>
+    <p class="fine">${tr(copy.how)}</p>
+    <div class="signup-stop"><a href="https://wa.me/${CONFIG.WA_NUMBER}?text=${encodeURIComponent(stopMessage)}" target="_blank" rel="noopener">${tr(copy.stop)}</a></div>
+    <p class="fine">${tr(copy.stopDetail)}</p>
+  </div>`;
 }
 
 /* ---------- lesson ---------- */
@@ -1342,13 +1354,25 @@ function listPage(title, intro, list, extra=""){
 
 /* ---------- router ---------- */
 function updateSub(){
-  const a = $("sub"); if(!a) return;
-  const n = $("nm").value.trim(), num = $("ph").value.replace(/\D/g,""), cc = $("cc").value;
-  const msg = `🙏 Namaste! I'd like to join Inner Corner.${n?"\nName: "+n:""}${num?"\nNumber: +"+cc+" "+num:""}\nLanguage: ${{en:"English",te:"Telugu",hi:"Hindi"}[lang]}`;
-  a.textContent = tr(T.joinBtn);
-  if (num.length < 6){ a.href="#whatsapp"; a.setAttribute("aria-disabled","true"); return; }
-  a.href=`https://wa.me/${CONFIG.WA_NUMBER}?text=${encodeURIComponent(msg)}`; a.removeAttribute("aria-disabled");
+  const a=$("sub"); if(!a) return;
+  const name=$("nm").value.trim().slice(0,60);
+  const num=$("ph").value.replace(/\\D/g,"").replace(/^0+/,"");
+  const cc=$("cc").value;
+  const checked=$("optin").checked;
+  if (!checked || !name || num.length < 6 || (cc+num).length > 15) {
+    a.href="#whatsapp"; a.setAttribute("aria-disabled","true"); return;
+  }
+  const msg = "INNER CORNER — DAILY WHATSAPP READING REQUEST\\n" +
+    "Name: " + name + "\\n" +
+    "WhatsApp number: +" + cc + num + "\\n" +
+    "Channel: WhatsApp\\nLanguage: English\\nFrequency: Daily\\n" +
+    "I explicitly agree to receive English daily readings and explanations if manually offered.\\n" +
+    "I understand this is only a request, delivery is not active or guaranteed, and I can send STOP anytime.\\n" +
+    "Please confirm my request.";
+  a.href="https://wa.me/"+CONFIG.WA_NUMBER+"?text="+encodeURIComponent(msg);
+  a.removeAttribute("aria-disabled");
 }
+
 const SECTIONS = ["home","gita","about","feelings","life","whatsapp","library"];
 let onHome = false;
 function render(keepScroll){
@@ -1378,7 +1402,7 @@ function render(keepScroll){
   $("menu").innerHTML = [["today",T.navToday],["gita",G.name],["library",{en:"Other readings",te:"ఇతర అధ్యయనాలు",hi:"अन्य अध्ययन"}],["about",T.navWhy]]
     .map(([k,l])=>`<a href="#${k}" class="${k===active?"on":""}">${tr(l)}</a>`).join("");
   $("menu").classList.remove("open"); $("burger").setAttribute("aria-expanded","false");
-  if ($("nm")) { $("nm").oninput = updateSub; $("ph").oninput = updateSub; $("cc").onchange = updateSub; updateSub(); }
+  if ($("nm")) { $("nm").oninput = updateSub; $("ph").oninput = updateSub; $("cc").onchange = updateSub; $("optin").onchange = updateSub; updateSub(); }
 }
 
 document.addEventListener("click", async e=>{
@@ -1387,7 +1411,7 @@ document.addEventListener("click", async e=>{
   const TB = t.closest("[data-tab]");
   if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
   const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
-  if (t.closest("#psub")){ submitPhone(); return; }
+  if (t.closest("#sub")?.getAttribute("aria-disabled")==="true") { e.preventDefault(); return; }
   const M = t.closest("[data-mood]"); if (M){ const k=M.dataset.mood; subMoods.has(k)?subMoods.delete(k):subMoods.add(k); M.setAttribute("aria-pressed", subMoods.has(k)); updateSub(); return; }
   const R = t.closest('input[name=mode]'); if (R){ subMode=R.value; document.querySelectorAll(".radio label").forEach(o=>o.classList.toggle("on", o.contains(R))); $("moods").hidden = subMode!=="mood"; updateSub(); return; }
   const C = t.closest("[data-copy]"); if (C){ try{ await navigator.clipboard.writeText(verseText(byId(C.dataset.copy))); toast(tr(T.copied)); }catch(_){ toast("Press and hold the text to copy"); } return; }
