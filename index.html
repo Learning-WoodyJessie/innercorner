@@ -1283,9 +1283,9 @@ function chaptersPage(){
 
 function formHTML(){
   const copy = {
-    heading:{en:"WhatsApp · English · Daily",te:"వాట్సాప్ · ఇంగ్లీష్ · రోజూ",hi:"व्हाट्सऐप · अंग्रेज़ी · रोज़"},
+    heading:{en:"WhatsApp · Daily readings",te:"వాట్సాప్ · రోజువారీ పఠనాలు",hi:"व्हाट्सऐप · दैनिक पाठ"},
     notLive:{en:"Daily delivery is not active yet. Send me a request on WhatsApp and I'll review it personally. This does not start automatic messages.",te:"రోజువారీ సందేశ సేవ ఇంకా ప్రారంభం కాలేదు. వాట్సాప్‌లో అభ్యర్థన పంపండి; నేను స్వయంగా పరిశీలిస్తాను. దీని ద్వారా ఆటోమేటిక్ సందేశాలు ప్రారంభం కావు.",hi:"रोज़ाना संदेश सेवा अभी शुरू नहीं हुई है। व्हाट्सऐप पर अनुरोध भेजें; मैं खुद देखूँगी। इससे अपने-आप संदेश शुरू नहीं होंगे।"},
-    consent:{en:"Yes, I would like to receive daily Inner Corner readings and explanations in English through WhatsApp, if manually offered. I understand this is a request, not a confirmed subscription, and I can send STOP anytime.",te:"రోజూ ఇంగ్లీష్ పఠనాలు, వివరణలు వాట్సాప్‌లో పొందడానికి అభ్యర్థిస్తున్నాను. ఇది నిర్ధారిత సభ్యత్వం కాదని, ఎప్పుడైనా STOP పంపవచ్చని నాకు తెలుసు.",hi:"मैं व्हाट्सऐप पर अंग्रेज़ी में रोज़ के पाठ और व्याख्या का अनुरोध करता/करती हूँ। यह पक्का सदस्यता नहीं है और मैं कभी भी STOP भेज सकता/सकती हूँ।"},
+    consent:{en:"Yes, I would like to receive daily Inner Corner readings in my chosen language through WhatsApp, if manually offered. I understand this is a request, not a confirmed subscription, and I can send STOP anytime.",te:"నేను ఎంచుకున్న భాషలో రోజువారీ ఇన్నర్ కార్నర్ పఠనాలను వాట్సాప్‌లో పొందాలని కోరుకుంటున్నాను. ఇది నిర్ధారిత సభ్యత్వం కాదని, ఎప్పుడైనా STOP పంపవచ్చని నాకు తెలుసు.",hi:"मैं व्हाट्सऐप पर अपनी चुनी हुई भाषा में रोज़ के इनर कॉर्नर पाठ पाना चाहता/चाहती हूँ। यह पक्की सदस्यता नहीं है और मैं कभी भी STOP भेज सकता/सकती हूँ।"},
     request:{en:"Send request to my WhatsApp",te:"నా వాట్సాప్‌కు అభ్యర్థన పంపండి",hi:"मेरे व्हाट्सऐप पर अनुरोध भेजें"},
     how:{en:"WhatsApp will open with your name, number and consent message ready. You must press Send there; the site does not send anything by itself.",te:"మీ పేరు, నంబర్, అంగీకారంతో సందేశం వాట్సాప్‌లో సిద్ధమవుతుంది. అక్కడ Send నొక్కాలి; వెబ్‌సైట్ స్వయంగా పంపదు.",hi:"नाम, नंबर और सहमति वाला संदेश व्हाट्सऐप में तैयार होगा। आपको वहाँ Send दबाना होगा; वेबसाइट खुद कुछ नहीं भेजती।"},
     stop:{en:"Withdraw request / Send STOP",te:"అభ్యర్థన ఉపసంహరించండి / STOP పంపండి",hi:"अनुरोध वापस लें / STOP भेजें"},
@@ -1299,6 +1299,7 @@ function formHTML(){
     <label class="field"><span>${tr(T.phoneL)}</span><div class="phone-row">
       <select id="cc" aria-label="Country code">${[["1","US/CA +1"],["91","IN +91"],["44","UK +44"],["61","AU +61"],["65","SG +65"],["971","AE +971"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select>
       <input type="tel" id="ph" inputmode="tel" autocomplete="tel-national" placeholder="425 555 0123" required></div></label>
+    <label class="field"><span>${tr({en:"Preferred reading language",te:"చదివే భాష",hi:"पढ़ने की भाषा"})}</span><select id="readlang" aria-label="Preferred reading language"><option value="en" ${lang==="en"?"selected":""}>English</option><option value="te" ${lang==="te"?"selected":""}>తెలుగు (Telugu)</option><option value="hi" ${lang==="hi"?"selected":""}>हिन्दी (Hindi)</option></select></label>
     <label class="signup-consent"><input type="checkbox" id="optin"><span>${tr(copy.consent)}</span></label>
     <a class="btn wa" id="sub" href="#whatsapp" target="_blank" rel="noopener" aria-disabled="true">${tr(copy.request)}</a>
     <p class="fine">${tr(copy.how)}</p>
@@ -1356,18 +1357,20 @@ function listPage(title, intro, list, extra=""){
 function updateSub(){
   const a=$("sub"); if(!a) return;
   const name=$("nm").value.trim().slice(0,60);
-  const num=$("ph").value.replace(/\\D/g,"").replace(/^0+/,"");
+  const num=$("ph").value.replace(/\D/g,"").replace(/^0+/,"");
   const cc=$("cc").value;
   const checked=$("optin").checked;
-  if (!checked || !name || num.length < 6 || (cc+num).length > 15) {
+  const selected=$("readlang").value;
+  const languages={en:"English",te:"Telugu",hi:"Hindi"};
+  if (!checked || !name || num.length < 6 || (cc+num).length > 15 || !languages[selected]) {
     a.href="#whatsapp"; a.setAttribute("aria-disabled","true"); return;
   }
-  const msg = "INNER CORNER — DAILY WHATSAPP READING REQUEST\\n" +
-    "Name: " + name + "\\n" +
-    "WhatsApp number: +" + cc + num + "\\n" +
-    "Channel: WhatsApp\\nLanguage: English\\nFrequency: Daily\\n" +
-    "I explicitly agree to receive English daily readings and explanations if manually offered.\\n" +
-    "I understand this is only a request, delivery is not active or guaranteed, and I can send STOP anytime.\\n" +
+  const msg = "INNER CORNER — DAILY WHATSAPP READING REQUEST\n" +
+    "Name: " + name + "\n" +
+    "WhatsApp number: +" + cc + num + "\n" +
+    "Channel: WhatsApp\nLanguage: " + languages[selected] + "\nFrequency: Daily\n" +
+    "I agree to receive daily readings in my chosen language if manually offered.\n" +
+    "I understand this is only a request, delivery is not active or guaranteed, and I can send STOP anytime.\n" +
     "Please confirm my request.";
   a.href="https://wa.me/"+CONFIG.WA_NUMBER+"?text="+encodeURIComponent(msg);
   a.removeAttribute("aria-disabled");
@@ -1402,7 +1405,7 @@ function render(keepScroll){
   $("menu").innerHTML = [["today",T.navToday],["gita",G.name],["library",{en:"Other readings",te:"ఇతర అధ్యయనాలు",hi:"अन्य अध्ययन"}],["about",T.navWhy]]
     .map(([k,l])=>`<a href="#${k}" class="${k===active?"on":""}">${tr(l)}</a>`).join("");
   $("menu").classList.remove("open"); $("burger").setAttribute("aria-expanded","false");
-  if ($("nm")) { $("nm").oninput = updateSub; $("ph").oninput = updateSub; $("cc").onchange = updateSub; $("optin").onchange = updateSub; updateSub(); }
+  if ($("nm")) { $("nm").oninput = updateSub; $("ph").oninput = updateSub; $("cc").onchange = updateSub; $("readlang").onchange = updateSub; $("optin").onchange = updateSub; updateSub(); }
 }
 
 document.addEventListener("click", async e=>{
