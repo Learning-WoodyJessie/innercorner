@@ -1086,14 +1086,14 @@ Object.assign(T, {
   readIn:{en:"Sanskrit script",te:"సంస్కృత లిపి",hi:"संस्कृत लिपि"}
 });
 const G = LIBRARY.gita, V = G.verses, CH = G.sections;
-let lang = "en", script = "dev";
-try { const storedLang=localStorage.getItem("lang"), storedScript=localStorage.getItem("script"); if (["en","te","hi"].includes(storedLang)) lang=storedLang; if (["dev","te"].includes(storedScript)) script=storedScript; } catch(e){}
+let lang = "en";
+try { const storedLang=localStorage.getItem("lang"); if (["en","te","hi"].includes(storedLang)) lang=storedLang; } catch(e){}
 
 const $ = id => document.getElementById(id);
 const tr = o => (o && (o[lang] ?? o.en)) || "";
 const trf = (o,...a) => (o[lang] || o.en)(...a);
 const toTelugu = s => s.replace(/[ऀ-ॿ]/g, ch => { const c = ch.charCodeAt(0); return (c===0x0964||c===0x0965) ? ch : String.fromCharCode(c + 0x300); });
-const skt = s => script==="te" ? toTelugu(s) : s;
+const skt = s => lang==="te" ? toTelugu(s) : s;
 const vid = x => `${x.c}.${x.v}`;
 const hashOf = x => `v-${x.c}-${x.v}`;
 const byId = s => V.find(x => vid(x) === s);
@@ -1142,15 +1142,13 @@ let subMode = "daily"; const subMoods = new Set();
 function decoder(x){
   return `<div class="decoder">
     <h2 class="word-meanings-title">${tr(T.wordsMeaning)} <small class="gloss-language">${lang==="en"?"":tr(T.glossEnglish)}</small></h2>
-    <dl class="allwords">${x.w.map(([w,m])=>`<div><dt class="${script==="te"?"te":""}" lang="sa">${skt(w)}</dt><dd lang="en">${m}</dd></div>`).join("")}</dl>
+    <dl class="allwords">${x.w.map(([w,m])=>`<div><dt class="${lang==="te"?"te":""}" lang="sa">${skt(w)}</dt><dd lang="en">${m}</dd></div>`).join("")}</dl>
   </div>`;
 }
-function scriptSwitch(){
-  return `<div class="script-switch">${tr(T.readIn)}: <button type="button" data-s="dev" aria-pressed="${script==="dev"}" class="${script==="dev"?"on":""}">${tr(T.showDev)}</button> / <button type="button" data-s="te" aria-pressed="${script==="te"}" class="${script==="te"?"on":""}">${tr(T.showTe)}</button></div>`;
-}
+
 function verseBlock(x){
-  return `<p class="verse-hero ${script==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
-    <p class="roman-hero">${x.i}</p>${scriptSwitch()}${decoder(x)}`;
+  return `<p class="verse-hero ${lang==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
+    <p class="roman-hero">${x.i}</p>${decoder(x)}`;
 }
 const fmtDate = () => now.toLocaleDateString({en:"en-US",te:"te-IN",hi:"hi-IN"}[lang], {weekday:"long", day:"numeric", month:"long"});
 
@@ -1211,7 +1209,7 @@ function homePage(){
         <article class="ic-verse-card">
           <div class="ic-verse-top"><span>${h("featured")} · ${vid(x)}</span></div>
           <h3>${tr(x.t)}</h3>
-          <p class="ic-sanskrit ${script==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
+          <p class="ic-sanskrit ${lang==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
           <p class="ic-roman">${x.i}</p>
           <p class="ic-meaning">${tr(x.m)}</p>
           <a href="#${hashOf(x)}">${h("view")} <span aria-hidden="true">→</span></a>
@@ -1386,7 +1384,6 @@ function render(keepScroll){
 document.addEventListener("click", async e=>{
   const t = e.target;
   const L = t.closest("[data-l]"); if (L){ if (!["en","te","hi"].includes(L.dataset.l)) return; lang=L.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(true); return; }
-  const S = t.closest("[data-s]"); if (S){ if (!["dev","te"].includes(S.dataset.s)) return; script=S.dataset.s; try{localStorage.setItem("script",script)}catch(_){} render(true); return; }
   const TB = t.closest("[data-tab]");
   if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
   const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
