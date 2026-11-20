@@ -895,6 +895,9 @@ body{background:var(--paper)}
 .daily-reflection-questions li{counter-increment:reflections;display:grid;grid-template-columns:20px 1fr;gap:10px;font:400 18px/1.55 var(--serif)}
 .daily-reflection-questions li::before{content:counter(reflections,decimal-leading-zero);font:600 11px/1.8 var(--sans);color:#906f44;padding-top:3px}
 @media(max-width:540px){.daily-pair,.daily-outcomes dl{grid-template-columns:1fr}.daily-idea{padding:14px 15px}}
+.gift-kicker{font:600 13px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#8f6c3c;margin:0 0 10px}
+.gift-page .lesson-verse .study-translation{font:400 19px/1.6 var(--serif);margin:18px 0 10px}
+.gift-ref{font:500 13px var(--sans);color:var(--stone);margin:0 0 20px}
 </style>
 </head>
 <body>
@@ -1419,7 +1422,7 @@ function chaptersPage(){
   </div>`;
 }
 
-function formHTML(){
+function formHTML(gift){
   const copy = {
     heading:{en:"WhatsApp · Daily readings",te:"వాట్సాప్ · రోజువారీ పఠనాలు",hi:"व्हाट्सऐप · दैनिक पाठ"},
     notLive:{en:"Daily delivery is not active yet. Send me a request on WhatsApp and I'll review it personally. This does not start automatic messages.",te:"రోజువారీ సందేశ సేవ ఇంకా ప్రారంభం కాలేదు. వాట్సాప్‌లో అభ్యర్థన పంపండి; నేను స్వయంగా పరిశీలిస్తాను. దీని ద్వారా ఆటోమేటిక్ సందేశాలు ప్రారంభం కావు.",hi:"रोज़ाना संदेश सेवा अभी शुरू नहीं हुई है। व्हाट्सऐप पर अनुरोध भेजें; मैं खुद देखूँगी। इससे अपने-आप संदेश शुरू नहीं होंगे।"},
@@ -1430,16 +1433,20 @@ function formHTML(){
     stopDetail:{en:"STOP opens a message to me on WhatsApp. Send it and I'll handle the removal manually; there is no automated unsubscribe system yet.",te:"STOP సందేశం నా వాట్సాప్‌లో తెరుచుకుంటుంది. మీరు పంపితే నేను మాన్యువల్‌గా తొలగిస్తాను. ఆటోమేటిక్ వ్యవస్థ ఇంకా లేదు.",hi:"STOP संदेश मेरे व्हाट्सऐप पर खुलेगा। भेजने पर मैं इसे खुद हटाऊँगी; स्वचालित व्यवस्था अभी नहीं है।"}
   };
   const stopMessage = "STOP. Please withdraw my Inner Corner request and do not send further daily readings on WhatsApp. Please confirm.";
-  return `<div class="form" id="formBody">
-    <p class="signup-choice"><strong>${tr(copy.heading)}</strong></p>
-    <p class="signup-status" role="status">${tr(copy.notLive)}</p>
+  const giftCopy = {
+    heading:{en:"Would you like a verse on WhatsApp?",te:"వాట్సాప్‌లో శ్లోకాలు కావాలా?",hi:"क्या आप व्हाट्सऐप पर श्लोक पाना चाहेंगे?"},
+    note:{en:"Share your name and number, and I'll send you a verse with its meaning on WhatsApp.",te:"మీ పేరు, నంబర్ పంపండి. నేను వాట్సాప్‌లో ఒక శ్లోకాన్ని, దాని అర్థంతో పంపుతాను.",hi:"अपना नाम और नंबर भेजें, मैं व्हाट्सऐप पर अर्थ के साथ एक श्लोक भेजूँगी।"}
+  };
+  return `<div class="form" id="formBody"${gift?` data-gift="${gift}"`:""}>
+    <p class="signup-choice"><strong>${tr(gift?giftCopy.heading:copy.heading)}</strong></p>
+    <p class="signup-status" role="status">${tr(gift?giftCopy.note:copy.notLive)}</p>
     <label class="field"><span>${tr(T.yourName)}</span><input type="text" id="nm" autocomplete="name" maxlength="60" required></label>
     <label class="field"><span>${tr(T.phoneL)}</span><div class="phone-row">
       <select id="cc" aria-label="Country code">${[["1","US/CA +1"],["91","IN +91"],["44","UK +44"],["61","AU +61"],["65","SG +65"],["971","AE +971"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select>
       <input type="tel" id="ph" inputmode="tel" autocomplete="tel-national" placeholder="425 555 0123" required></div></label>
     <label class="field"><span>${tr({en:"Preferred reading language",te:"చదివే భాష",hi:"पढ़ने की भाषा"})}</span><select id="readlang" aria-label="Preferred reading language"><option value="en" ${meaningLang==="en"?"selected":""}>English</option><option value="te" ${meaningLang==="te"?"selected":""}>తెలుగు (Telugu)</option><option value="hi" ${meaningLang==="hi"?"selected":""}>हिन्दी (Hindi)</option></select></label>
     <label class="signup-consent"><input type="checkbox" id="optin"><span>${tr(copy.consent)}</span></label>
-    <a class="btn wa" id="sub" href="#whatsapp" target="_blank" rel="noopener" aria-disabled="true">${tr(copy.request)}</a>
+    <a class="btn wa" id="sub" href="#whatsapp" target="_blank" rel="noopener" aria-disabled="true">${tr(gift?{en:"Send on WhatsApp",te:"వాట్సాప్‌లో పంపండి",hi:"व्हाट्सऐप पर भेजें"}:copy.request)}</a>
     <p class="fine">${tr(copy.how)}</p>
     <div class="signup-stop"><a href="https://wa.me/${CONFIG.WA_NUMBER}?text=${encodeURIComponent(stopMessage)}" target="_blank" rel="noopener">${tr(copy.stop)}</a></div>
     <p class="fine">${tr(copy.stopDetail)}</p>
@@ -1497,6 +1504,25 @@ function lessonPage(x){
     </div></div>`;
 }
 
+function giftPage(x){
+  const g = {
+    kicker:{en:"A small gift for you",te:"మీకోసం ఒక చిన్న కానుక",hi:"आपके लिए एक छोटा उपहार"},
+    thanks:{en:"Thank you for being with us. Here is the verse from your card.",te:"మాతో ఉన్నందుకు ధన్యవాదాలు. మీ కార్డులోని శ్లోకం ఇదే.",hi:"हमारे साथ होने के लिए धन्यवाद। यह आपके कार्ड का श्लोक है।"},
+    read:{en:"Read the full reflection",te:"పూర్తి వివరణ చదవండి",hi:"पूरा विवरण पढ़ें"}
+  };
+  return `<div class="wrap gift-page">
+    <div class="page-head"><p class="gift-kicker">${tr(g.kicker)}</p><h1>${tr(x.t)}</h1><p>${tr(g.thanks)}</p></div>
+    <div class="lesson">
+      <div class="lesson-verse">
+        <p class="verse-hero" lang="sa">${x.s}</p>
+        <p class="roman-hero">${x.i}</p>
+        <p class="study-translation">${x.m[lang] || x.m.en}</p>
+        <p class="gift-ref">${tr(G.name)} ${vid(x)}</p>
+        <a class="btn ghost" href="#${hashOf(x)}">${tr(g.read)}</a>
+      </div>
+      <div class="notes">${formHTML(vid(x))}</div>
+    </div></div>`;
+}
 function applyTabs(x){
   const S = x.situations || [];
   const rich = sit => `<p class="sit">${sit.situation}</p><ul>${sit.apply.slice(0,2).map(a=>`<li>${a}</li>`).join("")}</ul>${sit.script?`<div class="script"><p><span>${tr(T.insteadOf)}</span>“${sit.script[0]}”</p><p><span>${tr(T.tryAsking)}</span>“${sit.script[1]}”</p></div>`:""}<p class="lesson-line">${sit.lesson}</p>`;
@@ -1524,7 +1550,8 @@ function updateSub(){
   if (!checked || !name || num.length < 6 || (cc+num).length > 15 || !languages[selected]) {
     a.href="#whatsapp"; a.setAttribute("aria-disabled","true"); return;
   }
-  const msg = "INNER CORNER: DAILY WHATSAPP READING REQUEST\n" +
+  const gift = $("formBody")?.dataset.gift;
+  const msg = (gift ? "INNER CORNER: VERSE CARD REQUEST\nFrom gift card: Bhagavad Gita " + gift + "\n" : "INNER CORNER: DAILY WHATSAPP READING REQUEST\n") +
     "Name: " + name + "\n" +
     "WhatsApp number: +" + cc + num + "\n" +
     "Channel: WhatsApp\nLanguage: " + languages[selected] + "\nFrequency: Daily\n" +
@@ -1578,6 +1605,7 @@ function render(keepScroll){
   } else {
     onHome = false; let html;
     if (h.startsWith("v-")) { const x = byId(h.slice(2).replace("-",".")); html = x ? lessonPage(x) : homePage(); active="chapters"; }
+    else if (h.startsWith("gift-")) { const x = byId(h.slice(5).replace("-",".")); html = x ? giftPage(x) : homePage(); }
     else if (h==="chapters") { active="chapters"; html = chaptersPage(); }
     else if (h.startsWith("feel-") && FEELINGS[h.slice(5)]) { const k=h.slice(5); active="feelings";
       html = `<div class="tint-band tint-${k}"></div>` + listPage(tr(FEELINGS[k]), "", V.filter(x=>x.f.includes(k)), `<div class="cta-strip"><p>${tr(T.getFeel)}</p><a class="btn wa" href="#whatsapp">${tr(T.getFeelBtn)}</a></div>`); }
