@@ -685,6 +685,8 @@ body{background:var(--paper)}
 .ic-about-section .about-card.ic-about-panel{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.15fr);align-items:center;gap:48px;max-width:none;padding:36px clamp(28px,4.2vw,64px);border-radius:15px;background:#f6eddb;border:1px solid #eadcc5}
 .ic-about-section .about-card.ic-about-panel::after{width:195px;height:195px;opacity:.38}
 .ic-about-intro{position:relative;z-index:1}
+.ic-about-story{position:relative;z-index:1;font:400 16px/1.65 var(--serif);color:#3d4152;margin:18px 0 12px}
+.ic-about-all{position:relative;z-index:1;font:600 14px var(--sans);color:#7a5a2e}
 .ic-about-intro .mini-diya{margin-bottom:14px}
 .ic-about-intro .ic-section-label{margin-bottom:8px}
 .ic-about-intro h2{font:400 clamp(28px,3vw,39px)/1.2 var(--serif);margin:0 0 15px}
@@ -1140,12 +1142,14 @@ Object.assign(T, T2, {
   byLife:{en:"I'd like guidance in my",te:"నాకు మార్గదర్శనం కావాలి",hi:"मुझे मार्गदर्शन चाहिए"},
   byChapter:{en:"Or read in order",te:"లేదా క్రమంగా చదవండి",hi:"या क्रम से पढ़ें"},
   whyEy:{en:"How I use this corner",te:"ఈ మూలను నేను ఎలా ఉపయోగిస్తాను",hi:"मैं इस कोने का उपयोग कैसे करती हूँ"},
-  useH:{en:"How I use this corner",te:"ఈ మూలను నేను ఎలా ఉపయోగిస్తాను",hi:"मैं इस कोने का उपयोग कैसे करती हूँ"},
-  usePurpose:{en:"A place to decode, learn, reflect and apply.",te:"విడమరచి, నేర్చుకుని, ఆలోచించి, ఆచరించే ఒక చోటు.",hi:"खोलने, सीखने, सोचने और अपनाने की एक जगह।"},
+  useH:{en:"Why Inner Corner",te:"ఇన్నర్ కార్నర్ ఎందుకు",hi:"इनर कॉर्नर क्यों"},
+  usePurpose:{en:"I have tried reading the Gita several times, and each time I found it hard to understand and connect with. So I built something small for myself: one verse a day that takes about five minutes.",te:"గీతను చాలాసార్లు చదవడానికి ప్రయత్నించాను, కానీ ప్రతిసారీ అర్థం చేసుకోవడం, దానితో అనుసంధానం కావడం కష్టమనిపించింది. అందుకే నా కోసం ఒక చిన్నది తయారు చేసుకున్నాను: రోజుకు ఐదు నిమిషాలు పట్టే ఒక శ్లోకం.",hi:"मैंने कई बार गीता पढ़ने की कोशिश की, पर हर बार उसे समझना और उससे जुड़ना कठिन लगा। इसलिए मैंने अपने लिए कुछ छोटा बनाया: रोज़ एक श्लोक, जिसमें लगभग पाँच मिनट लगते हैं।"},
   useSteps:[
-    {v:{en:"Read",te:"చదవడం",hi:"पढ़ना"},en:"One passage each morning, a verse, a saying or a story, read slowly until it makes sense.",te:"ప్రతి ఉదయం ఒక భాగం, ఒక శ్లోకం, ఒక సూక్తి లేదా ఒక కథ, అర్థమయ్యే వరకు నెమ్మదిగా.",hi:"हर सुबह एक अंश, कोई श्लोक, वचन या कथा, समझ आने तक धीरे-धीरे।"},
-    {v:{en:"Reflect",te:"ఆలోచించడం",hi:"सोचना"},en:"Where does it show up in my life: at home, at work, in my own head?",te:"అది నా జీవితంలో ఎక్కడ కనిపిస్తుంది: ఇంట్లో, పనిలో, నా మనసులో?",hi:"यह मेरे जीवन में कहाँ दिखता है: घर पर, काम पर, मेरे अपने मन में?"},
-    {v:{en:"Apply",te:"ఆచరించడం",hi:"अपनाना"},en:"One small thing to try through the day, and one question to carry into the evening.",te:"రోజంతా ప్రయత్నించడానికి ఒక చిన్న పని, సాయంత్రానికి ఒక ప్రశ్న.",hi:"दिन भर आज़माने के लिए एक छोटी बात, और शाम के लिए एक सवाल।"}],
+    {v:{en:"Understand",te:"అర్థం చేసుకోవడం",hi:"समझना"},en:"Read the verse and what it means.",te:"శ్లోకాన్ని, దాని అర్థాన్ని చదవండి.",hi:"श्लोक और उसका अर्थ पढ़ें।"},
+    {v:{en:"Connect",te:"అనుసంధానం",hi:"जोड़ना"},en:"See how it applies to everyday life.",te:"అది రోజువారీ జీవితానికి ఎలా వర్తిస్తుందో చూడండి.",hi:"देखें कि यह रोज़मर्रा के जीवन में कैसे लागू होता है।"},
+    {v:{en:"Reflect",te:"ఆలోచించడం",hi:"सोचना"},en:"Sit with one question.",te:"ఒక ప్రశ్నతో కాసేపు ఉండండి.",hi:"एक सवाल के साथ कुछ देर ठहरें।"}],
+  useStory:{en:"I began with Sankhya Yoga, the second chapter, and then moved on to the others. From the 700 verses, I chose 30 to start with, at least one from every chapter, as my dad recommended. Together they follow the story from Arjuna's doubt to Krishna's final teaching. It felt like something worth sharing with friends. I hope you find it useful too. More verses will be added over time.",te:"నేను రెండవ అధ్యాయమైన సాంఖ్య యోగంతో మొదలుపెట్టి, తర్వాత మిగతా అధ్యాయాలకు వెళ్లాను. 700 శ్లోకాల నుండి, మా నాన్నగారి సూచన మేరకు ప్రతి అధ్యాయం నుండి కనీసం ఒకటి చొప్పున, మొదట 30 ఎంచుకున్నాను. ఇవి అర్జునుని సందేహం నుండి శ్రీకృష్ణుని చివరి బోధ వరకు కథను అనుసరిస్తాయి. స్నేహితులతో పంచుకోదగినదిగా అనిపించింది. మీకూ ఉపయోగపడుతుందని ఆశిస్తున్నాను. మరిన్ని శ్లోకాలు త్వరలో చేరుస్తాను.",hi:"मैंने दूसरे अध्याय, सांख्य योग से शुरुआत की और फिर बाकी अध्यायों की ओर बढ़ी। 700 श्लोकों में से, पिताजी की सलाह पर, हर अध्याय से कम से कम एक लेकर, शुरुआत के लिए 30 चुने। ये अर्जुन के संदेह से श्रीकृष्ण की अंतिम शिक्षा तक की कथा का अनुसरण करते हैं। लगा कि इसे दोस्तों के साथ बाँटना चाहिए। आशा है यह आपके लिए भी उपयोगी होगा। समय के साथ और श्लोक जोड़े जाएँगे।"},
+  useAll:{en:"See all 30 verses",te:"మొత్తం 30 శ్లోకాలు చూడండి",hi:"सभी 30 श्लोक देखें"},
   useClose:{en:"I'm sharing this corner with family and friends who might find it helpful too. Come read along.",te:"ఉపయోగపడుతుందనిపించే కుటుంబ సభ్యులు, స్నేహితులతో ఈ మూలను పంచుకుంటున్నాను. మీరూ నాతో కలిసి చదవండి.",hi:"यह कोना मैं परिवार और दोस्तों के साथ बाँट रही हूँ, जिन्हें यह उपयोगी लगे। आइए, साथ पढ़ें।"},
   waH:{en:"A little wisdom every morning",te:"ప్రతి ఉదయం కొంచెం జ్ఞానం",hi:"हर सुबह थोड़ा ज्ञान"},
   waIntro:{en:"I'll send you one verse each morning, decoded, in a private chat. No groups, no forwards.",te:"ప్రతి ఉదయం ఒక శ్లోకాన్ని, అర్థంతో సహా, వ్యక్తిగత చాట్‌లో పంపుతాను. గ్రూపులు లేవు, ఫార్వర్డ్‌లు లేవు.",hi:"हर सुबह एक श्लोक, अर्थ सहित, निजी चैट में भेजूँगी। कोई ग्रुप नहीं, कोई फ़ॉरवर्ड नहीं।"},
@@ -1386,7 +1390,9 @@ function homePage(){
     <p class="ic-section-label">INNER CORNER</p>
     <h2 class="h2">${tr(T.useH)}</h2>
     <p class="pull">${tr(T.usePurpose)}</p></div>
-    <ol class="use-steps">${T.useSteps.map((u,i)=>`<li><b><span class="ic-step-number">${String(i+1).padStart(2,"0")}</span>${tr(u.v)}</b><span>${tr(u)}</span></li>`).join("")}</ol>
+    <div><ol class="use-steps">${T.useSteps.map((u,i)=>`<li><b><span class="ic-step-number">${String(i+1).padStart(2,"0")}</span>${tr(u.v)}</b><span>${tr(u)}</span></li>`).join("")}</ol>
+    <p class="ic-about-story">${tr(T.useStory)}</p>
+    <a class="ic-about-all" href="#chapters">${tr(T.useAll)} →</a></div>
   </div></div></section>
   <section class="s wa-band ic-whatsapp-section" id="whatsapp"><div class="wrap subscribe">
     <div><h2 class="h2">${tr({en:"Request a daily reading on WhatsApp",te:"వాట్సాప్‌లో రోజువారీ పఠనానికి అభ్యర్థన",hi:"व्हाट्सऐप पर दैनिक पाठ का अनुरोध"})}</h2><p class="wa-line">${tr({en:"Interested in a short verse, its meaning, and a reflection each day? Send me your request directly on WhatsApp. For now, I will handle requests and any messages personally; automated delivery is not available.",te:"ప్రతి రోజూ ఒక చిన్న శ్లోకం, అర్థం, ఆలోచన కావాలా? నా వాట్సాప్‌కు అభ్యర్థన పంపండి. ప్రస్తుతం ఆటోమేటిక్ సేవ లేదు.",hi:"रोज़ एक छोटा श्लोक, उसका अर्थ और मनन चाहते हैं? मुझे व्हाट्सऐप पर अनुरोध भेजें। फिलहाल स्वचालित सेवा उपलब्ध नहीं है।"})}</p></div>
