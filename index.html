@@ -817,6 +817,15 @@ body{background:var(--paper)}
 .entry-choice small{display:block;margin-top:5px;font-size:13px;color:var(--stone);line-height:1.5}
 .entry-skip{display:block;margin:20px auto 0;padding:7px 14px;border:0;background:transparent;text-decoration:underline;text-underline-offset:4px;color:var(--stone);font:500 14px var(--sans);cursor:pointer}
 @media(max-width:480px){.entry-dialog{padding:27px 20px 22px}}
+
+.meaning-options{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:12px 0}
+.meaning-label{font:500 12px/1.4 var(--sans);color:var(--stone)}
+.meaning-languages{display:flex;flex-wrap:wrap;gap:5px}
+.meaning-languages button{font:500 13px/1.3 var(--sans);padding:7px 11px;border:1px solid var(--rule);border-radius:8px;background:transparent;color:var(--ink);cursor:pointer}
+.meaning-languages button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+[data-verse-meaning][lang="te"],[data-verse-meaning][lang="hi"]{font-family:var(--sans);line-height:1.75}
+.ic-verse-card .meaning-options{margin-top:14px}
+.ic-verse-card .meaning-languages button{font-size:12px;padding:6px 9px}
 </style>
 </head>
 <body>
@@ -827,9 +836,6 @@ body{background:var(--paper)}
       <b>Inner Corner</b>
     </a>
     <nav class="menu" id="menu" aria-label="Main"></nav>
-    <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-l="en" aria-label="English" lang="en">EN</button><button type="button" data-l="te" aria-label="Telugu" lang="te">తె</button><button type="button" data-l="hi" aria-label="Hindi" lang="hi">हि</button>
-    </div>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -1111,8 +1117,8 @@ Object.assign(T, {
   readIn:{en:"Sanskrit script",te:"సంస్కృత లిపి",hi:"संस्कृत लिपि"}
 });
 const G = LIBRARY.gita, V = G.verses, CH = G.sections;
-let lang = "en";
-try { const storedLang=localStorage.getItem("lang"); if (["en","te","hi"].includes(storedLang)) lang=storedLang; } catch(e){}
+let lang = "en"; // English UI; individual verse meanings have their own language selection.
+let meaningLang = "en";
 
 const $ = id => document.getElementById(id);
 const tr = o => (o && (o[lang] ?? o.en)) || "";
@@ -1163,6 +1169,33 @@ async function submitPhone(){
 
 let subMode = "daily"; const subMoods = new Set();
 
+/* Translations are scoped to the verse meaning, not the whole site. */
+function meaningOptions(x){
+  const id=vid(x);
+  return `<div class="meaning-options" role="group" aria-label="Verse meaning language">
+    <span class="meaning-label">Verse meaning available in</span>
+    <div class="meaning-languages">
+      ${[["en","English"],["te","తెలుగు"],["hi","हिन्दी"]].map(([l,label])=>`<button type="button" data-meaning-lang="${l}" data-meaning-for="${id}" aria-pressed="${meaningLang===l}" lang="${l}">${label}</button>`).join("")}
+    </div>
+  </div>`;
+}
+function meaningText(x){
+  return `<span data-verse-meaning="${vid(x)}" lang="${meaningLang}">${x.m[meaningLang] || x.m.en}</span>`;
+}
+function setMeaningLanguage(next){
+  if(!["en","te","hi"].includes(next))return;
+  meaningLang=next;
+  document.querySelectorAll("[data-meaning-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.meaningLang===next)));
+  document.querySelectorAll("[data-verse-meaning]").forEach(el=>{
+    const x=byId(el.dataset.verseMeaning);
+    if(x){el.textContent=x.m[next] || x.m.en; el.lang=next;}
+  });
+  document.querySelectorAll("[data-verse-sanskrit]").forEach(el=>{
+    const x=byId(el.dataset.verseSanskrit);
+    if(x){el.textContent=next==="te"?toTelugu(x.s):x.s;el.classList.toggle("te",next==="te");}
+  });
+}
+
 /* ---------- shared pieces ---------- */
 function decoder(x){
   return `<div class="decoder">
@@ -1172,7 +1205,7 @@ function decoder(x){
 }
 
 function verseBlock(x){
-  return `<p class="verse-hero ${lang==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
+  return `<p class="verse-hero ${meaningLang==="te"?"te":""}" data-verse-sanskrit="${vid(x)}" lang="sa">${meaningLang==="te"?toTelugu(x.s):x.s}</p>
     <p class="roman-hero">${x.i}</p>${decoder(x)}`;
 }
 const fmtDate = () => now.toLocaleDateString({en:"en-US",te:"te-IN",hi:"hi-IN"}[lang], {weekday:"long", day:"numeric", month:"long"});
@@ -1234,9 +1267,10 @@ function homePage(){
         <article class="ic-verse-card">
           <div class="ic-verse-top"><span>${h("featured")} · ${vid(x)}</span></div>
           <h3>${tr(x.t)}</h3>
-          <p class="ic-sanskrit ${lang==="te"?"te":""}" lang="sa">${skt(x.s)}</p>
+          <p class="ic-sanskrit ${meaningLang==="te"?"te":""}" data-verse-sanskrit="${vid(x)}" lang="sa">${meaningLang==="te"?toTelugu(x.s):x.s}</p>
           <p class="ic-roman">${x.i}</p>
-          <p class="ic-meaning">${tr(x.m)}</p>
+          ${meaningOptions(x)}
+          <p class="ic-meaning">${meaningText(x)}</p>
           <a href="#${hashOf(x)}">${h("view")} <span aria-hidden="true">→</span></a>
         </article>
       </div>
@@ -1324,7 +1358,7 @@ function formHTML(){
     <label class="field"><span>${tr(T.phoneL)}</span><div class="phone-row">
       <select id="cc" aria-label="Country code">${[["1","US/CA +1"],["91","IN +91"],["44","UK +44"],["61","AU +61"],["65","SG +65"],["971","AE +971"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select>
       <input type="tel" id="ph" inputmode="tel" autocomplete="tel-national" placeholder="425 555 0123" required></div></label>
-    <label class="field"><span>${tr({en:"Preferred reading language",te:"చదివే భాష",hi:"पढ़ने की भाषा"})}</span><select id="readlang" aria-label="Preferred reading language"><option value="en" ${lang==="en"?"selected":""}>English</option><option value="te" ${lang==="te"?"selected":""}>తెలుగు (Telugu)</option><option value="hi" ${lang==="hi"?"selected":""}>हिन्दी (Hindi)</option></select></label>
+    <label class="field"><span>${tr({en:"Preferred reading language",te:"చదివే భాష",hi:"पढ़ने की भाषा"})}</span><select id="readlang" aria-label="Preferred reading language"><option value="en" ${meaningLang==="en"?"selected":""}>English</option><option value="te" ${meaningLang==="te"?"selected":""}>తెలుగు (Telugu)</option><option value="hi" ${meaningLang==="hi"?"selected":""}>हिन्दी (Hindi)</option></select></label>
     <label class="signup-consent"><input type="checkbox" id="optin"><span>${tr(copy.consent)}</span></label>
     <a class="btn wa" id="sub" href="#whatsapp" target="_blank" rel="noopener" aria-disabled="true">${tr(copy.request)}</a>
     <p class="fine">${tr(copy.how)}</p>
@@ -1342,9 +1376,9 @@ function lessonPage(x){
     <div class="lesson">
       <div class="lesson-verse">${verseBlock(x)}</div>
       <div class="notes">
-        ${lang!=="en" ? `<p class="translation-availability" role="note">${tr(T.commentaryEnglish)}</p>` : ""}
+        <p class="translation-availability" role="note"><strong>Detailed explanations are in English.</strong> Context, word-by-word meanings, applications, and reflections have not yet been translated.</p>
         <section class="ctx-card"><h2>${tr(T.ctxShort)}</h2><p>${x.ctx}</p></section>
-        <section class="ic-full-translation"><h2>${tr(T.fullVerseMeaning)}</h2><p class="tr">${tr(x.m)}</p></section>
+        <section class="ic-full-translation"><h2>Full verse meaning</h2>${meaningOptions(x)}<p class="tr">${meaningText(x)}</p></section>
         <section><h2>${tr(T.whyH)}</h2><p>${x.shift ? x.shift+" " : ""}${x.x}</p></section>
         <section class="apply"><h2>${tr(T.applyH)}</h2>
           <div class="tabs" role="tablist">${applyTabs(x).map((t,k)=>`<button role="tab" data-tab="${k}" aria-selected="${k===0}">${t.label}</button>`).join("")}</div>
@@ -1432,7 +1466,6 @@ const SECTIONS = ["home","gita","about","feelings","life","whatsapp","library"];
 let onHome = false;
 function render(keepScroll){
   document.body.className = "lang-"+lang; document.documentElement.lang = lang;
-  document.querySelectorAll(".langs button").forEach(b=>{ const selected=b.dataset.l===lang; b.classList.toggle("on",selected); b.setAttribute("aria-pressed",String(selected)); });
   $("ftag").textContent = tr(T.tagline); $("fnote").textContent = tr(T.footNote);
   let h = location.hash.slice(1) || "home";
   if (h==="today") h=hashOf(todayVerse); // Today route shows the current verse, not the homepage
@@ -1470,7 +1503,7 @@ document.addEventListener("click", async e=>{
     else if(dest==="feelings")location.hash="#feelings";
     return;
   }
-  const L = t.closest("[data-l]"); if (L){ if (!["en","te","hi"].includes(L.dataset.l)) return; lang=L.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(true); updateEntryLanguage(); return; }
+  const ML=t.closest("[data-meaning-lang]"); if(ML){setMeaningLanguage(ML.dataset.meaningLang);return;}
   const TB = t.closest("[data-tab]");
   if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
   const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
