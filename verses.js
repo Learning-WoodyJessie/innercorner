@@ -2966,7 +2966,7 @@ const GITA_VERSES = [
     "c": 18,
     "v": 78,
     "sp": "S",
-    "ctx": "The very last verse of the Gita, spoken by Sanjaya, who has been narrating the whole dialogue to the blind king Dhritarashtra. Having heard it all, he gives his own verdict.",
+    "ctx": "This is the final verse of the Gita. Sanjaya has narrated the entire conversation between Krishna and Arjuna to the blind king Dhritarashtra. Having heard all of it, he now shares his own conclusion.",
     "kids": "\"Krishna is wisdom and Arjuna is effort. When they work together, good things happen. So we pray, and we practise.\"",
     "adults": "At any stage of life, ask which you are missing more: guidance, or effort?",
     "rr": [
@@ -3043,7 +3043,7 @@ const GITA_VERSES = [
         "my"
       ]
     ],
-    "x": "Sanjaya closes the Gita with his conviction that wherever Krishna, the master of yoga, and Arjuna, the archer, stand together, there are prosperity, victory, flourishing and steadfast righteousness. One way to reflect on their partnership is through wisdom and effort: Krishna offers guidance, while Arjuna must act. This is an interpretation of the image, not a literal translation of the verse. Wisdom without effort remains an idea; effort without wisdom can lose its direction.",
+    "x": "Sanjaya's conclusion is simple: wherever Krishna and Arjuna stand together, good things follow. Krishna brings wisdom and direction. Arjuna brings skill and the willingness to act. Neither is enough on its own. Guidance without action stays an idea, and action without guidance loses its way. (Reading the pair as wisdom and effort is an interpretation, not a word-for-word translation.)",
     "self": "Pair what you know with what you do.",
     "family": "A good blessing for any home: may wisdom and effort live here together.",
     "work": "Good guidance and hard work, together, are the formula for lasting success.",
