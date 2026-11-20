@@ -843,6 +843,18 @@ body{background:var(--paper)}
 .reading-reflect{background:#f7f1e6!important;border-radius:12px!important;padding:20px 22px!important}
 .reflection-question{font:400 20px/1.55 var(--serif);margin:0 0 12px}
 .reflection-note{font:400 13px/1.5 var(--sans);color:var(--stone);margin:0}
+
+/* Two reading views remain in the verse column; translations are never mixed into English commentary. */
+.verse-study-tabs{display:flex;gap:0;border-bottom:1px solid var(--rule);margin:24px 0 18px}
+.verse-study-tabs button{flex:1;background:transparent;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:11px 8px;color:var(--stone);font:600 13px/1.4 var(--sans);cursor:pointer}
+.verse-study-tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--turmeric)}
+.verse-study-panel[hidden]{display:none!important}
+.verse-study-panel .meaning-options{align-items:flex-start;flex-direction:column;margin:0 0 15px;gap:8px}
+.verse-study-panel .study-translation{font:400 19px/1.65 var(--serif);color:var(--ink);margin:0;white-space:pre-line}
+.verse-study-panel .study-translation [lang="te"],.verse-study-panel .study-translation [lang="hi"]{font-family:var(--sans);font-size:17px;line-height:1.8}
+.verse-study-panel .decoder{border-top:0!important;margin:0!important;padding:0!important}
+.study-english-note{font:400 13px/1.5 var(--sans);color:var(--stone);margin:0 0 15px}
+.lesson-verse{min-width:0}
 </style>
 </head>
 <body>
@@ -1223,7 +1235,17 @@ function decoder(x){
 
 function verseBlock(x){
   return `<p class="verse-hero ${meaningLang==="te"?"te":""}" data-verse-sanskrit="${vid(x)}" lang="sa">${meaningLang==="te"?toTelugu(x.s):x.s}</p>
-    <p class="roman-hero">${x.i}</p>${decoder(x)}`;
+    <p class="roman-hero">${x.i}</p>
+    <div class="verse-study-tabs" role="tablist" aria-label="Ways to read this verse">
+      <button type="button" role="tab" id="meaning-tab-${vid(x)}" aria-controls="meaning-panel-${vid(x)}" aria-selected="true" data-study-tab="meaning">Verse meaning</button>
+      <button type="button" role="tab" id="words-tab-${vid(x)}" aria-controls="words-panel-${vid(x)}" aria-selected="false" data-study-tab="words">Word by word</button>
+    </div>
+    <div class="verse-study-panel" role="tabpanel" id="meaning-panel-${vid(x)}" aria-labelledby="meaning-tab-${vid(x)}" data-study-panel="meaning">
+      ${meaningOptions(x)}<p class="study-translation">${meaningText(x)}</p>
+    </div>
+    <div class="verse-study-panel" role="tabpanel" id="words-panel-${vid(x)}" aria-labelledby="words-tab-${vid(x)}" data-study-panel="words" hidden>
+      <p class="study-english-note">Word meanings are currently in English.</p>${decoder(x)}
+    </div>`;
 }
 const fmtDate = () => now.toLocaleDateString({en:"en-US",te:"te-IN",hi:"hi-IN"}[lang], {weekday:"long", day:"numeric", month:"long"});
 
@@ -1397,7 +1419,6 @@ function lessonPage(x){
         <section class="reading-stage reading-understand" aria-labelledby="understand-${vid(x)}">
           <p class="reading-stage-kicker">01 / UNDERSTAND</p><h2 id="understand-${vid(x)}">What does this verse mean?</h2>
           <div class="ctx-card"><h3>In context</h3><p>${x.ctx}</p></div>
-          <div class="ic-full-translation"><h3>What the verse says</h3>${meaningOptions(x)}<p class="tr">${meaningText(x)}</p></div>
           <div class="reading-explanation"><h3>Understanding the teaching</h3><p>${x.shift ? x.shift+" " : ""}${x.x}</p></div>
         </section>
         <section class="reading-stage reading-connect" aria-labelledby="connect-${vid(x)}">
@@ -1533,6 +1554,15 @@ document.addEventListener("click", async e=>{
     return;
   }
   const ML=t.closest("[data-meaning-lang]"); if(ML){setMeaningLanguage(ML.dataset.meaningLang);return;}
+  const ST=t.closest("[data-study-tab]");
+  if(ST){
+    const panel=ST.closest(".lesson-verse");
+    if(panel){
+      panel.querySelectorAll("[data-study-tab]").forEach(b=>b.setAttribute("aria-selected",String(b===ST)));
+      panel.querySelectorAll("[data-study-panel]").forEach(p=>{p.hidden=p.dataset.studyPanel!==ST.dataset.studyTab;});
+    }
+    return;
+  }
   const TB = t.closest("[data-tab]");
   if (TB){ const sec=TB.closest(".apply"); sec.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===TB)); sec.querySelectorAll(".panel").forEach((p,k)=>p.hidden = k!==+TB.dataset.tab); return; }
   const F = t.closest("[data-flang]"); if (F){ formLang = F.dataset.flang; document.querySelectorAll("[data-flang]").forEach(b=>b.setAttribute("aria-pressed", b===F)); return; }
