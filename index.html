@@ -826,6 +826,23 @@ body{background:var(--paper)}
 [data-verse-meaning][lang="te"],[data-verse-meaning][lang="hi"]{font-family:var(--sans);line-height:1.75}
 .ic-verse-card .meaning-options{margin-top:14px}
 .ic-verse-card .meaning-languages button{font-size:12px;padding:6px 9px}
+
+/* A focused three-step reading path; optional examples are kept secondary. */
+.lesson .notes>.reading-stage{border:0;border-bottom:1px solid var(--rule);padding:0 0 26px;margin:0 0 28px;background:transparent}
+.lesson .notes>.reading-stage h2{font:500 24px/1.3 var(--serif);margin:0 0 14px;letter-spacing:-.01em}
+.lesson .notes>.reading-stage h3{font:600 14px/1.45 var(--sans);margin:0 0 9px;color:var(--ink)}
+.reading-stage-kicker{font:600 11px/1.5 var(--sans);letter-spacing:.13em;color:#8d6d40;margin:0 0 8px}
+.lesson .notes .reading-understand .ctx-card{padding:15px 18px!important;margin:0 0 18px;border-radius:10px}
+.lesson .notes .reading-understand .ctx-card p{font-size:15px;line-height:1.65;margin:0}
+.lesson .notes .reading-understand .ic-full-translation{margin:0 0 20px}
+.lesson .notes .reading-understand .ic-full-translation h3{margin:0 0 8px}
+.reading-explanation p,.reading-connect>p{margin:0;font-size:16px;line-height:1.7}
+.reading-examples{margin-top:18px}
+.reading-examples h3{margin:14px 0 5px!important}
+.reading-examples p{font-size:15px;line-height:1.65;margin:0 0 12px}
+.reading-reflect{background:#f7f1e6!important;border-radius:12px!important;padding:20px 22px!important}
+.reflection-question{font:400 20px/1.55 var(--serif);margin:0 0 12px}
+.reflection-note{font:400 13px/1.5 var(--sans);color:var(--stone);margin:0}
 </style>
 </head>
 <body>
@@ -1377,15 +1394,27 @@ function lessonPage(x){
       <div class="lesson-verse">${verseBlock(x)}</div>
       <div class="notes">
         <p class="translation-availability" role="note"><strong>Detailed explanations are in English.</strong> Context, word-by-word meanings, applications, and reflections have not yet been translated.</p>
-        <section class="ctx-card"><h2>${tr(T.ctxShort)}</h2><p>${x.ctx}</p></section>
-        <section class="ic-full-translation"><h2>Full verse meaning</h2>${meaningOptions(x)}<p class="tr">${meaningText(x)}</p></section>
-        <section><h2>${tr(T.whyH)}</h2><p>${x.shift ? x.shift+" " : ""}${x.x}</p></section>
-        <section class="apply"><h2>${tr(T.applyH)}</h2>
-          <div class="tabs" role="tablist">${applyTabs(x).map((t,k)=>`<button role="tab" data-tab="${k}" aria-selected="${k===0}">${t.label}</button>`).join("")}</div>
-          ${applyTabs(x).map((t,k)=>`<div class="panel" role="tabpanel" ${k?"hidden":""}>${t.html}</div>`).join("")}
+        <section class="reading-stage reading-understand" aria-labelledby="understand-${vid(x)}">
+          <p class="reading-stage-kicker">01 / UNDERSTAND</p><h2 id="understand-${vid(x)}">What does this verse mean?</h2>
+          <div class="ctx-card"><h3>In context</h3><p>${x.ctx}</p></div>
+          <div class="ic-full-translation"><h3>What the verse says</h3>${meaningOptions(x)}<p class="tr">${meaningText(x)}</p></div>
+          <div class="reading-explanation"><h3>Understanding the teaching</h3><p>${x.shift ? x.shift+" " : ""}${x.x}</p></div>
         </section>
-        ${x.notMean ? `<section class="misread"><h2>${tr(T.misreadH)}</h2><p>${x.notMean[0]}</p><ul>${x.notMean[1].map(b=>`<li>${b}</li>`).join("")}</ul></section>` : ""}
-        <section class="take"><h2>${tr(T.takeH)}</h2><p class="carry">${x.carry}</p><p><b>${tr(T.tryToday)}.</b> ${x.try}</p><p class="reflect"><b>${tr(T.reflect)}.</b> ${x.r}</p></section>
+        <section class="reading-stage reading-connect" aria-labelledby="connect-${vid(x)}">
+          <p class="reading-stage-kicker">02 / CONNECT</p><h2 id="connect-${vid(x)}">Where might this show up in life?</h2>
+          <p>${x.self || x.family || "Consider how this teaching might relate to your day."}</p>
+          ${x.family || x.work || x.kids ? `<details class="more reading-examples"><summary>Other ways to think about it</summary>
+            ${x.family ? `<h3>At home</h3><p>${x.family}</p>` : ""}
+            ${x.work ? `<h3>At work</h3><p>${x.work}</p>` : ""}
+            ${x.kids ? `<h3>With children</h3><p>${x.kids}</p>` : ""}
+          </details>` : ""}
+        </section>
+        <section class="reading-stage reading-reflect" aria-labelledby="reflect-${vid(x)}">
+          <p class="reading-stage-kicker">03 / REFLECT</p><h2 id="reflect-${vid(x)}">A question to sit with</h2>
+          <p class="reflection-question">${x.r || (x.rr && x.rr[0]) || "What stands out to me in this teaching?"}</p>
+          <p class="reflection-note">You don't need an answer right away. You can return to this thought later.</p>
+        </section>
+        ${x.notMean ? `<details class="more"><summary>Explore a common misunderstanding</summary><p>${x.notMean[0]}</p><ul>${x.notMean[1].map(b=>`<li>${b}</li>`).join("")}</ul></details>` : ""}
         <details class="more"><summary>${tr(T.chBg)}</summary><p>${tr(G.sectionWord)} ${x.c}, ${ch.n}. ${ch.set}</p>${lang!=="en" ? `<p class="note-sm">${tr(T.englishNote)}</p>` : ""}</details>
         ${x.voices ? `<details class="more"><summary>${tr(T.voicesH)}</summary><div class="voices">${x.voices.map(([w,t,u])=>`<figure><figcaption>${w}</figcaption><p>${t}</p>${u?`<a href="${u}" target="_blank" rel="noopener">${tr(T.source)}</a>`:""}</figure>`).join("")}</div></details>` : ""}
         ${x.related ? `<details class="more"><summary>${tr(T.relatedH)}</summary>${x.deeperQ?`<p>${x.deeperQ}</p>`:""}<ul class="rel">${x.related.map(([id,why])=>`<li><a href="#${hashOf(byId(id))}">${id} ${tr(byId(id).t)}</a><span>${why}</span></li>`).join("")}</ul></details>` : ""}
