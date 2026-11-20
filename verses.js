@@ -3043,7 +3043,7 @@ const GITA_VERSES = [
         "my"
       ]
     ],
-    "x": "Sanjaya's verdict on all he has heard: where Krishna, the master of yoga, and Arjuna, the archer, stand together, there will be prosperity, victory and lasting righteousness. Wisdom without effort remains an idea; effort without wisdom goes in circles. The Gita ends by joining the two.",
+    "x": "Sanjaya closes the Gita with his conviction that wherever Krishna, the master of yoga, and Arjuna, the archer, stand together, there are prosperity, victory, flourishing and steadfast righteousness. One way to reflect on their partnership is through wisdom and effort: Krishna offers guidance, while Arjuna must act. This is an interpretation of the image, not a literal translation of the verse. Wisdom without effort remains an idea; effort without wisdom can lose its direction.",
     "self": "Pair what you know with what you do.",
     "family": "A good blessing for any home: may wisdom and effort live here together.",
     "work": "Good guidance and hard work, together, are the formula for lasting success.",
