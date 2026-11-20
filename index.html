@@ -898,6 +898,8 @@ body{background:var(--paper)}
 .gift-kicker{font:600 13px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#8f6c3c;margin:0 0 10px}
 .gift-page .lesson-verse .study-translation{font:400 19px/1.6 var(--serif);margin:18px 0 10px}
 .gift-ref{font:500 13px var(--sans);color:var(--stone);margin:0 0 20px}
+.page-head h1.gift-kicker{font:600 13px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#8f6c3c;margin:0 0 12px}
+.gift-title{font:500 clamp(24px,2.6vw,30px)/1.2 var(--serif);color:var(--ink);margin:0 0 16px;letter-spacing:-.01em}
 </style>
 </head>
 <body>
@@ -1511,9 +1513,10 @@ function giftPage(x){
     read:{en:"Read the full reflection",te:"పూర్తి వివరణ చదవండి",hi:"पूरा विवरण पढ़ें"}
   };
   return `<div class="wrap gift-page">
-    <div class="page-head"><p class="gift-kicker">${tr(g.kicker)}</p><h1>${tr(x.t)}</h1><p>${tr(g.thanks)}</p></div>
+    <div class="page-head"><h1 class="gift-kicker">${tr(g.kicker)}</h1><p>${tr(g.thanks)}</p></div>
     <div class="lesson">
       <div class="lesson-verse">
+        <h2 class="gift-title">${tr(x.t)}</h2>
         <p class="verse-hero" lang="sa">${x.s}</p>
         <p class="roman-hero">${x.i}</p>
         <p class="study-translation">${x.m[lang] || x.m.en}</p>
